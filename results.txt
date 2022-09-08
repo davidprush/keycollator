@@ -1,0 +1,59 @@
+**************************** Results ******************************
+The following is a list of dcitionary items found in the text file:
+1. r,540
+2. it,287
+3. manage,80
+4. develop,62
+5. report,58
+6. produce,53
+7. support,46
+8. process,43
+9. operations,39
+10. analysis,36
+11. perform,32
+12. use,32
+13. ensure,31
+14. organized,30
+15. provide,29
+16. maintain,28
+17. analytics,28
+18. sql,26
+19. strategize,25
+20. technical,24
+21. lead,24
+22. communicate,23
+23. communications,23
+24. database,22
+25. create,22
+26. deliver,20
+27. design,19
+28. take,19
+29. identify,18
+30. documentation,17
+31. document,17
+32. prioritize,17
+33. plan,16
+34. analyze,15
+35. finance,15
+36. analytical ability,15
+37. implement,13
+38. present,13
+39. visio,13
+40. drive,12
+41. execute,12
+42. own,12
+43. marketing,12
+44. computer,12
+45. dashboards,12
+46. collaboration,11
+47. define,11
+48. review,11
+49. vba,11
+50. collaborative,11
+**************************** End Results **************************
+Stats for this run...
+Total Dictionary Items: 701
+Total Text File Items: 695
+Total Keys Added to List: 687
+Total Comparisons: 388155
+

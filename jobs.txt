@@ -1,0 +1,695 @@
+Business System Analyst
+Develop, prepare and maintain periodic (daily, weekly, monthly, quarterly etc.) business and management reporting.
+
+Research and provide actionable data to management to enable proactive business decisions and/or react quickly to the changing business environment.
+
+Provide data driven analysis and support across a variety of business processes to improve customer focus, efficiency, accuracy, and effectiveness of these processes.
+
+Have the ability to become a SME (Subject Matter Expert) of many different business functions and processes and how those processes relate to the data and reporting that the Senior Business Systems Analyst will create. Provide training to other team members as needed.
+
+Develop SQL processes to create data models and data transformation processes to support data integration between systems and reporting.
+Qualifications
+4+ years' experience writing intermediate to complex MSSQL SQL statements, stored procedures, user defined functions, views and has a working knowledge of relational databases and how to create database objects in a way to ensure query optimization and database performance.
+4+ years experience with MS SQL Server SSRS writing reports and creating dashboards for various levels of internal and external customers. Knowledge of setting up SSRS portals and security is a huge plus!
+Strong Microsoft Excel Skills including working knowledge of Excel functions, lookups, pivot tables, charts, and data import/ connections to MSSQL databases, ODBC etc... VBA experience is a plus but not required.
+Experience with writing SSIS processes and understanding of ETL a huge plus!
+Strong Microsoft Office experience including Excel, PowerPoint, Outlook and Access. Experience with Visio or MS Project is a plus.
+3+ years of recent experience in analyzing and managing data, including discovery, root cause, quality and needs analysis.
+3+ years' experience working in small to medium project teams, as a contributing member, leader and or a self-directed role with minimal supervision.
+Ability to effectively prioritize and execute tasks in a fast pace and ever changing environment.
+Associates or Bachelor's degree in the fields of MIS, Computer Science, Statistics or Finance with 3-5 years related work experience demonstrating the qualifications above.
+Bilingual abilities are a plus
+Responsibilities
+Support the delivery of customized analyses, leveraging internal and external, raw and / or published data, as well as structured and unstructured datasets.
+Consider understanding of competitive factors and Vizient differentiators into analysis; may synthesize insights.
+Research and incorporate knowledge of best practices into identification of data sources and analysis of information.
+Lead small projects with manageable risks and resource requirements to ensure quality and timely project delivery.
+Establish strong working relationships and active communication with key internal and external stakeholders to effectively manage expectations.
+Act as a resource and mentor for colleagues with less experience.
+Presents recommendations to internal and external stakeholders and helps identify a course of action.
+Leverage data to influence stakeholder decisions through advising and counseling.
+Plan and conduct stakeholder meetings to gather requirements and / or understand current business processes.
+Develop and maintain data sets and coordinates with others on dependencies.
+Qualifications
+Relevant degree preferred.
+5 or more years of relevant experience required.
+Advanced knowledge of MS Excel, and SQL required.
+Strong analytical, database & spreadsheet skills required.
+Proficiency with VBA, Power BI required.
+Highly organized with exceptional attention to detail.
+Strong written, verbal communication, project management, and presentation skills.
+Job Requirements
+
+This functional role collects, analyzes, and reviews various IT operational data to develop new reports or modify/maintain current reports. In charge of defining and implementing reporting solutions.
+Obtain, document and analyze EWT reporting needs and requirements through collaboration with department leaders
+Translate reporting needs into production reports and dashboards
+Work across functional lines to strive for and ensure consistent data quality
+Conduct continuous review of reports and identify opportunities for improvements with the aim of minimizing redundant reporting and development of single source of truth where possible
+Develop and maintain dashboards to visualize data utilizing Power BI, Spotfire or Tableau
+Automate data preparation and report creation where possible
+Development of ad-hoc reports as necessary
+
+Education & Experience
+
+A minimum of 5 years of experience is required; 6 to 8 years of experience is preferred, At least 2 years working in a data analysis or reporting role
+
+A Bachelor of Arts or Science Degree required; Information Technology, Finance or related technical field is preferred
+
+Demonstrated experience in design, develop and maintain BI reports, optimizing efficiency in manipulating data and writing complex queries.
+
+Background in statistics and business/data modeling
+
+Hands on experience in using different DBMS (SQL Server, Oracle, MSQL & Access)
+
+Strong experience with Microsoft Excel 2013 with VBA Programming skills
+
+Experience working with SQL databases
+
+Experience working with Tableau
+
+Ability to work collaboratively within a team environment of other business analysts and cross functional peers to support deadlines
+
+Ability to handle multiple tasks concurrently
+
+Demonstrated ability to have completed multiple, moderately complex technical tasks
+
+The Impact
+
+You will be supporting a complex custom-reporting solution in Excel.
+These reporting tools are used to create client deliverables and create workflow efficiencies, and are crucial to a multi-million-dollar business line.
+You will have the opportunity to work on the next generation of these reporting tools.
+
+Responsibilities
+
+Support and enhance a complex reporting ecosystem in Excel.
+Work directly with users and stakeholders to gather requirements and work independently to deliver with limited direct supervision.
+
+What We’re Looking For
+
+Strong skills and experience with VBA and Excel.
+Ability to design, implement and deliver solutions independently, with limited direct supervision, including requirements gathering, design, coding and testing.
+Experience integrating with other Microsoft tools (Outlook, Word, PowerPoint) is a plus
+Interest in other reporting tools and experience with SharePoint integration or PowerApps are a plus.
+
+Responsibilities
+Assisting in the design and development of reports and dashboards for varying levels of the organization (operational through executive management).
+Assembling large, complex data sets that meet functional/non-functional business requirements.
+Collaborating with clients to design information management and business intelligence solutions.
+Analyzing application specifications and technology approaches to ensure business requirements are met and are scalable for future product releases.
+Creating custom software components and employing a variety of languages and tools.
+Working with business analyst and management to recommend future application solutions. 
+
+Qualifications
+Preferred: College degree or equivalent in technology-related field (computer science, engineering, information technology, etc.).
+Practical education or experience in a technology related field – could include bootcamps and focused educational programs.
+Project experience in delivering technology solutions in a team-based environment, ideally Agile development.
+Ability to pick up new languages and technologies quickly.
+Experience and interest in working with tools and technologies such as: Hadoop, Informatica, Vertica, Business Objects, Cassandra, Kafka, Postgres, BigTable, Oracle, Teredata, MarkLogic, MongoDB, MatLab, HBase, Hive, CouchDB, Sklearn, Azure, PostGIS, Redshift, SAS, Memcache, Redis, Pandas, Accumulo, NumPy, TensorFlow, Python, BASH, Scala, Julia, Spark, Map Reduce, Elastic Search, AWS, Splunk, Sqoop, Kibana, Spark Streaming, Solr, DynamoDB, SoftLayer, DigitalOcean, Google Cloud, Ansible, Jenkins, Crystal Reports, Qlik, Docker, Chef, Zoomdata, SPSS, AMOS, LISREL, Theanos, t-tests, power analysis, ANOVA, ANCOVA, linear regression, logistic regression, ARIMA, factor analysis, principal components, decision trees, Naïve Bayes, K-Nearest Neighbors, Neural Networks, Random Forest, K-means clustering, Gaussian Mixture Models, GPFS, Kudu, Impala, Kinesis, GCP, Salt, Puppet, Pentaho, Jaspersoft, Talend, SSIS, SSAS, SSRS, Domo, Looker, Nifi, Spotfire, D3, PowerPivot, Power BI, Actian Vector, StremSets, REST, GraphQL, Kubernetes, GIS, Airflow, Oozie, Node Red, and more. 
+Essential Functions
+Maintaining customer pricing tools for both contractual and transactional business.
+Managing long term contract agreement submissions and approval compliance to ATI requirements.
+Providing market analysis and coordinating action plans in support of the ATI Growth process.
+Supporting ATI SRP business with data for corporate reports when requested.
+Submitting and maintain NDA agreements as well as execute nickel hedges for strategic customers.
+Coordinating with ATI's Field Representatives on target markets and accounts.
+Supporting preparation of the monthly rolling forecasts and the annual BU business plan.
+Developing and maintaining strategic customer/market review metrics and reports.
+Creating customer and market based presentations.
+Contacting customers when required for marketing information/sales support.
+Providing backup to product managers when needed.
+Requirements
+A Bachelor's degree in Business, Marketing, Sales, Technical, or a related field.
+A background with prior commercial/customer interaction is preferred.
+Candidates must have exceptional Excel skills and a strong knowledge in other MS Office programs (Word and PowerPoint) and have the ability to learn and utilize other job related systems. CRM knowledge is a plus.
+Effective written and verbal communication abilities to interact with internal and external customers at all levels.
+Ability to analyze and interpret data.
+Requirements:
+A Bachelor's degree in Business, Marketing, Sales, Technical, or a related field or 5 years commercial/customer experience in a manufacturing environment.
+Candidates must have exceptional Excel skills and a strong knowledge in other MS Office programs (Word and PowerPoint) and have the ability to learn and utilize other job related systems. CRM knowledge is a plus.
+Effective written and verbal communication abilities to interact with internal and external customers at all levels.
+Ability to analyze and interpret data.
+RESPONSIBILITIES
+
+Facilitate design, development, administration, and publication of scorecards and metrics for assigned clients, including tracking and trending of issues, root cause identification and corrective action activity.
+Coordinate with LOG functional areas, Account Management, Finance, SCE and IT to develop appropriate KPI and other metrics for service offerings ensuring consistent data source, calculation, and publication ownership across all clients.
+Coordinate with Account management to ensure consistent subject matter and format across all clients for performance measurement as well as monthly and quarterly business reviews.
+Perform analysis and provide/collect commentary of key impacts for each scorecard
+Proactively review/analyze client supply chain data to identify operational process efficiency and/or cost savings opportunities.
+Maintain a high level of familiarity with all Armada business systems and data sources to effectively retrieve all required data to analyze operational performance.
+Develop SOP documentation related to routine scorecards and dashboards
+Develop productive working relationships with internal/external customers.
+Support and promote a culture of teamwork and continuous process improvement while managing the day to day activity to ensure delivery of all relevant Armada and client objectives
+Other duties as assigned
+
+Bachelor’s degree in Business, Logistics or Supply Chain Management
+
+Experience:
+
+1-4 years experience in a supply chain related capacity – distribution, transportation, supply planning, forecasting, customer service, SC technology, etc…
+Comprehensive understanding of supply chain management and supply chain knowledge including distribution and logistics, procurement, manufacturing, transportation, inventory management, accounting, supply chain engineering, supply chain visibility, etc
+Demonstrated project management and superior personal productivity skills
+
+Language And Technical Skills Requirement
+
+Excellent Analytical Skills
+Ability to handle multiple conflicting priorities
+Customer Focused with strong interpersonal skills
+Excellent Written and Oral Communication Skills
+Self Directed and Able to Work in Dynamic and Evolving Environment
+Ability to Work Effectively in Cross Functional Teams
+High level of proficiency in Microsoft Office applications including Excel, Access, Word, and PowerPoint
+Ability to analyze large amounts of raw data and summarize into clear, accurate, meaningful, value-added reports and analysis
+Direct experience with JDE and data warehouse applications; experience with Advanced Planning Systems, TMS, WMS, and/or business intelligence systems a plus.
+Solid problem solving skills, with demonstrated experiences of individual and team based problem solving.
+Lean Six Sigma Greenbelt or Blackbelt certification
+Proficient in report development and automation.
+Strong SQL skills and solid understanding of database concepts
+Experience with SQL report development
+Experience with TIBCO Spotfire, Power BI or similar visualization technologies
+Experience with Microsoft Azure or AWS Advanced Analytics services a plus
+Experience with IBM Cognos Analytics a plus
+
+Some of these roles include:
+Trade Support (Securities, Treasury, Transaction Management)
+Risk, Regulation and Compliance (Credit Risk, Market Risk, Controls, Reporting)
+Client Lifecycle Management (KYC/AML, CDD, Risk Assessment)
+Regulatory Transformation (Business Analysis, Project Management, Client Outreach)
+Data (Governance, Management, Remediation, Analysis)
+
+This pathway is perfect for you if…
+You have a 2.75+ GPA
+You have a genuine interest in Banking and Financial Markets
+Degree topics we have seen succeed but not limited to include - Law, Mathematics, Finance, Banking, Economics
+You’re an excellent verbal and written communicator
+You’re hungry to learn and upskill
+It’s a bonus if you already have experience working in teams in a collaborative environment
+Applicants must have the right to work in the USA
+
+
+What you’ll learn at Wiley Edge Academy:
+Knowledge of financial markets, trading and financial regulations.
+The inner workings of investment banks, from sales to back office processes.
+The full trade lifecycle; risk; regulation and compliance.
+Business analysis, data analytics and project skills.
+How to recognize and combat the exploitation of financial services companies as a vehicle for specific types of financial crime.
+Excel, VBA, SQL (Visual Basic for Applications), proprietary data processing, reporting tools and applications.
+
+Job responsibilities:
+Must have excellent troubleshooting skills with MS Access based applications and be able to solve issues in an ever-changing environment, with limited information
+Must be detailed oriented, organized and have good follow through skills
+Understand the different environments and network connectivity, VDI, Laptop, Desktop, VPN
+Solid IT background, with understanding of technology infrastructure (client/server based applications), knowledge of mapping drives, Citrix, VDI, Active Directory (permissions and access issues), browser troubleshooting
+Have a sense of responsibility, ownership, and urgency in all things you do
+Be able to learn and understand business processes and procedures quickly, take notes and understand big picture as well as the smallest details
+Be able to translate vague, incomplete requirements into automated solutions
+Be innovative and resourceful, liaising with all IT teams for support
+Be able to document procedures and processes for all to understand
+Be able to work with all levels of the organization across all divisions
+Qualifications:
+5+ years developing VBA applications from scratch in Access and Excel
+Expert knowledge in Microsoft Access, Excel, Outlook, Word
+Must have excellent data analysis skills
+Knowledge of Data Warehouse tables and Business Objects reports
+Have SQL knowledge and be able write queries
+
+GENERAL DUTIES:
+-Performs complex to advanced automated systems analysis work in support of the Unemployment Insurance (UI) Benefits, Tax and Appeals Systems.
+-Conducts joint application design sessions with customers and IT staff to define business requirements and develop software systems requirements.
+-Communicates with users to determine requirements of new programs/systems or modifications to existing programs/systems.
+-Assists in the diagnosis of problems with automated applications and take corrective action.
+-Writes specifications for developing or correcting software for handling complex policies/procedures to improve system performance and/or accuracy.
+-Prepares flowcharts for present and proposed systems to verify design logic and processes.
+-Develops comprehensive test plans with the users and conducts system test components to ensure changes to existing programs/systems or new programs/systems meet business requirements.
+-Prepares and executes data searches using SQL (Structured Query Language) in the development of management reports.
+-Prepares, updates and presents complex technical documentation.
+-Ensure compliance with all Federal, State, and agency laws, rules, policies, and procedures including IT Handbook and Standard Operating Procedures (SOPs) that govern TWC IT.
+-Contribute to teamwork and communicate effectively.
+-Promote an image of IT excellence.
+-May work outside normal office hours and days when needed to resolve production issues and provide on-call activities on a rotational basis.
+-Performs other duties as assigned to maintain IT operations.
+
+PREFERRED QUALIFICATIONS:
+-Recent experience in quality assurance testing and/or knowledge of the UI Benefits, Tax and/or Appeals Systems.
+-Strong investigative and problem-solving skills.
+-Individual should be proactive and detail-oriented; able to manage multiple concurrent projects and tasks; and meet deadlines in a fast-paced environment.
+-Knowledge of SDLC (agile, waterfall) principles and practices.
+-Experience using HP ALM (Application Lifecycle Management), DB2, Microsoft Word, Excel and Visio.
+-Ability to communicate effectively verbally and in writing.
+
+MINIMUM QUALIFICATIONS:
+-Systems Analyst III: Graduation from an accredited four-year college or university with major coursework in computer science, computer information systems, management information systems, or a related field, plus one year of full-time experience in computer programming, systems analysis, and/or program analysis or one year of full-time experience which provided general knowledge of data processing or systems analysis.
+-Systems Analyst IV: Graduation from an accredited four-year college or university with major coursework in computer science, computer information systems, management information systems, or a related field, plus two years of full-time experience in computer programming, systems analysis and/or program analysis or two years of full-time experience which provided general knowledge of data processing or systems analysis.
+-Systems Analyst V: Graduation from an accredited four-year college or university with major course work in computer science, computer information systems, management information systems, or a related field, plus three years of full-time experience in computer programming, systems analysis, and/or program analysis or three years of fulltime experience which provided general knowledge of data processing or systems analysis.
+-All Levels: One year of full-time experience may be substituted for each year (30 semester hours) of education.
+
+Operational
+Working with the ADM Management team and staff, and other TDS DBA staff, provide Oracle database consultation and technical support for the TDS Telecom Information Systems.
+Create and maintain internally developed facilities and automated extensions to the database capabilities
+Maintain database security and integrity controls.
+Work closely with business application support teams to perform database tuning, reorganization and expansion. This will include monitoring day-to-day operations of TDS Telecom environments; perform startup, shutdown, backup and recovery. Provide metrics on database capacity and performance.
+Provides 24 X 7 level 1 database on call support.
+Create and maintains necessary scripts to automate and improve his/her duties. Utilize TDS Telecom’s standard tool set. (e.g. OEM, etc.) to create and maintain data models and data dictionary and provide proactive ongoing database monitoring.
+Process & Standards
+Assist in the development of company-wide standards, procedures, and facilities.
+Maintain database-related standards, procedures, and technical documentation.
+Identify database related training needs. Assist in the development of database-related courses.
+Participates actively in the change management process to ensure that the impact of all system software changes and all application system changes on production databases is understood and does not degrade performance.
+Under supervision, provides advice and counsel on cost/performance implications of electronic record retention decisions and standards.
+Software Development
+Work actively with project teams in the design, installation and enhancement of the Oracle database. Review logical and physical data designs in medium to large sized database changes.
+Provide for and facilitate database logical and physical design reviews. Perform final database design quality assurance reviews prior to implementation of new databases or database design changes.
+Support application testing of and implementation of new software releases.
+Develops, tests and installs production scheduled jobs using database utilities to manage ongoing maintenance, record deletion and database re-organization to ensure the ongoing efficient operation of databases.
+
+Required Qualifications
+Bachelor's degree (or higher) –OR- 4+ years professional work experience.
+2 + years of systems development, technical support, or database administration experience.
+Other Qualifications
+Strong technical aptitude, database analysis and design aptitude, and creative skills. Solid working knowledge of operating system (Unix/Linux), Oracle, SQL, PL-SQL and development tools.
+Analytical problem solver.
+Solid work ethic and demonstrated ability to meet deadlines and sustain heavy workloads.
+Accepts accountability and committed to follow through with activities. Provide regular feedback, take ownership, and exercise diligence and integrity in work activities.
+Able to work both independently and cooperatively on team assignments.
+Professional interpersonal skills and ability to interact effectively with Clients and information systems professionals. Able to produce clear, professionally-written communications and documentation.
+
+As a member of the Product Management team at Trella, you will:
+Identify KPIs for product usage that shed insight into user behavior and goal achievement.
+Partner with development to provide a usage tracking infrastructure that is accurate and informative.
+Create automated and streamlined ways to collect data on progress towards goals and outcomes across solutions and teams.
+Maintain and enhance a product analytics platform to report on customer and product engagement metrics across the organization.
+Act as application administrator for usage analysis and product productivity tools.
+Align with product management, customer success, and services on the actions to take for attempting to improve usage of the solution.
+Generate dashboards and reports on the progress of our customer adoption efforts for all audiences.
+Report on goals, outcomes, progress, capacity, and costs across the product organization, ultimately translating these activities into financial implications for the executive team.
+Provide ad hoc analysis that reinforces taking a data centric approach to the customer and product experience.
+Work with the product team to develop in-app messaging that accelerates user onboarding and adoption of features supporting users’ goals.
+Standardize product processes that go across teams, such as strategy cadences, experimentation tracking and feedback, documentation on product features, and creating and maintaining roadmaps collecting data on outcomes.
+Organize and run critical product meetings for strategy creation, strategy deployment and releases.
+
+This job might be a fit for you if you have:
+BA/BS Degree and a minimum 3 years of relevant work experience
+Focus on maximizing the value of our product suite for our customers.
+Strong analytical skills and proven results using data analysis to support decisions.
+Possesses a self-starter attitude and ability to work without direct supervision among multiple, concurrent projects.
+Strong desire to fail fast using hypothesis driven experimentation
+Exceptional communication and interpersonal skills, with the ability to effectively navigate and mediate conflict and foster honest dialog
+Ability to thrive in a fast-paced work environment, consistently prioritizing, and meeting deadlines.
+Experience performing behavioral analysis in Google Analytics, Pendo, Amplitude, MixPanel, Fullstory or similar tools.
+Familiarity with Product Analytics Frameworks; ex. North Star Framework
+Proficient in SQL, MySQL, and/or PostgreSQL
+Experience with Python, Data Pipeline Management, Salesforce and/or Aha! road mapping solution a plus
+
+HG Insights is seeking an enthusiastic, detail-oriented Data Integrity/Project Specialist to join our Data Operations team. The mission of DataOps is to ensure data quality. In this role you will be a utility player – supporting multiple projects and handling shifting priorities. You’ll work closely with our offshore team and internal clients to improve our firmographic data, increase the breadth of the technology products we track, and support groundbreaking data insight projects.
+
+The Data Integrity/Project Specialist is a highly organized team player who can quickly grasp established processes and manage multiple projects simultaneously to help achieve exceptional data quality goals.
+
+What You'll Be Responsible For:
+
+Distributing, training, tracking, and monitoring the progress of projects
+File preparation and monthly processing of data
+Writing process instructions and documentation
+Briefing team on projects, recording quick ‘How To’ videos, answering team questions
+Tracking project progress, performing data quality reviews
+Creating spreadsheets for offshore team in Google/Excel
+Conducting Internet research on technology products
+Ensuring the accuracy of technology product descriptions and profiles
+Verifying company revenue and employee numbers
+
+What You’ll Need:
+
+Experience working with data – either spreadsheets or databases
+Solid Internet research techniques
+Basic understanding of financial statements/annual reports
+Ability to review data, assess and report on quality, and provide corrective feedback to the team
+An aptitude for understanding technology products and concepts
+Strong technical writing skills and experience writing process instructions and/or recording quick instructional videos
+A talent for problem-solving and streamlining workflows and processes
+Ability to manage multiple projects and adapt to changing priorities
+Strong attention to detail, ability to prioritize projects, and deliver by deadlines
+Critical thinking/Problem-solving prowess
+Clear written and verbal communication skills
+Proficiency with MS Excel/Google Sheets, Confluence, Jira, and Zoom are required
+Experience with MySQL/SQL, Athena, Tableau, Lucid Chart are a definite plus
+Technical writing and editing experience
+Team-minded work ethic with the ability to work under limited supervision
+Native fluency in English
+1-2 years of experience working in an office environment is required
+Bachelor’s degree in applicable field (technology-related, business, English) is a plus, but not required
+
+The Director of Technology reports directly to the Vice President of Technology and is administratively responsible for guiding and overseeing all management and technical activities of assigned areas for effective, efficient, and economic outcomes.
+
+Areas of responsibilities include Networking. Audio Visual, Operations, and Disaster Recovery.
+
+As a member of the senior management team in technology, the Technology Administrator helps align technology objectives and programs to enterprise objectives and strategies and collaborates with administrative division and technology leaders to meet mutually established goals.
+
+Bachelor's degree in Information Technology, Health, or Business Administration required; Master’s degree is a plus
+10 years experience in information technology management, preferred
+5 years experience working at a director's level, required
+5 years experience in a health care setting, specifically in technology and information system planning to support business goals, required
+5 years experience in core technologies to support high available systems
+Proven experience organizing/managing complex projects
+Excellent communication skills including active listening, presentation, facilitation, documentation/messaging
+Exhibits Professionalism - Behaviors that promote a safe and inclusive environment; maintain confidentiality, professional boundaries, and exhibit integrity
+Critical thinking/problem solving skills - Using resources wisely to move towards resolution
+Commitment to fostering teamwork
+
+Qualified candidates will have:
+4+ years of experience in Business/System Analysis
+3+ years of experience working in different phases of software development lifecycle, including application design and implementation experience
+3+ years of experience writing system requirements
+2+ years professional SQL experience
+Experience in client-facing environments
+
+At CGI, you get to build solutions as a full time consultant with a world-class IT company. You will be involved in a mission critical project, working with a team of smart, dedicated people like yourself who build quality solutions for a variety of customers. Take your talents to a company that inspires growth and values your ideas.
+
+CGI is seeking a Product Owner in customer information system banking domain. The will responsible for turning data insights into products with actionable outcomes to the ultimate customer. Partners with stakeholders and customers across the organization to inform the product vision, strategy, features, and prioritization.
+
+Your future duties and responsibilities
+
+Future duties and responsibilities
+Responsible for innovation and end-to-end launch of products.
+Collaborates with global commercial services partners and customers to co-develop a roadmap and drive products and features from concept to launch in a fast-paced environment.
+Works with cross-functional teams and various stakeholders, including analytics, design/user experience, engineering, and user enablement.
+Turns data insights into products with actionable outcomes to the ultimate customer.
+Works in an Agile environment and continuously reviews the business needs, refines priorities, outlines milestones and deliverables, and identifies opportunities and risks.
+Partners with stakeholders and customers across the organization to inform the product vision, strategy, features, and prioritization.
+Develops, owns, and executes product roadmap.
+Works with user-focused departments to define the self-service user experience, support, and monitoring for customers.
+Partners with sales departments to define the user experience for internal GCS users, including support and monitoring.
+Translates product roadmap features into well-defined product requirements including features, user stories, and acceptance test criteria.
+Prioritizes and maintains the sprint backlog for assigned products, balancing the requirements of stakeholders.
+Leads the product functional design process based on an intimate knowledge of the users and technology.
+Defines and executes go-to-market plan, working to ensure that product management, marketing, and sales have what they need to be successful.
+Develops and maintains appropriate tracking and reporting of product performance post-launch to evaluate future investment.
+
+Required Qualifications To Be Successful In This Role
+
+Required qualifications to be successful in this role
+
+ Balance of technical knowledge and business acumen
+
+ Customer first, ABCD thinking mind set
+
+ Proactive, self-starter with excellent project management skills and ability to manage multiple tasks effectively
+
+ Excellent communication skills with the ability to engage, influence, and inspire partners and stakeholders to drive collaboration and alignment
+
+ High degree of organization, individual initiative, and personal accountability
+
+ Bachelor’s degree and 4 years of product or project development experience
+
+ At least 6 year of experience in Product Management and/or Product Development
+
+ Proven track record of delivering data driven solutions with a customer-first mindset
+
+ Established background in launching software or services in partnership with engineering teams and high degree of proficiency in prototyping, iterative development, understanding of Agile principles
+
+ Experience successfully driving end-to-end delivery of data and intelligence solutions, including a wide variety of mechanisms, e.g. dashboards, APIs, real time alerts, etc.
+
+ Experience with procurement, expense management, and treasury businesses and processes
+
+We are looking for a Business Operations Manager. As a member of the Business Operations team, you will drive operational efficiencies across the business group that is supporting, collaborating closely within and across business groups and functions. Ultimately, you will ensure the business performance is in line with company goals and targets. This role requires a quick learner who demonstrates strong leadership, independent thinking, possesses organizational expertise, is an excellent cross-functional communicator, and has a passion for data driven solutions & strategies.
+
+Key Responsibilities
+
+Assess operational efficiency, maturity, and competency/capacity of business groups.
+Identify operational gaps in people, process, and/or technology using analytics/insights and knowledge of operational areas.
+Develop tailored plans that leverage technology, expertise, best practices, and a data-driven approach to increase efficiencies and stability.
+Introduce operational disciplines and best practices to management in business groups.
+Augment management workforce with operational competencies, capabilities, and skills required for immediate ramp-up and scale in support of grow-the business and transform-the-business.
+Execute strategic initiatives, mentor business group team members and guide new and improved operational process rollouts in supporting business groups
+Prioritize commitments and requests to ensure deliverables complete by established due dates.
+Identify risks and determine mitigation strategies.
+Special projects as needed.
+
+Job Requirements/Qualifications Needed
+
+7+ years of progressive experience in business and operations analytics
+Bachelor’s Degree in Business Administration, Finance or related discipline.
+Experience working with business intelligence applications (Qlik, Tableau, Salesforce, etc.)
+Excellent oral and written communications skills; ability to develop and deliver presentations.
+Strong knowledge in operations planning and analysis.
+Proficient PC skills, including MS Office Suite (Word, Excel, PowerPoint, Visio, and SharePoint). Intermediate MS Excel skills required.
+Strong qualitative and quantitative skills.
+Strong self-initiative and ability to manage and prioritize multiple assignments/projects to deliver commitments on time.
+Strong organizational skills and attention to detail (excellent quality of deliverables).
+Ability to grasp new concepts, problem solve, and derive root causes through analytics.
+Ability to work with ambiguity and fast pace and rapid changing environment
+Exercise leadership through influence.
+
+An industry leading Software as a Services (SAAS) company is seeking a Business Systems Manager to lead the Business Information System (BIS) team. In this role, you will improve and support critical business strategies by directing the development, implementation, and maintenance of the organization’s business applications. If you are both a tactical and strategic leader, who is experienced working with Microsoft Dynamics (CRM) and Microsoft Dynamics NAV (ERP), we would love to speak with you!
+
+Responsibilities:
+Partners with business stakeholders to develop a business systems strategy and translate into a multi-year roadmap for business applications that is inclusive of system upgrades, enhancements, and implementations.
+Ensures utilization of appropriate project management methodologies to improve processes to select, prioritize, and implement business initiatives so they are delivered on-time, within budget and meet the stated business objectives.
+Manages Business Information Systems (BIS) team, in addition to operational and project demands.
+Resolves resource conflicts to satisfy organizational priorities by reallocating and/or supplementing resources.
+Negotiates contracts, ensuring that business requirements are addressed, business risks mitigated, and, on an on-going basis, that vendors are satisfying their obligations as defined by contract terms and conditions.
+Directs day-to-day support of the applications in coordination with team leaders to consistently perform at or better than defined service level commitments.
+Performs root cause analysis on incidents to identify opportunities to prevent future occurrences.
+Manages all stages of system upgrade processes including design, testing, training requirements, procedures, new support requirements, documentation, and production turnover.
+Ensures a smooth transition of applications from implementation to production and on-going operational support.
+Participates in the annual external financial audit of security and controls and annual risk assessment across the business systems.
+Develops and implements action plans to address any gaps identified during the audit process.
+Participates in the development and annual testing of business continuity and disaster recovery plans to ensure the plans are current and effective.
+Demonstrates a commitment to employee professional development by providing opportunities for assuming new and varied responsibilities, training and development, and coaching and mentoring by management and staff.
+Recruits and develops leaders and staff to create a high-performing organization capable of supporting current systems while developing new skills needed to transform the BIS department and leverage next generation technologies.
+Conducts regular performance appraisals and recommends appropriate personnel actions.
+Requirements:
+An undergraduate degree from an accredited college or university with a focus in Business, Computer Technology, Information Management, or related discipline. In the absence of a degree, directly related job experience leading a team in information services within a large, complex organization.
+6+ years of progressively responsible experience in ERP/CRM systems, experience with Microsoft Dynamics/NAV required
+3+ years of leadership experience
+Able to translate information technology jargon into terms understandable by all audiences and rapidly gain and maintain credibility with customers and IT colleagues
+Strong conceptual, analytical, and strategic skills
+Must be both strategic and tactical, with a willingness to get involved at a granular level as necessary
+
+In this position, you will become part of a team that is critical to the achievement of our company goals. This is an essential role responsible for developing and maintaining technical knowledge of assigned client environments; perform structured proactive technology management; minimize reactive technical issues, identify technical risk and hold the technical relationship with assigned clients.
+
+Responsibilities
+Acquire and maintain technical knowledge of assigned client technology by following the client on-boarding process and completing assigned Systems Administration visit tasks.
+Identify technical risk within client technology.
+Improve customer satisfaction while deepening client relationships.
+Aid in the design and maintenance of client documentation.
+Willingness to participate in continuing education activities, programs and seminars to enhance technical skills. 
+Requirements
+Minimum of 2-years work experience in the IT service provider industry, preferably with experience working in the field and traveling to local area client locations.
+High energy and self-motivated.
+Desire to succeed.
+Trainable, detail-oriented and willing to follow proven processes.
+Strong personal discipline.
+Comfortable having conversations with business leaders.
+Strong organizational and customer service skills.
+Proficient with general office applications.
+
+Job purpose
+
+This position will bring technical focus and skill in data analysis, reporting capability, and linkage to other systems (Epicor, Camstar, SQL, etc.) while coordinating activity with the IT Applications team to support the Supply Chain and Operations team through continuous improvement activities and business evolution. Through the development of tools (Power BI, SQL, etc) and processes, this position will directly support the presentation of data required to make improved business decisions and assist in visualizing metrics through the use of dashboards. This position will be an advocate for change to streamline processes through automation to eliminate manual processes and increase organizational productivity. Success in this role puts the operational users at the center of decision making and proactively works to improve the user experience.
+
+Duties And Responsibilities
+Partner with the supply chain analyst, and larger supply chain and operations teams to understand all business requirements and flow of operations in order to execute against a roadmap of ongoing improvement activities.
+Ensure the right data is acquired to develop reporting and toolsets that are used to support operational planning, strategic sourcing activities, and day to day procurement activity.
+Coordinate and/or create all needed process documentation and ensure user testing and training is completed.
+Demonstrate and high level of subject matter expertise in technical requirements required to support supply chain business processes.
+Partner with supply chain analyst and other key stakeholders to translate business requirements into actionable technical development.
+Ensure data sources are complete and accurate.
+Perform other duties as assigned by Management
+
+Qualifications
+Builds positive relationships with all team members and actively works to understand the perspective of the user.
+Must be resourceful and independent and works well in an actively evolving landscape.
+Flexible, collaborative and welcomes differing perspectives
+Experience with project management techniques is a plus.
+High level of experience with Power BI and SQL
+Experience with Epicor ERP a plus.
+Strong organizational skills
+Strong communication skills
+Bachelor’s Degree in Business Management, Supply Chain, Engineering or IT; MBA a plus
+5 years of data analytics or business intelligence, report and dashboard creation experience.
+Project Management experience a plus
+Experience supporting manufacturing operations.
+Proficient with Microsoft Office software, Word, Excel and PowerPoint
+
+Job Summary
+Support PLS Desktop and Laptop Computing environment
+Summary of Essential Job Functions
+Respond to user, and system trouble tickets; maintains systems by researching and resolving problems; maintaining system integrity and security
+Identifies defect requirements by interviewing internal users; analyzing operations; determining problem scope; documenting results, or by identifying the appropriate higher tiered support resource to complete the task, and supply ample problem documentation
+Develops problem solutions by describing requirements in a work-flowchart and diagram; studying system capabilities; analyzing alternative solutions; preparing system specifications
+Provides reference for internal users by writing documentation, providing support and help resolve IT related issues.
+Maintains qualify service by establishing and enforcing organization standards
+Prepares reports by collecting, analyzing, and summarizing information
+Other duties as required by business needs or as assigned.
+
+Minimum Requirements
+B.S. in the following areas: Computer Science, Information Technology, Management Information Sciences, Mathematics, Economics, Business Management, Finance or Engineering.
+2+ years’ experience installing and troubleshooting of Windows 10.
+2+ years’ experience troubleshooting Computer Hardware and configuring.
+Must be able to troubleshoot Local and Network Printers.
+Basic understanding of TCP/IP, DNS, DHCP, and VPN configurations.
+Must have a solid understanding of troubleshooting Web based applications.
+Must have a strong knowledge of administrating and troubleshooting Microsoft Office and Office 365.
+2+ years managing Microsoft SharePoint.
+PowerShell, Azure AD Administration and Microsoft Endpoint Manager experience
+Experience working in an ITIL Framework
+Strong written and oral communication skills
+Experience with Exchange Online, Office 365 and SMTP relays.
+Security Systems experience a plus.
+
+
+Looking for someone with the following skillset:
+
+Expert level master SQL creating complex sql queries, optimizing existing queries and creating stored procedures
+Advanced experience in BI tools (Power BI, Tableau or MicroStrategy to name a few) with expert BI visualization skills
+Detailed, analytical and highly organized individual.
+QA skills
+Troubleshooting with ability to research and problem solve.
+
+Responsibilities
+
+This position will focus on the development and streamlining of business performance reports that aid operational Product Lines to make objective decisions. This position will identify improvement opportunities and communicate analysis results directly with Product Line leaders to assist with business performance advancement. Will independently lead projects related to revenue cycle operations initiative reporting, pre-integration client reporting, emerging client integration reporting and projects requiring expertise across multiple business reporting areas. This individual leverages analytical skills and time management skills to ensure that all requirements are accomplished within established timeframes. The Analyst regularly mentors less experienced analysts for their professional development. This individual will also be responsible for the consistency and integrity of data reported.
+
+ESSENTIAL DUTIES AND RESPONSIBILITIES
+
+Independently works with all levels of management and across multiple product lines to determine reporting/project requirements and to research/resolve technical issues with reporting tools and functionality.
+Proactively works with team to create efficiencies in data retrieval and analysis, and ensure proper documentation of all reports.
+Interprets data and presents key trends and important findings to product line leaders to help them turn it into actionable insights and improved performance.
+Performs adhoc reporting with high complexity.
+Serves as SME for multiple product lines, owns related processes and leads projects.
+Manages customer's expectations to ensure timely delivery of needed reporting/projects to clients and various business unit stakeholders.
+
+
+KNOWLEDGE, SKILLS, ABILITIES
+
+Expert data gathering, analytical and data visualization skills.
+Independent, logical thinker with strategic view of reporting offerings and proven ability to perform detailed data analysis, make recommendations and develop analytical reports and models that provide solutions for client.
+Expert troubleshooting and QA skills, with ability to research and problem solve complex technical issues independently within a timely fashion.
+Must demonstrate excellent professional communication skills through clearly written, concise and comprehensive documentation.
+Experienced and comfortable making presentations to product line leaders, Directors and Executive Leadership across multiple product lines.
+Advanced ability to work well with team members and Conifer leadership, respectful of all positions at all levels, as well as complete tasks independently and professionally.
+Advanced organizational, communication, customer service, interpersonal, and time-management skills.
+Ability to manage multiple projects simultaneously and voice concerns with the management when needed.
+Expert knowledge/experience with reporting systems.
+Expert level knowledge of relational database management systems such as MS SQL Server/MySQL, AS/400, Showcase, MS Access.
+Expert level SQL language skills (creating/optimizing queries and stored procedures).
+Expert level knowledge of desktop applications (Microsoft Excel, Word, Access and PowerPoint).
+VBA.
+Alteryx, MicroStrategy,Tableau, Power BI or similar a plus
+
+About this Role:
+The Data Analytics Consultant will be an analytically driven team player, responsible for various reporting and analytical functions within a dynamic entrepreneurial environment.
+Primary Responsibilities:
+• Act as the primary point of contact for the reporting and analytical needs of one of our largest clients
+• Build and maintain client-facing reports, dashboards, and analyses
+• Develop actionable data insights and advise on client strategy
+• Lead annual health plan performance review presentations with the client
+• Collaborate with Sales and Account Management to provide ongoing support (report tracking, documentation, etc.)
+• Manage client requests and timelines to ensure timely delivery
+• Provide ad hoc analytical support as necessary
+Essential Qualifications:
+• Bachelors' degree in Mathematics, Statistics, Finance, Actuarial Science, Data Science, or related field
+• 5+ years of experience in healthcare analytics, and 2+ years of experience in a client‑facing position
+• Proficiency in SQL and Microsoft SQL Server Suite of Products (SSMS) required
+• Proficiency in MSOffice Products (Excel, Access, PowerPoint, VBA) required
+• Experience with Business Intelligence applications and DAX functions (PowerPivot, Power BI, Tableau) a plus
+• Experience with health plan performance reporting and cost and utilization analysis
+• Ability to explain technical concepts to a non-technical audience
+• Ability to effectively manage and prioritize several concurrent projects under tight timeframes
+• Excellent oral and written communications skills
+• Team player
+
+You will report to the Director. This is a remote / work-from-home role. You must reside in one of the following states: Arizona, California, Connecticut, Florida, Georgia, Illinois, Maryland, Massachusetts, Michigan, New Jersey, New Mexico, New York, North Carolina, Ohio, Oregon, Pennsylvania, Rhode Island, Tennessee, Texas, Utah, Virginia, Washington, or Washington, D.C. Note, this list of states is subject to change.
+
+Responsibilities
+Facilitate root cause analysis to translate experience data into meaningful insights and areas of improvement for Oscar's overall ecosystem
+Interpret quantitative data/results and understand the 'why' behind the data, identifying the important insights that tell a story and creating strategies
+Manage relationships to guide multi department collaboration and issue resolution affecting partner experience;
+Be the internal consumer insights consultant who partners across the organization to understand our needs and influence our decisions
+Use a full range of insight generating tools to foster a deeper understanding of consumers to ensure our decisions are grounded in relevant insights
+Socialize consumer insights throughout organization to guide visibility and reinforcement of the Insight team's efforts, building an understanding of the importance of putting consumers first
+Achieve program strategy including determining and uncovering opportunities for improvement
+Develop direct reports, ensuring that colleagues are supported in professional development
+Other responsibilities as assigned
+Qualifications
+6+ years of experience managing, driving and overseeing projects.
+4+ years of operations leadership experience (process improvement, project managing, and lean operations)
+4+ years using analytics to align partners (using Excel, VBA Macros, SQL or Python)
+Experience using data and metrics to improve programs
+Experience in a fast-paced operations environment
+Experience defining a problem, designing an approach, and using a variety of sources of data (primary, secondary, third-party) to answer a question
+Bonus Points
+Lean or Six Sigma certification
+Experience analyzing claims, appeals and grievances, and call center data management,
+Comfortable consulting, or driving process improvement or quality improvement (e.g, NCQA) in insurance operations
+Healthcare experience (Health Insurance, Health Systems, Healthcare Consulting, or IFP/ Medicare regulatory requirements)
+Experience automating or designing data pipelines
+
+To be successful in this role, you will need to:
+Work in SQL to analyze large sets of data
+Be a passionate expert on helping our new Sellers achieve success with Amazon. You'll dive deep into both data and anecdotes (and talk with new Sellers directly) to understand the root causes of friction and the value we can deliver by eliminating them.
+Challenge assumptions on the way things are currently done and help Product Owners invent new tools or simplify existing ones.
+Build trust and drive urgency across other parts of the organization, the owners of the products that are impacting our Seller experience, and present to senior leadership to drive progress.
+Successful candidates will demonstrate our leadership principles: a bias for action; customer-centricity; flexibility; analytical ability; the drive to own, build, and grow; along with the ability to have a little bit of fun.
+
+Responsibilities May Include
+Enable effective decision making by retrieving and aggregating data from multiple sources and compiling it into a digestible and actionable format
+Identify process and system improvement opportunities by monitoring existent metrics, analyzing data and partnering with internal teams
+Design and develop automated reporting solutions to enable stakeholders to manage the business and make effective decisions
+Supporting cross-functional teams on the day-to-day execution of the existent program implementation.
+Driving customer experience enhancement projects
+The Expertise You’ll Develop In The Role
+Ability to break down and solve complex problems
+Develop high impact solutions
+Translate massive data sets into actionable business results
+Drive scalable solutions
+Expand feature sets globally
+Build strategy on new businesses
+Key job responsibilities
+
+Canada team BA support. Position will support data, reporting, and strategy needs of the Canada team, including Direct Sales, SSR Sales, SSR, Marketing, and Prime Sales, Programs (Brand Gap, Accelerator, Renewed). This is the first dedicated BA for the Canada and will require prioritization and invention enabling (1) deeper insights and analysis of our product, selling partner, and customer data and (2) consistent and thorough QBR and WBR reporting.
+
+
+Basic Qualifications
+Currently pursing or already has possession of a Bachelor’s degree
+Work, internship, or other leadership experience in a professional environment
+Computer skills, including Microsoft Office (i.e., Excel, Word)
+Please note, visa sponsorship is not available for this position
+
+Preferred Qualifications
+Top-tier academic performance at the undergraduate level
+Open to all Majors but preferred: Business, Computer, Data Engineering, Economics, Finance, Engineering, Mathematics, Machine Learning, Science, Statistics, Symbolic Systems
+Ability to deal with ambiguity
+Exceptional written and verbal communication
+Ability to break down and solve complex problems in a high-energy, fast paced environment
+Good organizational skills, including prioritization and time management
+Ability to think and act both strategically and tactically
+Intermediate (e.g. vlookup)/Advanced Excel skills (e.g. Write/edit VBA)
+Basic to advanced knowledge of SQL.
+
+Responsible for overseeing the processes, methods, and resources used to produce the ongoing analysis of operational data. In this role, the successful candidate will identify opportunities to provide proactive analysis, reporting, and guidance to senior leaders of the operations team. The successful candidate lead a team of analysts who deliver projects that generate tools, dashboards, and reports that enable sound business decisions, while ensuring the professional growth and development of the analysts they lead.
+
+Responsibilities:
+Develops and refines analytical best practices and standards.
+Ensures accuracy and integrity of key operational dashboards and their internal and external sources, and implements changes to these systems as needed.
+Analyzes operational performance using financial and productivity data, including impact to and from company-wide processes and performance.
+Interprets results using a variety of techniques ranging from simple data aggregation via statistical analysis to complex data mining done independently.
+Provides recommendations on strategies, changes, and continuity based on results of thorough research and analysis.
+Designs, develops, implements and maintains business solutions and recommendations to improve performance.
+Manages operational process improvement projects according to realistic plans and expectations.
+Conducts ad hoc analyses on various departments and branches.
+Maintains and publishes standard reports for Executive Operations.
+Maintains databases and develops weekly/monthly metrics reports.
+Provides guidance and mentoring to junior analysts.
+Perform related duties as required. This position description in no way states or implies that these are the only duties to be performed by the employee occupying this position. Employees will be required to perform any other job-related duties assigned by their supervisor or management.
+
+Qualifications:
+Bachelor's Degree in business administration, information systems, computer science, mathematics or a related field from an accredited college or university or the international equivalent required.
+Five to eight years business and/or data analysis experience
+Demonstrated advanced skills in Microsoft Excel, including PowerPivot and PowerQuery
+Knowledge of IBM Cognos, MS PowerBI, SQL, and VBA a plus
+Demonstrated excellence in analytical and problem solving skills, as well as the ability to coordinate the work of others and work with all levels of management
+Must possess the ability to work on various assignments simultaneously
+Must demonstrate strong interpersonal, written and verbal communication skills
+Must demonstrate a strong knowledge of operational and data structures
+Must possess project management skills
+Reasonable accommodations may be made to enable individuals with disabilities to perform the essential functions of the job.
+
