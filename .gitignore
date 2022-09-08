@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Misc. text files
+dictionary.txt
+jobs.txt
+log_file.txt
+log.file.txt
+results.txt
+skills.txt
+text.txt
