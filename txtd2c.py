@@ -17,7 +17,11 @@ Attributes:
 
 Todo:
     * Finish command line args
-    * Add progress bars
+    * Add progress/status bars
+    * Create main
+    * Migrate text file dictionary extraction to function
+    * Migrate dictionary file extraction to function
+    * Migrate comparison process to function
 
 .. _Google Python Style Guide:
    http://google.github.io/styleguide/pyguide.html
