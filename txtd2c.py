@@ -39,6 +39,7 @@ import argparse
 import progressbar
 import verboselogs
 import logging
+import sys
 import os.path
 
 __author__ = "David Rush"
@@ -67,28 +68,43 @@ RESULTS_FTR = \
 # Add atributes for file data (dict), Number of unique items,
 #   source file name, sorted flag
 # Add methods for populating and sorting
-class FileSource:
+class SourceFile:
 
     def __init__(
             self,
             name,
-            source_file,
-            data,
-            unique_items,
-            sort_status):
+            file='None'):
         self.name = name
-        self.data = []
+        # move to conditional below self.file = file
+        self.data = defaultdict(int)
         self.unique_items = 0
         self.total_source_items = 0
         self.sort_status = False
-        self.source_file = ""
         self.file_verifed = False
+        '''
+         Add test for file exist <Move to private method>
+        if file == None:
+            # INSERT error/warning
+            return
+        self.file = file
+        if os.path.isfile(file):
+            try:
+                self.data = open(file,'r')
+            except IOError:
+                sys.stderr.write('Problem opening file %s\n' % file)
+                return
+            self.file = file
+            f.close()
+        else:
+            self.data []
+            '''
 
-    def sort_data(self):
+    def __sort_data(self):
         self.data = dict(sorted(
             self.data.items(), key=lambda item: item[1], reverse=True))
+        self.sort_status = True
 
-    def populate(self):
+    def __populate(self):
         if self.file_verified:
             ps = PorterStemmer()
             self.data = open(self.source_file, 'r')
@@ -105,8 +121,13 @@ class FileSource:
                     item_freq[item] = 0
                     self.unique_items += 1
 
-    def verify_file_exists(self):
+    def __verify_file_exists(self):
         self.file_verified = os.path.exists(self.source_file)
+
+
+'''
+Create a class for results and file output
+'''
 
 
 def close_items(*args):
@@ -286,7 +307,7 @@ def main():
                 logger.info(log_string)
                 log_file.write(str(str(log_string) + END_LINE))
 
-    word_freq = sort_dictionary(word_freq)
+ #   word_freq = sort_dictionary(word_freq)
 
     output_console_file(RESULTS_HDR)
     output_console_file(RESULTS_HDR_TXT)
