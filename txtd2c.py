@@ -68,12 +68,9 @@ RESULTS_FTR = \
 # Add atributes for file data (dict), Number of unique items,
 #   source file name, sorted flag
 # Add methods for populating and sorting
-class SourceFile:
+class MySourceFile:
 
-    def __init__(
-            self,
-            name,
-            file='None'):
+    def __init__(self, name, file='None'):
         self.name = name
         # move to conditional below self.file = file
         self.data = defaultdict(int)
