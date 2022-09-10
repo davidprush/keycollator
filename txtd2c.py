@@ -104,7 +104,7 @@ class SourceFile:
             self.data.items(), key=lambda item: item[1], reverse=True))
         self.sort_status = True
 
-    def __populate(self):
+    def __populate_data(self):
         if self.file_verified:
             ps = PorterStemmer()
             self.data = open(self.source_file, 'r')
@@ -123,6 +123,14 @@ class SourceFile:
 
     def __verify_file_exists(self):
         self.file_verified = os.path.exists(self.source_file)
+
+    def search(self, pattern):
+        srch = re.compile(pattern,re.I)
+        found = []
+        for item in self.db:
+            if srch.search(item.name):
+                found.append(item)
+        return found
 
 
 '''
