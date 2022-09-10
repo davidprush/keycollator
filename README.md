@@ -1,4 +1,4 @@
-# txtd2c Documentation (A work in progress).
+# txtd2c Documentation (A work in progress: embracing mission creep).
 
 This app takes a dictionary file containing words or phrases and
 and compares it to a text file, then outputs a file listing the total

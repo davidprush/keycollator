@@ -132,6 +132,12 @@ class SourceFile:
                 found.append(item)
         return found
 
+    def print_stats(self): # Placeholder for thoughts
+        print(self.unique_items)
+        print(self.total_source_items)
+        print(self.file_verified)
+        # etc...
+
 
 '''
 Create a class for results and file output
