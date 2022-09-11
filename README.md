@@ -1,8 +1,9 @@
 # txtd2c Documentation (A work in progress...embracing mission creep).
 
-'''
+```
 Uses a dictionary text file (items separated by lines) and counts the number of times an item appears in a text file.
-'''
+```
+
 
 - **Started small** and worked as a simple script, but then I decided to turn it into my first full fledged command line program
 
