@@ -1,4 +1,4 @@
-# txtd2c
+# ct2d
 
 A simple program that uses dictionary file with items listed by line
 and a text file that you want to evaluate for the number of occurances 
@@ -19,13 +19,13 @@ for the dictionary items.
 - Possible feature
 
 ```bash
-txtd2c
+ct2d
 ```
 
 - Plans for commands:
 
 ```bash
-txtd2c 
+ct2d 
 ```
 
 ## Common Usage
@@ -33,7 +33,7 @@ txtd2c
 - Default
 
 ```bash
-txtd2c 
+ct2d 
 ```
 
 ## Results/Output
@@ -56,11 +56,11 @@ List of objects and results:
 
 ## Fuzzy Matching
 
-txtd2c will...
+ct2d will...
 
 Maybe import...
 
 ```python
-from txtd2c import TextDictionary2Compare
+from ct2d import TextDictionary2Compare
 # Example use here...
 ```
