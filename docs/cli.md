@@ -1,22 +1,9 @@
-# ct2d Documentation (A work in progress...embracing mission creep).
-
-```
-Uses a dictionary text file (items separated by lines) and counts the number of times an item appears in a text file.
-```
-
-
-- **Started small** and worked as a simple script, but then I decided to turn it into my first full fledged command line program
-
-This is going to require a lot of :coffee: for [Me!](https://github.com/davidprush)
-
----
-
 # CLI
 
-`ct2d` uses the **cli** to change default parameters and functions
+`txtd2c` uses the **cli** to change default parameters and functions
 
 ```bash
-usage: ct2d.py [-h] [-c CSV_FILE] [-d DICTIONARY_FILE] [-f COUNT] 
+usage: txtd2c.py [-h] [-c CSV_FILE] [-d DICTIONARY_FILE] [-f COUNT] 
                       [-i IN_FILE] [-l] [-o OUT_FILE] [-v] [--version]
 
   App takes two files, a dictionary file and a and a text file, and counts 
@@ -47,7 +34,7 @@ optional arguments:
 For **fuzzy matching** use
 
 ```bash
-ct2d -f [1-99]
+txtd2c -f [1-99]
 ```
 
 ## Setting the dictionary file (simple text file with items separated by line)
@@ -55,7 +42,7 @@ ct2d -f [1-99]
 Set the **dictionary file**
 
 ```bash
-ct2d -d /path/to/dictionary/directory/
+txtd2c -d /path/to/dictionary/directory/
 ```
 
 ## Create a log file
@@ -63,7 +50,7 @@ ct2d -d /path/to/dictionary/directory/
 To create a **log file**, execute
 
 ```bash
-ct2d -l /path/to/log_file/directory/
+txtd2c -l /path/to/log_file/directory/
 ```
 
 ## Specify the CSV results file
@@ -71,7 +58,7 @@ ct2d -l /path/to/log_file/directory/
 Specify the results **csv file** name, execute
 
 ```bash
-ct2d -c /path/to/results/file.csv
+txtd2c -c /path/to/results/file.csv
 ```
 
 ## Add verbosity (5 levels)
@@ -79,14 +66,5 @@ ct2d -c /path/to/results/file.csv
 Specify verbosity using the following format:
 
 ```bash
-ct2d -v [1-5]
+txtd2c -v [1-5]
 ```
-
-### Current Status:
-   - Currently refactoring all code
-   - Separating project into multiple files
-   - Add progress bars when extracting and comparing
-   - Creating a class to manage file data
-   - Fixing ArgumentParser implementation
-   - Mitigating all the bugs I will create along the way
-

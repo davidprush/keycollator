@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Module txtd2c.py Documentation.
+"""Module ct2d.py Documentation.
 
 This app takes a dictionary file containing words or phrases and
 and compares it to a text file, then outputs a file listing the total
@@ -8,7 +8,7 @@ number of appearances for each word/phrase from the dictionary.
 
 Example:
 
-        $ python txtd2c.py
+        $ python ct2d.py
 
         *Notes
 
@@ -28,19 +28,33 @@ Todo:
 .. _Google Python Style Guide:
    http://google.github.io/styleguide/pyguide.html
 """
-from collections import defaultdict
-from nltk.stem import PorterStemmer
-from time import sleep
-# from nltk.tokenize import word_tokenize
-from fuzzywuzzy import fuzz
-# import pandas as pd
+import sys
+import os.path
 import string
 import argparse
 import progressbar
 import verboselogs
 import logging
-import sys
-import os.path
+# import pandas as pd
+from collections import defaultdict
+from nltk.stem import PorterStemmer
+from time import sleep
+from fuzzywuzzy import fuzz
+# from nltk.tokenize import word_tokenize
+
+
+class d2ctxt(object):
+
+    def __init__(
+        self,
+        dictionary_file,
+        text_file,
+        output_file=None,
+    ):
+
+        self.__text_file = text_file
+        self.dictionary_file = dictionary_file
+        
 
 __author__ = "David Rush"
 __copyright__ = "Copyright 2022, Rush Solutions, LLC"
@@ -53,15 +67,6 @@ __status__ = "Prototype"
 """__status__ Common Usage:
     "Prototype", "Development", or "Production"
 """
-
-APP_NAME = "txtd2c.py"
-END_LINE = "\n"
-RESULTS_HDR = \
-    "**************************** Results ******************************"
-RESULTS_HDR_TXT = \
-    "The following is a list of dcitionary items found in the text file:"
-RESULTS_FTR = \
-    "**************************** End Results **************************"
 
 
 # Start building class for handling file information
