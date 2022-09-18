@@ -147,7 +147,6 @@ def cli(
     log_file,
 ):
     """ Docstring Here! """
-
     Config.set_verbose = set_verbose
     Config.fuzzy_matching = fuzzy_matching
     Config.key_file = key_file
