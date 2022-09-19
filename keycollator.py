@@ -1,10 +1,10 @@
-#!/venv/bin/ python3
+#!venv/bin/ python3
 # -*- coding: utf-8 -*-
 """
 ┬┌─┌─┐┬ ┬┌─┐┌─┐┬  ┬  ┌─┐┌┬┐┌─┐┬─┐
 ├┴┐├┤ └┬┘│  │ ││  │  ├─┤ │ │ │├┬┘
 ┴ ┴└─┘ ┴ └─┘└─┘┴─┘┴─┘┴ ┴ ┴ └─┘┴└─
-Module dictionarytextcompare.py documentation
+Module keycollator.py documentation
 
  #     # ### #######    #       ###  #####  ####### #     #  #####  #######
  ##   ##  #     #       #        #  #     # #       ##    # #     # #
@@ -30,33 +30,19 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 Example:
 
-        $ python dictionarytextcompare.py
+        $ python keycollator.py
 
         *Notes
 
 Todo:
-    *
+
+        *
 
 """
+import sys
 import click
 from constants import ProCons
-from functools import wraps
 from extractonator import ProTimerz, KeyKrawler
-
-
-class Config(object):
-    def __init__(self):
-        self.verbose = False
-
-
-pass_config = click.make_pass_decorator(Config, ensure=True)
-
-
-def pass_obj(f):
-    @click.pass_context
-    def new_func(ctx, *args, **kwargs):
-        return ctx.invoke(f, ctx.obj, *args, **kwargs)
-    return update_wrapper(new_func, f)
 
 
 @click.group(
@@ -69,7 +55,7 @@ def pass_obj(f):
     is_flag=True,
     # default=0,
     # type=click.IntRange(0, 5, clamp=True),
-    help="verbosity level, True='ON' False='OFF'"
+    help="set verbose=[True/False], True=ON False=OFF"
 )
 @click.option(
     '-f', '--fuzzy-matching',
@@ -132,10 +118,7 @@ def pass_obj(f):
     type=click.Path(exists=True),
     help="path/file name to be used for the log file"
 )
-# @click.pass_context
-@pass_config
 def cli(
-    Config,
     set_verbose,
     fuzzy_matching,
     key_file,
@@ -146,70 +129,28 @@ def cli(
     set_logging,
     log_file,
 ):
-    """ Docstring Here! """
-    Config.set_verbose = set_verbose
-    Config.fuzzy_matching = fuzzy_matching
-    Config.key_file = key_file
-    Config.text_file = text_file
-    Config.output_file = output_file
-    Config.ubound_limit = ubound_limit
-    Config.lbound_limit = lbound_limit
-    Config.set_logging = set_logging
-    Config.log_file = log_file
-
-
-@cli.group()
-# @click.pass_context
-@pass_config
-def tourney(config):
-
-    ksplit = click.ParamType.split_envvar_value(config.key_file)
-    for path in config.key_file:
-        click.echo(path)
-    print(ksplit)
-    tsplit = click.ParamType.split_envvar_value(config.text_file)
-    for path in config.text_file:
-        click.echo(path)
-    print(tsplit)
-    osplit = click.ParamType.split_envvar_value(config.output_file)
-    for path in config.output_file:
-        click.echo(path)
-
-    if config.set_verbose:
-        click.echo(f"Verbosity: {config.set_verbose}")
-        click.echo(f"Fuzzy Matching: {Config.fuzzy_matching}")
-        print(osplit)
-        click.echo(f"Upper Boundary for Result: \
-             {config.ubound_limit}")
-        click.echo(f"Lower Boundary for Result: \
-             {config.lbound_limit}")
-        click.echo(f"Logging: \
-             {config.set_logging}")
-        click.echo(f"Log file: \
-             {config.log_file}")
-
+    """
+    keycollator is an app that finds occurances of keys in a text file
+    """
     heavy_lifts = KeyKrawler(
-        Config.text_file,
-        Config.key_file,
-        Config.result_file,
-        Config.log_file,
-        Config.set_verbose,
-        Config.ubound_limit,
-        Config.lbound_limit,
-        Config.fuzzy_matching
+        text_file,
+        key_file,
+        output_file,
+        log_file,
+        set_verbose,
+        ubound_limit,
+        lbound_limit,
+        fuzzy_matching
     )
-    heavy_lifts.write_results()
+    heavy_lifts.cool_stats()
 
 
-@cli.group()
-@click.pass_context
-@pass_config
 def main(**kwargs):
-    ztimer.stop_timer("main()")
-    ztimer.get_duration(False, "main()")
+    ztimer.stop_timerz(sys._getframe().f_code.co_name)
+    ztimer.echo_timerz(False, sys._getframe().f_code.co_name)
 
 
 if __name__ == '__main__':
-    ztimer = ProTimerz("__main__")
+    ztimer = ProTimerz(sys._getframe().f_code.co_name)
     cli()
     main(ztimer)

@@ -1,4 +1,4 @@
-#!/venv/bin/ python3
+#!venv/bin/ python3
 # -*- coding: utf-8 -*-
 """
 ┌─┐─┐ ┬┌┬┐┬─┐┌─┐┌─┐┌┬┐┌─┐┌┐┌┌─┐┌┬┐┌─┐┬─┐
@@ -48,6 +48,7 @@ Todo:
     *
 
 """
+import sys
 import os.path
 import string
 import logging
@@ -56,7 +57,6 @@ from collections import defaultdict
 from nltk.stem import PorterStemmer
 from fuzzywuzzy import fuzz
 from constants import ProCons
-# import sys
 # import progressbar
 # import verboselogs
 # import pandas as pd
@@ -75,28 +75,26 @@ class ProTimerz:
         self.__duration = time.perf_counter()
         self.__formatted_duration = str(self.__duration)
 
-    def stop_timer(self, end_caller):
-        if end_caller != self.caller:
+    def stop_timerz(self, end_caller):
+        if end_caller != self.__caller:
             self.__end_caller = end_caller
-        self.__duration = self.__toc - self.tic
+        self.__duration = self.__toc - self.__tic
 
-    def get_duration(self, console_output=False, verbose=False):
-        if console_output or verbose:
-            print(f"Caller: {self.caller} \
-                Duration: {self.__formatted_duration:0.4f} seconds")
-        return self.__duration
+    def echo_timerz(self):
+        self.__formatted_duration = self.__toc - self.__tic
+        print(f"Caller: {self.__caller} \
+            Duration: {self.__formatted_duration:0.4f} seconds")
 
-    def get_start(self):
+    def get_timerz_start(self):
         return self.__tic
 
-    def get_stop(self):
+    def get_timerz_stop(self):
         return self.__toc
 
-    def get_current_time(self, console_output=False):
-        if console_output:
-            print(f"Current Duration: \
-                {self.__formatted_duration:0.4f} seconds")
-        return (self.__toc - self.__tic)
+    def get_timerz(self, console_output=False):
+        self.__formatted_duration = self.__toc - self.__tic
+        return f"Current Duration: \
+                {self.__formatted_duration:0.4f} seconds"
 
 
 class KeyKrawler:
@@ -109,17 +107,16 @@ class KeyKrawler:
         verbosity=0,
         ubound=99999,
         lbound=0,
-        fuzzyness=99
+        fuzzyness=99,
+        set_logging=False
     ):
-        self.timer = ProTimerz("filework.py::__init__")
+        self.timer = ProTimerz(sys._getframe().f_code.co_name)
         self.text_file = text_file
         self.key_file = key_file
         self.result_file = result_file
         self.log_file = log_file
-        self.text_file_exists = False
-        self.key_file_exists = False
-        self.result_file_exists = False
-        self.log_file_exists = False
+        self.set_logging = set_logging
+        self.valid_files = False
         self.__key_freq = defaultdict(int)
         self.__text_freq = defaultdict(int)
         self.__result_items = defaultdict(int)
@@ -136,13 +133,14 @@ class KeyKrawler:
         self.__match_items = 0
         self.__ps = PorterStemmer()
         self.__freq = 0
+        self.__reset_logz()
         self.__itemize_text()
         self.__itemize_keys()
         self.__txt2key_matcher()
         self.__results2file()
         self.__spam_console()
         self.cool_stats()
-        self.timer.stop_timer("filework.py::write_results()")
+        self.timer.stop_timerz(sys._getframe().f_code.co_name)
 
     def __iter__(self):
         self.__freq = 0
@@ -157,7 +155,7 @@ class KeyKrawler:
             raise StopIteration
 
     def __itemize_text(self):
-        text_data = open(ProCons.TXTS, 'r')
+        text_data = open(self.text_file, 'r')
         self.__text_items = 0
         for text in text_data:
             text = text. \
@@ -205,7 +203,7 @@ class KeyKrawler:
             for item in self.__text_freq:
                 self.__total_comparisons += 1
                 self.__log_this(
-                    self.timer.get_current_time(),
+                    self.timer.get_timerz(),
                     self.__key_items,
                     "::",
                     key,
@@ -218,7 +216,7 @@ class KeyKrawler:
                     temp_dict[key] += 1
                     self.__key_items += 1
                     self.__log_this(
-                        self.timer.get_current_time(),
+                        self.timer.get_timerz(),
                         key,
                         "#{self.__key_items}#",
                         "<<<Found in>>>",
@@ -233,7 +231,7 @@ class KeyKrawler:
                     temp_dict[key] += 1
                     self.__key_items += 1
                     self.__log_this(
-                        self.timer.get_current_time(),
+                        self.timer.get_timerz(),
                         key,
                         "#{self.__key_items}#",
                         "<<<FUZZY-MATCHED \
@@ -244,11 +242,7 @@ class KeyKrawler:
                         "]::",
                         self.__text_freq[item]
                     )
-        if temp_dict:
-            self.__result_items.clear()
-            self.__result_items = temp_dict.copy()
-        else:
-            self.__no_matches = True
+        self.__result_items = temp_dict.copy()
 
     def __results2file(self):
         if not self.__no_matches:
@@ -266,7 +260,7 @@ class KeyKrawler:
                         self.__result_items[key]
                     )
                     self.__log_this(
-                        self.timer.get_current_time(),
+                        self.timer.get_timerz(),
                         write_count,
                         "::",
                         key,
@@ -295,7 +289,7 @@ class KeyKrawler:
                         "\t\t",
                         self.__key_freq[key])
                     self.__log_this(
-                        self.timer.get_current_time(),
+                        self.timer.get_timerz(),
                         "\t\t[",
                         print_item,
                         "]. ",
@@ -307,7 +301,7 @@ class KeyKrawler:
         else:
             print(ProCons.NO_MATCHES)
             self.__log_this(
-                self.timer.get_current_time(),
+                self.timer.get_timerz(),
                 ProCons.NO_MATCHES
             )
 
@@ -319,81 +313,32 @@ class KeyKrawler:
             self.__text_items,
             self.__match_items,
             self.__total_comparisons,
-            self.__duration
+            self.timer.get_timerz()
         ))
 
-    def __verboze(self):
-        pass
-
-    def __verify_all_filez(self):
-        self.text_file_exists = os.path.exists(self.text_file)
-        self.key_file_exists = os.path.exists(self.key_file)
-        self.result_file_exists = os.path.exists(self.result_file)
-        self.log_file_exists = os.path.exists(self.log_file)
-        if self.text_file_exists and self.key_file_exists and \
-                self.result_file_exists and os.path.exists(self.log_file) \
-                and self.__verbosity > 0:
-            print("All files are valid")
-        elif not self.text_file_exists:
-            print("WARNING!::The file ", self.text_file, " is not valid.")
-            self.__log_this(
-                "WARNING!::The file ",
-                self.text_file,
-                " is not valid."
-            )
-        elif not self.key_file_exists:
-            print("The file ", self.key_file, " is not valid.")
-            self.__log_this(
-                "WARNING!::The file ",
-                self.text_file,
-                " is not valid."
-            )
-        elif not self.result_file_exists:
-            print("The file ", self.result_file, " is not valid.")
-            self.__log_this(
-                "WARNING!::The file ",
-                self.result_file,
-                " is not valid."
-            )
-        elif not self.log_file_exists:
-            print("The file ", self.log_file, " is not valid.")
-            self.__log_this(
-                "WARNING!::The file ",
-                self.log_file,
-                " is not valid."
-            )
-        return True
+    def __verify_all_filez(self, *args):
+        for arg in args:
+            if not os.path.exists(arg):
+                self.valid_files = False
+            else:
+                self.valid_files = True
 
     def __log_this(self, *args):
-        # log_file = open(ProCons.LOGZ, 'w')
-        self.__log_items += 1
-        log_string = ""
-        logging.basicConfig(
-            filename=ProCons.LOGZ,
-            filemode='a',
-            format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-            datefmt='%H:%M:%S',
-            level=logging.DEBUG
-        )
-        logging.info("Running Urban Planning")
-        logger = logging.getLogger('urbanGUI')
-        logger.setLevel(logging.INFO)
-        if self.__verbosity >= 4:
-            logger.setLevel(logging.SPAM)
-            # logger.SPAM("This message will show most frequently")
-        elif self.__verbosity >= 3:
-            logger.setLevel(logging.DEBUG)
-            # logger.DEBUG("This will be a level 3 for verbosity")
-        elif self.__verbosity >= 2:
-            logger.setLevel(logging.VERBOSE)
-            # logger.VERBOSE("This will be a level 2, \
-            # a somewhat verbose situation")
-        elif self.__verbosity >= 1:
-            logger.setLevel(logging.NOTICE)
-            # logger.NOTICE("Sparingly used to notify the user of something")
-        elif self.__verbosity < 0:
-            logger.setLevel(logging.WARNING)
-            # logger.WARNING("The rarest of messages, reserved for errors")
-        if args:
-            for arg in args:
-                log_string += str(arg)
+        if self.set_logging:
+            self.__log_items += 1
+            log_string = ""
+            logging.basicConfig(
+                filename=ProCons.LOGZ,
+                filemode='a',
+                format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                datefmt='%H:%M:%S',
+                level=logging.DEBUG
+            )
+            if args:
+                for arg in args:
+                    log_string += str("[{}]".format(arg))
+            logging.info(log_string)
+
+    def __reset_logz(self):
+        results_file = open(self.log_file, 'w')
+        results_file.close()

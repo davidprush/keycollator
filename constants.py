@@ -100,12 +100,11 @@ class ProCons:
     RESULTS_HDR_TXT = \
         "The following is a list of dcitionary items found in the text file:"
     RESULTS_FTR = DIV_LINE
-    PERFORMANCE = "Stats for this run...", END_LINE,
-    "Total Dictionary Items: ", {}, END_LINE,
-    "Total Text File Items: ", {}, END_LINE,
-    "Total Keys Added to List: ", {}, END_LINE,
-    "Total Comparisons: ", {}, END_LINE,
-    "Total Runtime: ", {}, END_LINE,
-    END_LINE
+    PERFORMANCE = "Stats for this run... \n \
+    Total Dictionary Items: {0} \n \
+    Total Text File Items: {0} \n \
+    Total Keys Added to List: {0} \n \
+    Total Comparisons: {0} \n \
+    Total Runtime: {0} \n \n"
     STATISTICS = PERFORMANCE
     NO_MATCHES = "<<<<**** [ NO MATCHES FOUND! ] ****>>>>"
