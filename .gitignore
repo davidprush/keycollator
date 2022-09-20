@@ -129,10 +129,8 @@ dmypy.json
 .pyre/
 
 # Misc. text files
-dictionary.txt
-jobs.txt
-log_file.txt
-log.file.txt
-results.txt
+log.log
+results.csv
 skills.txt
 text.txt
+venv/
