@@ -29,9 +29,9 @@ the author via e-mail at <davidprush@gmail.com>.
 
 - Future plans to install as python package
 
-  ```bash
-        pip install keycollator
-  ```
+```bash
+pip install keycollator
+```
 
 ## Documentation
 
@@ -53,80 +53,80 @@ https://github.com/davidprush
 
 keycollator uses the CLI to change default parameters and functions
 
-    ```bash
-        usage: keycollator.py [-h] [-c CSV_FILE] [-d DICTIONARY_FILE] [-f COUNT] 
-                          [-i IN_FILE] [-l] [-o OUT_FILE] [-v] [--version]
+```bash
+usage: keycollator.py [-h] [-c CSV_FILE] [-d DICTIONARY_FILE] [-f COUNT] 
+                  [-i IN_FILE] [-l] [-o OUT_FILE] [-v] [--version]
 
-      App takes two files, a dictionary file and a and a text file, and counts 
-      how many times each line in the dictionary file appears in the text file.
-      The app can output the results to the console and/or csv/text file. 
-      Matching will use fuzzy matching to get desired results.
+App takes two files, a dictionary file and a and a text file, and counts 
+how many times each line in the dictionary file appears in the text file.
+The app can output the results to the console and/or csv/text file. 
+Matching will use fuzzy matching to get desired results.
 
-    optional arguments:
-      -h, --help            show this help message and exit
-      -c CSV_FILE, --csv-file CSV_FILE
-                            Change the csv output file name (defautl is results.csv)
-      -d DICTIONARY_FILE, --dictionary-file DICTIONARY_FILE
-                            Change the dictionary file name (default is dictionary.txt)
-      -f COUNT, --fuzzy COUNT
-                            Select a value for fuzzyness 1-99, 1 for decresed accuracy, 99 for increased
-                            accuracy, default is set to 95
-      -i IN_FILE, --in-file IN_FILE
-                            Change the input file name (default is text.txt)
-      -l, --logging         Set flag to True for logging.
-      -o OUT_FILE, --out-file OUT_FILE
-                            Change the output file name (default is results.txt)
-      -v, --verbose         Verbosity (-v, -vv, etc)
-      --version             show version number and exit
-    ```
+optional arguments:
+-h, --help            show this help message and exit
+-c CSV_FILE, --csv-file CSV_FILE
+                    Change the csv output file name (defautl is results.csv)
+-d DICTIONARY_FILE, --dictionary-file DICTIONARY_FILE
+                    Change the dictionary file name (default is dictionary.txt)
+-f COUNT, --fuzzy COUNT
+                    Select a value for fuzzyness 1-99, 1 for decresed accuracy, 99 for increased
+                    accuracy, default is set to 95
+-i IN_FILE, --in-file IN_FILE
+                    Change the input file name (default is text.txt)
+-l, --logging         Set flag to True for logging.
+-o OUT_FILE, --out-file OUT_FILE
+                    Change the output file name (default is results.txt)
+-v, --verbose         Verbosity (-v, -vv, etc)
+--version             show version number and exit
+```
 
 - Applying fuzzy matching
 
     For fuzzy matching use
 
-    ```bash
-        keycollator -f=[1-99]
-    ```
+```bash
+keycollator -f=[1-99]
+```
 
 - Setting the dictionary file (simple text file with items separated by line)
 
     Set the dictionary file
 
-    ```bash
-        keycollator -d=/path/to/dictionary/directory/
-    ```
+```bash
+keycollator -d=/path/to/dictionary/directory/
+```
 
 - Create a log file
 
     To create a log file, execute
 
-    ```bash
-        keycollator -l=/path/to/log_file/directory/
-    ```
+```bash
+keycollator -l=/path/to/log_file/directory/
+```
 
 - Specify the CSV results file
 
     Specify the results csv file name, execute
 
-    ```bash
-        keycollator -c=/path/to/results/file.csv
-    ```
+```bash
+keycollator -c=/path/to/results/file.csv
+```
 
 - Add verbosity
 
     Turn on verbose:
 
-    ```bash
-        keycollator -v
-    ```
+```bash
+keycollator -v
+```
 
 - Add verbosity
 
     Turn on logging:
 
-    ```bash
-        keycollator -l
-    ```
+```bash
+keycollator -l
+```
 
 #### 🎯 Todo:
 
@@ -139,7 +139,6 @@ keycollator uses the CLI to change default parameters and functions
     - https://betterscientificsoftware.github.io/python-for-hpc/tutorials/python-pypi-packaging/#creating-a-python-package
 
     - https://gist.github.com/javiertejero/4585196
-
 
 ### Deployment features
 
