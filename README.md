@@ -22,22 +22,41 @@ the author via e-mail at <davidprush@gmail.com>.
 # 🗂️ Directory Structure
 ```bash
 .
-├── LICENSE.txt
-├── README.rst
-├── setup.cfg
-├── setup.py
+│
+├── assets
+│   └── images
+│       └── coverage.svg
+│
+├── docs
+│   ├── cli.md
+│   └── index.md
+│
 ├── src
-│   ├── keycollator
-│   │   ├── __init__.py
-│   │   └── keycollator
-│   │       ├── __init__.py
-│   │       └── keycollator.py
-│   │       └── extractonator.py
-├── tests
 │   ├── __init__.py
-│   └── example
+│   ├── cli.py
+│   ├── keycollator.py
+│   ├── test_keycollator.py
+│   ├── extractonator.py
+│   ├── requirements.txt
+│   └──data
+│       ├── (placeholder)
+│       └── (placeholder)
+│
+├── tests
+│   └── test_keycollator
 │       ├── __init__.py
 │       └── test_keycollator.py
+│
+├── COD_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── make-venv.sh
+├── Makefile
+├── pyproject.toml
+├── README.README
+├── README.rst
+├── setup.cfg
+└── setup.py
 ```
 
 ## 🚀 Features
@@ -62,8 +81,8 @@ https://github.com/davidprush
 
 ## Supported File Formats
 
-- TXT files (Mac/Linux/Win)
-- Plans to add PDF, CSV, and JSON
+- TXT/CSV files (Mac/Linux/Win)
+- Plans to add PDF and JSON
 
 ## Usage
 
@@ -73,7 +92,7 @@ https://github.com/davidprush
 
 ## CLI
 
-keycollator uses the CLI to change default parameters and functions
+keycollator uses the `CLI` to change default parameters and functions
 
 ```bash
 usage: keycollator.py [-h] [-c CSV_FILE] [-d DICTIONARY_FILE] [-f COUNT] 
@@ -112,15 +131,11 @@ keycollator -f=[1-99]
 
 - Setting the dictionary file (simple text file with items separated by line)
 
-    Set the dictionary file
-
 ```bash
 keycollator -d=/path/to/dictionary/directory/
 ```
 
 - Create a log file
-
-    To create a log file, execute
 
 ```bash
 keycollator -l=/path/to/log_file/directory/
@@ -128,33 +143,34 @@ keycollator -l=/path/to/log_file/directory/
 
 - Specify the CSV results file
 
-    Specify the results csv file name, execute
-
 ```bash
 keycollator -c=/path/to/results/file.csv
 ```
 
-- Add verbosity
-
-    Turn on verbose:
+- Turn on verbose output
 
 ```bash
 keycollator -v
 ```
 
-- Add verbosity
-
-    Turn on logging:
+- Turn on logging:
 
 ```bash
 keycollator -l
 ```
 
-#### 🎯 Todo:
+## 🎯 Todo 👺:
 
-   - Currently refactoring all code
-   - Separating project into multiple files
-   - 🙂 Add progress bars when extracting and comparing
+    ❌ Currently refactoring all code 
+    ✅ Separating project into multiple files 
+    ✅ Add progress bars when extracting and comparing
+    📌Create a logger class (for some reason logging is broken)
+    ❌ Fix matching method in KeyKrawler
+    ❌ Update `README.md(.rst)` with correct CLI
+    ❌ Add method to KeyKrawler to select and create missing files
+    ❌ Update `CODE_OF_CONDUCT.md`
+    ❌ Update `CONTRIBUTING.md`
+    ❌ Format KeyCrawler results as a table
 
 ## Project resource acknowledgements
 
