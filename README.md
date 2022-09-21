@@ -82,12 +82,12 @@ pip install keycollator
 Official documentation can be found here:
 https://github.com/davidprush
 
-## Supported File Formats
+## 💪 Supported File Formats
 
 - TXT/CSV files (Mac/Linux/Win)
 - Plans to add PDF and JSON
 
-## Usage
+## 📐 Usage
 
 - Import it into Python Projects
 
@@ -124,7 +124,7 @@ optional arguments:
 --version             show version number and exit
 ```
 
-- Applying fuzzy matching
+#### 🖥️ Applying fuzzy matching
 
     For fuzzy matching use
 
@@ -132,37 +132,37 @@ optional arguments:
 keycollator -f=[1-99]
 ```
 
-- Setting the dictionary file (simple text file with items separated by line)
+#### 🖥️ Setting the dictionary file (simple text file with items separated by line)
 
 ```bash
 keycollator -d=/path/to/dictionary/directory/
 ```
 
-- Create a log file
+#### 🖥️ Create a log file
 
 ```bash
 keycollator -l=/path/to/log_file/directory/
 ```
 
-- Specify the CSV results file
+#### 🖥️ Specify the CSV results file
 
 ```bash
 keycollator -c=/path/to/results/file.csv
 ```
 
-- Turn on verbose output
+#### 🖥️ Turn on verbose output
 
 ```bash
 keycollator -v
 ```
 
-- Turn on logging:
+#### 🖥️ Turn on logging:
 
 ```bash
 keycollator -l
 ```
 
-## 🎯 Todo 👺:
+## 🎯 Todo:
 
     ❌ Currently refactoring all code
     ✅ Separating project into multiple files
