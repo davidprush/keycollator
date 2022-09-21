@@ -72,7 +72,7 @@ class ZLog:
         name,
         filename
     ):
-        
+        pass
 
 
 class ZTimer:

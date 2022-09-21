@@ -1,19 +1,23 @@
+#* Variables
+#* SHELL := /usr/bin/env bash
+#*pwd := `pwd`
+
 run:
-	python3 ./src/keycollator.py -l -v
+	python3 src/keycollator.py -l -v
 
 setup: requirements.txt
 	pip3 install -r requirements.txt
 
 clean:
-	rm -rf ./src/__pycache__
+	rm -rf src/__pycache__
 
 push:
 	git add .
 	git commit -m "$(filter-out $@, $(msg))"
 	git push
 
-env:
-	source ./venv/bin/activate
+venv:
+	./make-venv.sh
 
 upgrade:
 	python3 -m pip install --upgrade build
@@ -24,4 +28,4 @@ build:
 
 pypi:
 	python3 -m twin upload dist/*
-	
+

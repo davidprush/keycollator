@@ -1,9 +1,9 @@
 # CLI
 
-`txtd2c` uses the **cli** to change default parameters and functions
+`keycollator` uses the **cli** to change default parameters and functions
 
 ```bash
-usage: txtd2c.py [-h] [-c CSV_FILE] [-d DICTIONARY_FILE] [-f COUNT] 
+usage: keycollator.py [-h] [-c CSV_FILE] [-d DICTIONARY_FILE] [-f COUNT] 
                       [-i IN_FILE] [-l] [-o OUT_FILE] [-v] [--version]
 
   App takes two files, a dictionary file and a and a text file, and counts 
@@ -34,7 +34,7 @@ optional arguments:
 For **fuzzy matching** use
 
 ```bash
-txtd2c -f [1-99]
+keycollator --fuzzy-matching=[1-99]
 ```
 
 ## Setting the dictionary file (simple text file with items separated by line)
@@ -42,7 +42,7 @@ txtd2c -f [1-99]
 Set the **dictionary file**
 
 ```bash
-txtd2c -d /path/to/dictionary/directory/
+keycollator -- /path/to/dictionary/directory/
 ```
 
 ## Create a log file
@@ -50,7 +50,7 @@ txtd2c -d /path/to/dictionary/directory/
 To create a **log file**, execute
 
 ```bash
-txtd2c -l /path/to/log_file/directory/
+keycollator -l /path/to/log_file/directory/
 ```
 
 ## Specify the CSV results file
@@ -58,7 +58,7 @@ txtd2c -l /path/to/log_file/directory/
 Specify the results **csv file** name, execute
 
 ```bash
-txtd2c -c /path/to/results/file.csv
+keycollator -c /path/to/results/file.csv
 ```
 
 ## Add verbosity (5 levels)
@@ -66,5 +66,5 @@ txtd2c -c /path/to/results/file.csv
 Specify verbosity using the following format:
 
 ```bash
-txtd2c -v [1-5]
+keycollator -v [1-5]
 ```
