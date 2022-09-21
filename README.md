@@ -22,19 +22,22 @@ the author via e-mail at <davidprush@gmail.com>.
 # 📻 Dirs
 ```bash
 .
-├── assets
-├── docs
-├── src
-├── tests 
-├── CODE_OF_CONDUCT.md
-├── LICENSE
-├── make-venv.sh
-├── Makefile
-├── pyproject.toml
-├── README.md
+├── LICENSE.txt
 ├── README.rst
 ├── setup.cfg
-└── setup.py
+├── setup.py
+├── src
+│   ├── keycollator
+│   │   ├── __init__.py
+│   │   └── keycollator
+│   │       ├── __init__.py
+│   │       └── keycollator.py
+│   │       └── extractonator.py
+├── tests
+│   ├── __init__.py
+│   └── example
+│       ├── __init__.py
+│       └── test_keycollator.py
 ```
 
 ## 🚀 Features
