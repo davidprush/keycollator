@@ -20,19 +20,19 @@ Contains classes:
 Notes:
     -
 Todo:
-    ❌ Currently refactoring all code
     ✅ Separating project into multiple files
-    ✅ Add progress bars when extracting and comparing
-    📌Create a logger class (for some reason logging is broken)
-    ❌ Fix matching method in KeyKrawler
-    ❌ Update `README.md(.rst)` with correct CLI
-    ❌ Add method to KeyKrawler to select and create missing files
-    ❌ Update `CODE_OF_CONDUCT.md`
-    ❌ Update `CONTRIBUTING.md`
-    ❌ Format KeyCrawler results as a table
-    ❌ Create ZLog class in extractonator.py
-    ❌ Cleanup verbose output
-    ❌ Update all comments
+    ✅ Add progress inicator using **halo** when extracting and comparing
+    ❌Create a logger class (for some reason **logging** is broken)
+    ❌ **KeyKrawler** matching is broken
+    ✅ Update **README.md(.rst)** with correct CLI
+    ❌ Create method to KeyKrawler to select and _create missing files_
+    ❌ Update **CODE_OF_CONDUCT.md**
+    ❌ Update **CONTRIBUTING.md**
+    ❌ Format KeyCrawler console results as a table
+    ❌ Create ZLog class in extractonator.py _(custom logger)_
+    ❌ Cleanup verbose output _(conflicts with halo)_
+    ❌ Update **all** comments
+    ❌ Migrate click functionality to _cli.py_
 """
 import sys
 import time

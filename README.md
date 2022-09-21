@@ -1,4 +1,4 @@
-<div align="left">
+***
 
 [![Makefile CI](https://github.com/davidprush/keycollator/actions/workflows/makefile.yml/badge.svg)](https://github.com/davidprush/keycollator/actions/workflows/makefile.yml)
 [![Python Version](https://img.shields.io/pypi/pyversions/keycollator.svg)](https://pypi.org/project/keycollator/)
@@ -9,19 +9,16 @@
 ├┴┐├┤ └┬┘│  │ ││  │  ├─┤ │ │ │├┬┘
 ┴ ┴└─┘ ┴ └─┘└─┘┴─┘┴─┘┴ ┴ ┴ └─┘┴└─
 ```
+***
 
-`Compares text in a file to reference/glossary/key-items/dictionary file.`
+Compares text in a file to reference/glossary/key-items/dictionary.
 
-🧱 Built by 'David Rush <https://github.com/davidprush>'
+🧱 Built by [David Rush](https://github.com/davidprush) fueled by ☕️ ℹ️ [info](#additional-information)
 
-The latest version of this document can be found at
-<https://github.com/davidprush/keycollator/blob/main/README.rst>;
-if you are viewing it there (via HTTPS), you can download
-the Markdown/reStructuredText source at
-<https://github.com/davidprush/keycollator>. You can contact
-the author via e-mail at <davidprush@gmail.com>.
+***
 
 ## 🗂️ Structure
+
 ```bash
 .
 │
@@ -72,7 +69,7 @@ the author via e-mail at <davidprush@gmail.com>.
 
 ### 🖥️ Install from **Pypi** using pip3
 
-📦 <https://pypi.org/project/keycollator/0.0.1/>
+📦 <https://pypi.org/project/keycollator/>
 
 ```bash
 pip3 install keycollator
@@ -81,7 +78,8 @@ pip3 install keycollator
 ## 📄 Documentation
 
 Official documentation can be found here:
-https://github.com/davidprush
+
+<https://github.com/davidprush/keycollator/tree/main/docs>
 
 ## 💪 Supported File Formats
 
@@ -133,85 +131,120 @@ Options:
   --help                          Show this message and exit.
 ```
 
-#### 🖥️ Applying _fuzzy matching_
-
-```bash
-keycollator -f=[1-99]
-```
-
-#### 🖥️ Setting the dictionary file (simple text file with items separated by line)
-
-```bash
-keycollator -d=/path/to/dictionary/directory/
-```
-
-#### 🖥️ Create a _log file_
-
-```bash
-keycollator -l=/path/to/log_file/directory/
-```
-
-#### 🖥️ Specify the CSV results file
-
-```bash
-keycollator -c=/path/to/results/file.csv
-```
-
 #### 🖥️ Turn on _verbose_ output
 
+  >currently provides only one level for verbose, future versions will implement multiple levels (DEBUG, INFO, WARN, etc.)
+
 ```bash
-keycollator -v
+keycollator --verbose
 ```
 
-#### 🖥️ Turn on _logging_:
+#### 🖥️ Apply _fuzzy matching_
+
+  >_fuzzy matching_ uses approximate matches (edit distances) whereby 0 is the least strict and accepts nearly anything as a match and more strictly 99 accepts only nearly identical matches
+
+```bash
+keycollator --fuzzy-matching=[0-99]
+```
+
+#### 🖥️ Set the _key file_
+
+  >each line of text represents a key which will be used to match with items in the _text file_
+
+```bash
+keycollator --key-file=/path/to/key/file/keys.txt
+```
+
+#### 🖥️ Set the _text file_
+
+  >text file whereby each line represents an item that will be compared with the items in the _keys file_
+
+```bash
+keycollator --text-file=/path/to/key/file/text.txt
+```
+
+#### 🖥️ Specify the _output file_
+
+  >currently uses CSV but will add additional file formats in future releases (PDF/JSON/DOCX)
+
+```bash
+keycollator --output-file=/path/to/results/result.csv
+```
+
+#### 🖥️ Set _upper bound limit_
+
+  >rejects items with matches over the integer value set, helps with eroneous matches when using fuzzy matching
 
 ```bash
 keycollator -l
 ```
 
-## 🎯 Todo:
+#### 🖥️ Turn on _logging_:
 
-    ❌ Currently refactoring all code
+  >turn on _logging_ whereby if no _log file_ is supplied by user it will create one using the default _log.log_
+
+```bash
+keycollator -l
+```
+
+#### 🖥️ Create a _log file_
+
+  >set the name of the _log file_ to be used by _logging_
+
+```bash
+keycollator --log-file=/path/to/log/file/log.log
+```
+
+## 🎯 Todo 📌
+
     ✅ Separating project into multiple files
-    ✅ Add progress bars when extracting and comparing
-    📌Create a logger class (for some reason logging is broken)
-    ❌ Fix matching method in KeyKrawler
-    ❌ Update `README.md(.rst)` with correct CLI
-    ❌ Add method to KeyKrawler to select and create missing files
-    ❌ Update `CODE_OF_CONDUCT.md`
-    ❌ Update `CONTRIBUTING.md`
-    ❌ Format KeyCrawler results as a table
-    ❌ Create ZLog class in extractonator.py
-    ❌ Cleanup verbose output
-    ❌ Update all comments
-    ❌ Migrate click functionality to cli.py
+    ✅ Add progress inicator using **halo** when extracting and comparing
+    ❌Create a logger class (for some reason **logging** is broken)
+    ❌ **KeyKrawler** matching is broken
+    ✅ Update **README.md(.rst)** with correct CLI
+    ❌ Create method to KeyKrawler to select and _create missing files_
+    ❌ Update **CODE_OF_CONDUCT.md**
+    ❌ Update **CONTRIBUTING.md**
+    ❌ Format KeyCrawler console results as a table
+    ❌ Create ZLog class in extractonator.py _(custom logger)_
+    ❌ Cleanup verbose output _(conflicts with halo)_
+    ❌ Update **all** comments
+    ❌ Migrate click functionality to _cli.py_
 
 
 ## 👔 Project Resource Acknowledgements
 
-    - https://betterscientificsoftware.github.io/python-for-hpc/tutorials/python-pypi-packaging/#creating-a-python-package
-
-    - https://gist.github.com/javiertejero/4585196
+  1. [Creating a Python Package](https://betterscientificsoftware.github.io/python-for-hpc/tutorials/python-pypi-packaging/#creating-a-python-package)
+  1. [javiertejero](https://gist.github.com/javiertejero/4585196)
 
 ## 💼 Deployment Features
 
 
+
 ## 📈 Releases
 
+  >Currently stage: *_testing_*
 
 ## 🛡 License
 
 [![License](https://img.shields.io/github/license/davidprush/keycollator)](https://github.com/davidprush/keycollator/blob/master/LICENSE)
 
-This project is licensed under the terms of the `MIT` license. See [LICENSE](https://github.com/davidprush/keycollator/blob/master/LICENSE) for more details.
+This project is licensed under the terms of the **MIT** license. See [LICENSE](https://github.com/davidprush/keycollator/blob/master/LICENSE) for more details.
 
 ```bibtex
 @misc{keycollator,
-  author = {keycollator},
+  author = {David Rush},
   title = {Compares text in a file to reference/glossary/key-items/dictionary file.},
   year = {2022},
-  publisher = {GitHub},
+  publisher = {Rush Solutions, LLC},
   journal = {GitHub repository},
   howpublished = {\url{https://github.com/davidprush/keycollator}}
 }
 ```
+
+***
+
+#### Additional Information
+
+1. _The latest version of this document can be found [here](https://github.com/davidprush/keycollator/blob/main/README.md); if you are viewing it there (via HTTPS), you can download the Markdown/reStructuredText source [here](https://github.com/davidprush/keycollator)._ 
+2. _You can contact the author via [e-mail](davidprush@gmail.com)._
