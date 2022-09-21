@@ -5,11 +5,10 @@
 [![License](https://img.shields.io/github/license/davidprush/keycollator)](https://github.com/davidprush/keycollator/blob/master/LICENSE)
 
 <div align="center">
-```
-                ┬┌─┌─┐┬ ┬┌─┐┌─┐┬  ┬  ┌─┐┌┬┐┌─┐┬─┐
-                ├┴┐├┤ └┬┘│  │ ││  │  ├─┤ │ │ │├┬┘
-                ┴ ┴└─┘ ┴ └─┘└─┘┴─┘┴─┘┴ ┴ ┴ └─┘┴└─
-```
+`                ┬┌─┌─┐┬ ┬┌─┐┌─┐┬  ┬  ┌─┐┌┬┐┌─┐┬─┐`
+`                ├┴┐├┤ └┬┘│  │ ││  │  ├─┤ │ │ │├┬┘`
+`                ┴ ┴└─┘ ┴ └─┘└─┘┴─┘┴─┘┴ ┴ ┴ └─┘┴└─`
+
 <div align="left">
 
 `Compares text in a file to reference/glossary/key-items/dictionary file.`
