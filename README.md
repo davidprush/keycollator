@@ -1,6 +1,6 @@
 <div align="left">
 
-[![Build status](https://github.com/davidprush/keycollator/workflows/build/badge.svg?branch=master&event=push)](https://github.com/davidprush/keycollator/actions?query=workflow%3Abuild)
+[![Makefile CI](https://github.com/davidprush/keycollator/actions/workflows/makefile.yml/badge.svg)](https://github.com/davidprush/keycollator/actions/workflows/makefile.yml)
 [![Python Version](https://img.shields.io/pypi/pyversions/keycollator.svg)](https://pypi.org/project/keycollator/)
 [![License](https://img.shields.io/github/license/davidprush/keycollator)](https://github.com/davidprush/keycollator/blob/master/LICENSE)
 
