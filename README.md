@@ -9,7 +9,6 @@
 ├┴┐├┤ └┬┘│  │ ││  │  ├─┤ │ │ │├┬┘
 ┴ ┴└─┘ ┴ └─┘└─┘┴─┘┴─┘┴ ┴ ┴ └─┘┴└─
 ```
-<div align="left">
 
 `Compares text in a file to reference/glossary/key-items/dictionary file.`
 
@@ -71,7 +70,7 @@ the author via e-mail at <davidprush@gmail.com>.
 
 ## 🧰 Installation
 
-### 🖥️ Install from Pypi using pip3
+### 🖥️ Install from **Pypi** using pip3
 
 📦 <https://pypi.org/project/keycollator/0.0.1/>
 
@@ -91,7 +90,7 @@ https://github.com/davidprush
 
 ## 📐 Usage
 
-### 🖥️ Import it into Python Projects
+### 🖥️ Import _keycollator_ it into Python Projects
 
 ```
 from keycollator import ZTimer, KeyKrawler
@@ -134,7 +133,7 @@ Options:
   --help                          Show this message and exit.
 ```
 
-#### 🖥️ Applying fuzzy matching
+#### 🖥️ Applying _fuzzy matching_
 
 ```bash
 keycollator -f=[1-99]
@@ -146,7 +145,7 @@ keycollator -f=[1-99]
 keycollator -d=/path/to/dictionary/directory/
 ```
 
-#### 🖥️ Create a log file
+#### 🖥️ Create a _log file_
 
 ```bash
 keycollator -l=/path/to/log_file/directory/
@@ -158,13 +157,13 @@ keycollator -l=/path/to/log_file/directory/
 keycollator -c=/path/to/results/file.csv
 ```
 
-#### 🖥️ Turn on verbose output
+#### 🖥️ Turn on _verbose_ output
 
 ```bash
 keycollator -v
 ```
 
-#### 🖥️ Turn on logging:
+#### 🖥️ Turn on _logging_:
 
 ```bash
 keycollator -l
