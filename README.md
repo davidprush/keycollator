@@ -69,9 +69,9 @@ the author via e-mail at <davidprush@gmail.com>.
 - Find matches of keys in text file
 - Apply fuzzy matching
 
-### 🧰 Installation
+## 🧰 Installation
 
-#### 🖥️ Install from Pypi using pip3
+### 🖥️ Install from Pypi using pip3
 
 📦 <https://pypi.org/project/keycollator/0.0.1/>
 
