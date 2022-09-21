@@ -126,8 +126,6 @@ optional arguments:
 
 #### 🖥️ Applying fuzzy matching
 
-    For fuzzy matching use
-
 ```bash
 keycollator -f=[1-99]
 ```
