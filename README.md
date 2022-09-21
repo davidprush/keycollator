@@ -17,6 +17,23 @@ the Markdown/reStructuredText source at
 <https://github.com/davidprush/keycollator>. You can contact 
 the author via e-mail at <davidprush@gmail.com>.
 
+# 📻 Dirs
+```bash
+.
+├── assets
+├── docs
+├── src
+├── tests 
+├── CODE_OF_CONDUCT.md
+├── LICENSE
+├── make-venv.sh
+├── Makefile
+├── pyproject.toml
+├── README.md
+├── README.rst
+├── setup.cfg
+└── setup.py
+```
 
 ## 🚀 Features
 
