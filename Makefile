@@ -28,5 +28,8 @@ build:
 
 pypi:
 	python setup.py sdist
-	twine upload dist/*
+	twine upload --skip-existing dist/*
+
+setup:
+	python setup.py sdist
 
