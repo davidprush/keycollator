@@ -141,7 +141,7 @@ keycollator --verbose
 
 #### 🖥️ Apply _fuzzy matching_
 
-  >_fuzzy matching_ uses approximate matches (edit distances) whereby 0 is the least strict and accepts nearly anything as a match and more strictly 99 accepts only nearly identical matches
+  >_fuzzy matching_ uses approximate matches (edit distances) whereby 0 is the least strict and accepts nearly anything as a match and more strictly 99 accepts only nearly identical matches; by default the app uses level 99 only if regular matching finds no matches
 
 ```bash
 keycollator --fuzzy-matching=[0-99]
@@ -152,7 +152,7 @@ keycollator --fuzzy-matching=[0-99]
   >each line of text represents a key which will be used to match with items in the _text file_
 
 ```bash
-keycollator --key-file=/path/to/key/file/keys.txt
+keycollator --key-file="/path/to/key/file/keys.txt"
 ```
 
 #### 🖥️ Set the _text file_
@@ -160,7 +160,7 @@ keycollator --key-file=/path/to/key/file/keys.txt
   >text file whereby each line represents an item that will be compared with the items in the _keys file_
 
 ```bash
-keycollator --text-file=/path/to/key/file/text.txt
+keycollator --text-file="/path/to/key/file/text.txt"
 ```
 
 #### 🖥️ Specify the _output file_
@@ -168,7 +168,7 @@ keycollator --text-file=/path/to/key/file/text.txt
   >currently uses CSV but will add additional file formats in future releases (PDF/JSON/DOCX)
 
 ```bash
-keycollator --output-file=/path/to/results/result.csv
+keycollator --output-file="/path/to/results/result.csv"
 ```
 
 #### 🖥️ Set _upper bound limit_
@@ -176,7 +176,7 @@ keycollator --output-file=/path/to/results/result.csv
   >rejects items with matches over the integer value set, helps with eroneous matches when using fuzzy matching
 
 ```bash
-keycollator -l
+keycollator --ubound-limit
 ```
 
 #### 🖥️ Turn on _logging_:
@@ -184,7 +184,7 @@ keycollator -l
   >turn on _logging_ whereby if no _log file_ is supplied by user it will create one using the default _log.log_
 
 ```bash
-keycollator -l
+keycollator --set-logging
 ```
 
 #### 🖥️ Create a _log file_
@@ -192,15 +192,61 @@ keycollator -l
   >set the name of the _log file_ to be used by _logging_
 
 ```bash
-keycollator --log-file=/path/to/log/file/log.log
+keycollator --log-file="/path/to/log/file/log.log"
 ```
+
+## Example Output
+
+```bash
+
+python3 src/keycollator.py -l
+✔ Extract data from text.txt
+[__init__]=[0.86]seconds
+✔ Extract data from keys.txt
+[__init__]=[0.86]seconds
+✔ Match keys.txt items to text.txt items
+[__init__]=[0.86]seconds
+✔ Writing results to results.csv
+[__init__]=[0.86]seconds
+==============================
+           Results            
+1 manage , 73
+2 develop , 62
+3 report , 58
+4 support , 46
+5 process , 43
+6 analysis , 36
+7 perform , 32
+8 maintain , 28
+9 ensure , 26
+10 provide , 26
+11 technical , 24
+12 lead , 24
+13 database , 22
+14 deliver , 20
+15 design , 19
+16 document , 17
+17 operations , 17
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Stats for this run... 
+ Total Key Items: 701 
+ Total Text Items: 695 
+ Total Matches: 1207 
+ Total Comparisons: 376855 
+ Total Items Logged: 0 
+ Total Runtime: 67.38 seconds
+
+ ```
 
 ## 🎯 Todo 📌
 
     ✅ Separating project into multiple files
     ✅ Add progress inicator using **halo** when extracting and comparing
     ❌Create a logger class (for some reason **logging** is broken)
-    ❌ **KeyKrawler** matching is broken
+    ✅ **KeyKrawler** matching is broken
     ✅ Update **README.md(.rst)** with correct CLI
     ❌ Create method to KeyKrawler to select and _create missing files_
     ❌ Update **CODE_OF_CONDUCT.md**

@@ -3,7 +3,7 @@
 #*pwd := `pwd`
 
 run:
-	python3 src/keycollator.py -l -v
+	python3 src/keycollator.py -l
 
 setup: requirements.txt
 	pip3 install -r requirements.txt

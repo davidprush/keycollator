@@ -18,7 +18,8 @@ setup(
         'nltk',
         'fuzzywuzzy',
         'python-Levenshtein',
-        'halo'
+        'halo',
+        'termtables'
     ],
     entry_points='''
         [console_scripts]

@@ -36,19 +36,11 @@ KEYZ = "keys.txt"
     ),
     invoke_without_command=True)
 @click.option(
-    '-v', '--set-verbose',
-    is_flag=True,
-    # default=0,
-    # type=click.IntRange(0, 5, clamp=True),
-    help="Turn on verbose"
-)
-@click.option(
-    '-f', '--fuzzy-matching',
-    default=99,
-    type=click.IntRange(0, 99, clamp=True),
-    help='''Find valid matches using edit distances or
-        approximate matches, uses acceptance ratio of
-        integer values from 0 to 99, where 99 is near identical'''
+    '-t', '--text-file',
+    default=TXTS,
+    type=click.Path(exists=True),
+    help='''Path/file name of the text to be searched
+    for against items in the key file'''
 )
 @click.option(
     '-k', '--key-file',
@@ -59,18 +51,25 @@ KEYZ = "keys.txt"
         list used to search the text file'''
 )
 @click.option(
-    '-t', '--text-file',
-    default=TXTS,
-    type=click.Path(exists=True),
-    help='''Path/file name of the text to be searched
-    for against items in the key file'''
-)
-@click.option(
-    '-o', '--output-file',
+    '-O', '--output-file',
     default=REZF,
     type=click.Path(exists=True),
     help="Path/file name of the output file that \
         will contain the results (CSV or TXT)"
+)
+@click.option(
+    '-R', '--limit-results',
+    default=0,
+    help="Limit the number of results"
+)
+@click.option(
+    '-f', '--fuzzy-matching',
+    default=99,
+    type=click.IntRange(0, 99, clamp=True),
+    help='''Set the level of fuzzy matching (default=99) to
+        validate matches using approximations/edit distances,
+        uses acceptance ratios with integer values from 0 to 99,
+        where 99 is nearly identical and 0 is not similar'''
 )
 @click.option(
     '-U', '--ubound-limit',
@@ -93,6 +92,13 @@ KEYZ = "keys.txt"
         """
 )
 @click.option(
+    '-v', '--set-verbose',
+    is_flag=True,
+    # default=0,
+    # type=click.IntRange(0, 5, clamp=True),
+    help="Turn on verbose"
+)
+@click.option(
     '-l', '--set-logging',
     is_flag=True,
     help="Turn on logging"
@@ -108,6 +114,7 @@ def cli(
     fuzzy_matching,
     key_file,
     text_file,
+    limit_results,
     output_file,
     ubound_limit,
     lbound_limit,
@@ -117,17 +124,17 @@ def cli(
     """
     keycollator is an app that finds occurances of keys in a text file
     """
-    krawler = KeyKrawler(
+    KeyKrawler(
         text_file,
         key_file,
         output_file,
+        limit_results,
         log_file,
         set_verbose,
         ubound_limit,
         lbound_limit,
         fuzzy_matching
     )
-    krawler.echo_stats()
 
 
 def main(**kwargs):

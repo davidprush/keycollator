@@ -23,7 +23,7 @@ Todo:
     ✅ Separating project into multiple files
     ✅ Add progress inicator using **halo** when extracting and comparing
     ❌Create a logger class (for some reason **logging** is broken)
-    ❌ **KeyKrawler** matching is broken
+    ✅ **KeyKrawler** matching is broken
     ✅ Update **README.md(.rst)** with correct CLI
     ❌ Create method to KeyKrawler to select and _create missing files_
     ❌ Update **CODE_OF_CONDUCT.md**
@@ -38,11 +38,14 @@ import sys
 import time
 import os.path
 import string
+import termtables as tt
 from halo import Halo
-from time import sleep
+# from time import sleep
 from fuzzywuzzy import fuzz
 from collections import defaultdict
+import nltk.data
 from nltk.stem import PorterStemmer
+from nltk.tokenize import sent_tokenize, word_tokenize
 
 # Default file names
 LOGZ = "log.log"
@@ -56,17 +59,6 @@ ADDED = ">>>"
 SEPR = "::"
 COMP = "<<<[]>>>"
 FUZZ = "Fuzzy={0}"
-RHDR = "=========================="
-RTXT = "         Results          "
-RFTR = "~~~~~~~~~~~~~~~~~~~~~~~~~~"
-DIV = "--------------------------"
-STATS = "Stats for this run... \n \
-    Total Dictionary Items: {0} \n \
-    Total Text File Items: {1} \n \
-    Total Keys Added to List: {2} \n \
-    Total Comparisons: {3} \n \
-    Total Items Logged: {4} \n \
-    Total Runtime: {5} seconds\n"
 NOMATCH = "*****[ NO MATCHES! ]******"
 _MAIN = {
     'info': 'ℹ',
@@ -74,13 +66,31 @@ _MAIN = {
     'warning': '⚠',
     'error': '✖'
 }
-
 _FALLBACKS = {
     'info': '¡',
     'success': 'v',
     'warning': '!!',
     'error': '×'
 }
+STOP_WORDS = [
+    "a", "about", "above", "after", "again", "against", "all", "am",
+    "an", "and", "any", "are", "as", "at", "be", "because", "been",
+    "before", "being", "below", "between", "both", "but", "by", "can",
+    "did", "do", "does", "doing", "don", "down", "during", "each",
+    "few", "for", "from", "further", "had", "has", "have", "having",
+    "he", "her", "here", "hers", "herself", "him", "himself", "his",
+    "how", "i", "if", "in", "into", "is", "it", "its", "itself",
+    "just", "me", "more", "most", "my", "myself", "no", "nor", "not",
+    "now", "of", "off", "on", "once", "only", "or", "other", "our",
+    "ours", "ourselves", "out", "over", "own", "s", "same", "she",
+    "should", "so", "some", "such", "t", "than", "that", "the",
+    "their", "theirs", "them", "themselves", "then", "there",
+    "these", "they", "this", "those", "through", "to", "too",
+    "under", "until", "up", "very", "was", "we", "were", "what",
+    "when", "where", "which", "while", "who", "whom", "why",
+    "will", "with", "you", "your", "yours", "yourself", "yourselves",
+    "find", "help", "make", "take", "with", "work", "update", "post"
+]
 
 
 class ZLog:
@@ -116,7 +126,7 @@ class ZTimer:
         """Formats __fspan and __caller as str
         """
         stime = str(f"{self.__tspan:0.2f}")
-        stime = stime.rstrip(" ")
+        stime = stime.strip("")
         self.__fspan = stime
         self.__caller = str(self.__caller)
 
@@ -143,11 +153,10 @@ class ZTimer:
         """Creates a formatted str for console output.
         """
         self.__t2s()
-        self.__fstr = "Caller[{0}] \
-            Span[{1}]seconds".format(
-            self.__caller, self.__fspan
+        self.__fstr = "Timer[{0}]seconds".format(
+            self.__fspan
         )
-        self.__fstr = self.__fstr.rstrip(" ")
+        self.__fstr = self.__fstr.strip(" ")
         return self.__fstr
 
     def stopit(self, caller="stopit"):
@@ -186,6 +195,7 @@ class KeyKrawler:
         text_file=TXTS,
         key_file=KEYZ,
         result_file=REZF,
+        limit_results=0,
         log_file=LOGZ,
         verbosity=False,
         ubound=99999,
@@ -205,6 +215,11 @@ class KeyKrawler:
         result_file str, optional
             Name of the file to write results.
             (default: REZF)
+        limit_results: int, optional
+            Sets the limit to the number (integer)
+            of results where 0 is no limit and
+            any number equal or above 1 implements
+            a limit (default: 0)
         log_file: str, optional
             Name of the file to write logs
             (default: LOGZ)
@@ -226,7 +241,7 @@ class KeyKrawler:
             Sets the level of fuzzy matching,
             range(0:99), where 0 accepts nearly
             everythong and 99 accepts nearly
-            identical matches. (default: 0)
+            identical matches. (default: 99)
         set_logging: bool, optional
             Logging flag where False is off
             and True is on. (default: 0)
@@ -241,10 +256,11 @@ class KeyKrawler:
         self.__keyd = defaultdict(int)
         self.__txtd = defaultdict(int)
         self.__rezd = defaultdict(int)
+        self.__limr = limit_results
         self.__ulim = ubound
         self.__llim = lbound
         self.__fuzz = fuzzyness
-        self.__verb = verbosity
+        self.__v = verbosity
         self.__tcount = 0
         self.__kcount = 0
         self.__ccount = 0
@@ -253,6 +269,8 @@ class KeyKrawler:
         self.__mcount = 0
         self.__nomatch = True
         self.__ps = PorterStemmer()
+        self.__sent_detector = nltk.data.load(
+            'tokenizers/punkt/english.pickle')
         self.reset_log()
         self.itemize_text()
         self.itemize_keys()
@@ -281,56 +299,84 @@ class KeyKrawler:
     def __logit(self, *args):
         if self.set_logging:
             self.__lcount += 1
-            logging.basicConfig(
-                filename=LOGZ,
-                filemode='a',
-                format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-                datefmt='%H:%M:%S',
-                level=logging.DEBUG
-            )
-            log_string = ""
-            for arg in args:
-                log_string += "[{0}]".format(str(arg))
-            log_string = log_string.rstrip(" ")
-            logging.info(log_string)
-            return str(log_string)
+            # logging.basicConfig(
+            #     filename=LOGZ,
+            #     filemode='a',
+            #     format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+            #     datefmt='%H:%M:%S',
+            #     level=logging.DEBUG
+            # )
+        log_string = ""
+        for arg in args:
+            log_string += "[{0}]".format(str(arg))
+            # log_string = log_string.rstrip(" ")
+            # logging.info(log_string)
+        return str(log_string)
+
+    def trunc_results(self):
+        if self.__limr >= 1:
+            trez = defaultdict(int)
+            r = 0
+            for rez in self.__rezd:
+                trez[rez] = self.__rezd[rez]
+                r += 1
+                if r >= self.__limr:
+                    break
+            if r >= 1:
+                self.__rezd = trez.copy()
+                return True
+            else:
+                return False
 
     def echo_results(self):
-        if not self.__nomatch:
-            print_item = 0
-            print(RHDR)
-            print(RTXT)
-            for key in self.__keyd:
-                if self.__keyd[key] > self.__llim \
-                        and self.key_freq[key] < self.__ulim:
-                    print_item += 1
-                    print(
-                        print_item, key, ",",
-                        self.__keyd[key])
-                    self.__logit(
-                        self.timer.get_string(),
-                        print_item, key, ",",
-                        self.__keyd[key]
-                    )
-            print(RFTR)
-        else:
-            print(NOMATCH)
-            self.__logit(
-                self.timer.get_string(),
-                NOMATCH
-            )
+        n = 0
+        tblhdr = ["No.", "Key", "Count"]
+        tbldat = []
+        for i in self.__rezd:
+            if self.__rezd[i] > self.__llim \
+                    and self.__rezd[i] < self.__ulim:
+                n += 1
+                if len(i) > 25:
+                    istr = i[0:25]
+                else:
+                    istr = i
+                tbldat.append([
+                    n,
+                    istr,
+                    self.__rezd[i]
+                ])
+                self.__logit(
+                    self.timer.get_string(),
+                    n, i, ",",
+                    self.__rezd[i]
+                )
+        tt.print(
+            tbldat,
+            header=tblhdr,
+            style=tt.styles.rounded,
+            padding=(0, 1),
+            alignment="clc"
+        )
 
     def echo_stats(self):
-        print(DIV)
-        print(RFTR)
-        print(STATS.format(
-            self.__kcount,
-            self.__tcount,
-            self.__mcount,
-            self.__ccount,
-            self.__lcount,
-            self.timer.get_span(True)
-        ))
+        tblhdr = [
+            "Statistic", "Total"
+        ]
+        stats = [
+            ["Keys", self.__kcount],
+            ["Text", self.__tcount],
+            ["Matches", self.__mcount],
+            ["Comparisons", self.__ccount],
+            ["Logs", self.__lcount],
+            ["Runtime", self.timer.get_span(True)]
+        ]
+        tt.print(
+            stats,
+            header=tblhdr,
+            style=tt.styles.rounded,
+            padding=(0, 1),
+            alignment="lc"
+        )
 
     def itemize_keys(self):
         fhkey = open(self.key_file, 'r')
@@ -349,13 +395,14 @@ class KeyKrawler:
                     self.__kcount,
                     ADDED, key
                 )
-                if self.__verb:
+                if self.__v:
                     print(
                         self.timer.get_string(),
                         info
                     )
         fhkey.close()
         spinner.stop_and_persist('✔')
+        self.timer.echo()
 
     def itemize_text(self):
         fhtxt = open(self.text_file, 'r')
@@ -373,16 +420,13 @@ class KeyKrawler:
                 self.__tcount,
                 ADDED, text
             )
-            if self.__verb:
+            if self.__v:
                 print(info)
-            sleep(.02)
         fhtxt.close()
         spinner.stop_and_persist('✔')
+        self.timer.echo()
 
     def match_txt2keys(self):
-        self.__ccount = 0
-        self.__mcount = 0
-        tempd = defaultdict(int)
         spinner = Halo(
             text="Match {} items to {} items".format(
                 self.key_file,
@@ -391,8 +435,12 @@ class KeyKrawler:
         )
         spinner.start()
         for key in self.__keyd:
+            if key in STOP_WORDS or len(key) <= 3:
+                continue
             for item in self.__txtd:
-                spinner.text = "Caompare {} to {} items".format(
+                if item in STOP_WORDS or len(key) <= 3:
+                    continue
+                spinner.text = "Compare {} to {} items".format(
                     key, item)
                 self.__ccount += 1
                 info = self.__logit(
@@ -401,14 +449,13 @@ class KeyKrawler:
                     self.__ccount,
                     ADDED, item
                 )
-                if self.__verb:
+                if self.__v:
                     print(
                         self.timer.get_string(),
                         info
                     )
-                # Check for near-perfect match
-                if self.__ps.stem(key) in self.__ps.stem(item):
-                    tempd[key] += 1
+                if key in item:
+                    self.__rezd[key] += 1
                     self.__mcount += 1
                     info = self.__logit(
                         self.__ccount,
@@ -417,74 +464,103 @@ class KeyKrawler:
                         self.__txtd[item],
                         item
                     )
-                    if self.__verb:
+                    if self.__v:
                         print(
                             self.timer.get_string(),
                             info
                         )
-                # Only perform fuzzy matching if imperfect match
-                elif fuzz.partial_ratio(key, item) >= self.__fuzz:
-                    tempd[key] += 1
-                    self.__mcount += 1
-                    info = self.__logit(
-                        FUZZ.format(self.__fuzz),
-                        SEPR, key, SEPR, ADDED,
-                        self.__txtd[item], item
-                    )
-                    if self.__verb:
-                        print(
-                            self.timer.get_string(),
-                            info
+                else:
+                    kwords = word_tokenize(key)
+                    tk = kwords
+                    # Reomove stop words from kwords
+                    for w in tk:
+                        if w in STOP_WORDS or len(key) <= 3:
+                            kwords.remove(w)
+                            continue
+                    # Convert to strings
+                    kstr = str(kwords)
+                    iwords = word_tokenize(item)
+                    tk = iwords
+                    # Reomove stop words from kwords
+                    for w in tk:
+                        if w in STOP_WORDS or len(key) <= 3:
+                            iwords.remove(w)
+                            continue
+                    istr = str(iwords)
+                    if kstr in istr:
+                        self.__rezd[key] += 1
+                        self.__mcount += 1
+                        info = self.__logit(
+                            self.__ccount,
+                            SEPR, self.__mcount,
+                            SEPR, key, ADDED,
+                            self.__txtd[item],
+                            item
                         )
-            sleep(.000001)
-        self.__nomatch = False
-        self.__rezd = tempd.copy()
+                        if self.__v:
+                            print(
+                                self.timer.get_string(),
+                                info
+                            )
+                    elif fuzz.partial_ratio(key, item) >= self.__fuzz:
+                        self.__rezd[key] += 1
+                        self.__mcount += 1
+                        info = self.__logit(
+                            FUZZ.format(self.__fuzz),
+                            SEPR, key, SEPR, ADDED,
+                            self.__txtd[item], item
+                        )
+                        if self.__v:
+                            print(
+                                self.timer.get_string(),
+                                info
+                            )
+        self.__rezd = dict(sorted(
+            self.__rezd.items(),
+            key=lambda item: item[1], reverse=True))
+        self.trunc_results()
         spinner.stop_and_persist(
             '✔',
-            "Match {} items to {} items".format(
+            "Match {} items to {} items. {}".format(
                 self.key_file,
-                self.text_file)
+                self.text_file,
+                self.timer.get_string()
+            )
         )
+        self.timer.echo()
 
     def reset_log(self):
         results_file = open(self.log_file, 'w')
         results_file.close()
 
     def results2file(self):
-        if not self.__nomatch:
-            rf = open(self.result_file, 'w')
-            write_count = 0
-            spinner = Halo(
-                text="Writing results to {}".format(
-                    self.result_file),
-                spinner='dots'
-            )
-            spinner.start()
-            for key in self.__keyd:
-                if self.__keyd[key] > self.__llim \
-                        and self.key_freq[key] < self.__ulim:
-                    write_count += 1
-                    rf.write(
-                        write_count,
-                        ". ", key, ",",
-                        self.__rezd[key]
+        rf = open(self.result_file, 'w')
+        write_count = 0
+        spinner = Halo(
+            text="Writing results to {}".format(
+                self.result_file),
+            spinner='dots'
+        )
+        spinner.start()
+        for i in self.__rezd:
+            if self.__rezd[i] > self.__llim \
+                    and self.__rezd[i] < self.__ulim:
+                write_count += 1
+                ritem = str(i) + "," + str(self.__rezd[i])
+                rf.write(ritem)
+                rf.write(ENDL)
+                info = self.__logit(
+                    write_count, i, ",",
+                    self.__rezd[i]
+                )
+                if self.__v:
+                    print(
+                        self.timer.get_string(),
+                        info
                     )
-                    info = self.__logit(
-                        write_count,
-                        SEPR, key, SEPR,
-                        self.__keyd[key]
-                    )
-                    if self.__verb:
-                        print(
-                            self.timer.get_string(),
-                            info
-                        )
-                    sleep(.02)
-            rf.close()
-            self.__mcount = write_count
-            spinner.stop_and_persist('✔')
-        else:
-            return False
+        rf.close()
+        spinner.stop_and_persist('✔')
+        self.timer.echo()
 
     def verify_filez(self, *args):
         for arg in args:
