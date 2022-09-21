@@ -16,7 +16,8 @@ env:
 	source ./venv/bin/activate
 
 upgrade:
-	python3 -m pip3 install --upgrade build
+	python3 -m pip install --upgrade build
+	python3 -m pip install --upgrade twine
 
 build:
 	python3 -m build

@@ -18,7 +18,7 @@ setup(
         'nltk',
         'fuzzywuzzy',
         'python-Levenshtein'
-        'halo',
+        'halo'
     ],
     entry_points='''
         [console_scripts]
