@@ -71,10 +71,12 @@ the author via e-mail at <davidprush@gmail.com>.
 
 ## 🧰 Installation
 
-- Future plans to install as python package
+## 🖥️ Install from Pypi using pip3
+
+📦 <https://pypi.org/project/keycollator/0.0.1/>
 
 ```bash
-pip install keycollator
+pip3 install keycollator
 ```
 
 ## 📄 Documentation

@@ -27,5 +27,6 @@ build:
 	python3 -m build
 
 pypi:
-	python3 -m twin upload dist/*
+	python setup.py sdist
+	twine upload dist/*
 
