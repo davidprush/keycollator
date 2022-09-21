@@ -4,9 +4,9 @@
 [![Python Version](https://img.shields.io/pypi/pyversions/keycollator.svg)](https://pypi.org/project/keycollator/)
 [![License](https://img.shields.io/github/license/davidprush/keycollator)](https://github.com/davidprush/keycollator/blob/master/LICENSE)
 ```
-┬┌─┌─┐┬ ┬┌─┐┌─┐┬  ┬  ┌─┐┌┬┐┌─┐┬─┐
-├┴┐├┤ └┬┘│  │ ││  │  ├─┤ │ │ │├┬┘
-┴ ┴└─┘ ┴ └─┘└─┘┴─┘┴─┘┴ ┴ ┴ └─┘┴└─
+            ┬┌─┌─┐┬ ┬┌─┐┌─┐┬  ┬  ┌─┐┌┬┐┌─┐┬─┐
+            ├┴┐├┤ └┬┘│  │ ││  │  ├─┤ │ │ │├┬┘
+            ┴ ┴└─┘ ┴ └─┘└─┘┴─┘┴─┘┴ ┴ ┴ └─┘┴└─
 ```
 Compares text in a file to reference/glossary/key-items/dictionary file.
 
@@ -19,7 +19,7 @@ the Markdown/reStructuredText source at
 <https://github.com/davidprush/keycollator>. You can contact 
 the author via e-mail at <davidprush@gmail.com>.
 
-# 📻 Dirs
+# 🗂️ Directory Structure
 ```bash
 .
 ├── LICENSE.txt
