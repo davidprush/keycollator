@@ -4,10 +4,11 @@
 [![Python Version](https://img.shields.io/pypi/pyversions/keycollator.svg)](https://pypi.org/project/keycollator/)
 [![License](https://img.shields.io/github/license/davidprush/keycollator)](https://github.com/davidprush/keycollator/blob/master/LICENSE)
 
-<div align="center">
+```bash
 ┬┌─┌─┐┬ ┬┌─┐┌─┐┬  ┬  ┌─┐┌┬┐┌─┐┬─┐
 ├┴┐├┤ └┬┘│  │ ││  │  ├─┤ │ │ │├┬┘
 ┴ ┴└─┘ ┴ └─┘└─┘┴─┘┴─┘┴ ┴ ┴ └─┘┴└─
+```
 
 <div align="left">
 
@@ -16,10 +17,10 @@
 🧱 Built by 'David Rush <https://github.com/davidprush>'
 
 The latest version of this document can be found at
-<https://github.com/davidprush/keycollator/blob/main/README.rst>; 
-if you are viewing it there (via HTTPS), you can download 
-the Markdown/reStructuredText source at 
-<https://github.com/davidprush/keycollator>. You can contact 
+<https://github.com/davidprush/keycollator/blob/main/README.rst>;
+if you are viewing it there (via HTTPS), you can download
+the Markdown/reStructuredText source at
+<https://github.com/davidprush/keycollator>. You can contact
 the author via e-mail at <davidprush@gmail.com>.
 
 ## 🗂️ Structure
@@ -98,12 +99,12 @@ https://github.com/davidprush
 keycollator uses the `CLI` to change default parameters and functions
 
 ```bash
-usage: keycollator.py [-h] [-c CSV_FILE] [-d DICTIONARY_FILE] [-f COUNT] 
+usage: keycollator.py [-h] [-c CSV_FILE] [-d DICTIONARY_FILE] [-f COUNT]
                   [-i IN_FILE] [-l] [-o OUT_FILE] [-v] [--version]
 
-App takes two files, a dictionary file and a and a text file, and counts 
+App takes two files, a dictionary file and a and a text file, and counts
 how many times each line in the dictionary file appears in the text file.
-The app can output the results to the console and/or csv/text file. 
+The app can output the results to the console and/or csv/text file.
 Matching will use fuzzy matching to get desired results.
 
 optional arguments:
@@ -164,8 +165,8 @@ keycollator -l
 
 ## 🎯 Todo 👺:
 
-    ❌ Currently refactoring all code 
-    ✅ Separating project into multiple files 
+    ❌ Currently refactoring all code
+    ✅ Separating project into multiple files
     ✅ Add progress bars when extracting and comparing
     📌Create a logger class (for some reason logging is broken)
     ❌ Fix matching method in KeyKrawler
