@@ -66,30 +66,36 @@ keycollator uses the CLI to change default parameters and functions
 
 .. code:: bash
 
-    usage: keycollator.py [-h] [-c CSV_FILE] [-d DICTIONARY_FILE] [-f COUNT] 
-                          [-i IN_FILE] [-l] [-o OUT_FILE] [-v] [--version]
+    Usage: keycollator.py [OPTIONS] COMMAND [ARGS]...
 
-      App takes two files, a dictionary file and a and a text file, and counts 
-      how many times each line in the dictionary file appears in the text file.
-      The app can output the results to the console and/or csv/text file. 
-      Matching will use fuzzy matching to get desired results.
+      keycollator is an app that finds occurances of keys in a text file
 
-    optional arguments:
-      -h, --help            show this help message and exit
-      -c CSV_FILE, --csv-file CSV_FILE
-                            Change the csv output file name (defautl is results.csv)
-      -d DICTIONARY_FILE, --dictionary-file DICTIONARY_FILE
-                            Change the dictionary file name (default is dictionary.txt)
-      -f COUNT, --fuzzy COUNT
-                            Select a value for fuzzyness 1-99, 1 for decresed accuracy, 99 for increased
-                            accuracy, default is set to 95
-      -i IN_FILE, --in-file IN_FILE
-                            Change the input file name (default is text.txt)
-      -l, --logging         Set flag to True for logging.
-      -o OUT_FILE, --out-file OUT_FILE
-                            Change the output file name (default is results.txt)
-      -v, --verbose         Verbosity (-v, -vv, etc)
-      --version             show version number and exit
+    Options:
+      -v, --set-verbose               Turn on verbose
+      -f, --fuzzy-matching INTEGER RANGE
+                                      Find valid matches using edit distances or
+                                      approximate matches, uses acceptance ratio
+                                      of integer values from 0 to 99, where 99 is
+                                      near identical  [0<=x<=99]
+      -k, --key-file PATH             Path/file name of the key file containing a
+                                      dictionary, key items, glossary, or
+                                      reference list used to search the text file
+      -t, --text-file PATH            Path/file name of the text to be searched
+                                      for against items in the key file
+      -o, --output-file PATH          Path/file name of the output file that
+                                      will contain the results (CSV or TXT)
+      -U, --ubound-limit INTEGER RANGE
+                                      Ignores items from the results with matches
+                                      greater than the upper boundary (upper-
+                                      limit); reduce eroneous matches
+                                      [1<=x<=99999]
+      -L, --lbound-limit INTEGER RANGE
+                                      Ignores items from the results with matches
+                                      less than the lower boundary (lower-limit);
+                                      reduce eroneous matches  [0<=x<=99999]
+      -l, --set-logging               Turn on logging
+      -Z, --log-file PATH             Path/file name to be used for the log file
+      --help                          Show this message and exit.
 
 
 - Applying fuzzy matching

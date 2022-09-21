@@ -8,14 +8,31 @@ Copyright (C) 2022 Rush Solutions, LLC
 Author: David Rush <davidprush@gmail.com>
 License: MIT
 Contains classes:
-    1. ZTimer
-        -
-    2. KeyKrawler
-        -
+    1. ZLog
+        └──usage:
+
+    2. ZTimer
+        └──usage:
+
+    3. KeyKrawler
+        └──usage:
+
 Notes:
     -
 Todo:
-    *
+    ❌ Currently refactoring all code
+    ✅ Separating project into multiple files
+    ✅ Add progress bars when extracting and comparing
+    📌Create a logger class (for some reason logging is broken)
+    ❌ Fix matching method in KeyKrawler
+    ❌ Update `README.md(.rst)` with correct CLI
+    ❌ Add method to KeyKrawler to select and create missing files
+    ❌ Update `CODE_OF_CONDUCT.md`
+    ❌ Update `CONTRIBUTING.md`
+    ❌ Format KeyCrawler results as a table
+    ❌ Create ZLog class in extractonator.py
+    ❌ Cleanup verbose output
+    ❌ Update all comments
 """
 import sys
 import time
@@ -49,7 +66,7 @@ STATS = "Stats for this run... \n \
     Total Keys Added to List: {2} \n \
     Total Comparisons: {3} \n \
     Total Items Logged: {4} \n \
-    Total Runtime: {5} seconds\n\n"
+    Total Runtime: {5} seconds\n"
 NOMATCH = "*****[ NO MATCHES! ]******"
 _MAIN = {
     'info': 'ℹ',
@@ -96,12 +113,16 @@ class ZTimer:
         self.__sflag = False
 
     def __t2s(self):
+        """Formats __fspan and __caller as str
+        """
         stime = str(f"{self.__tspan:0.2f}")
         stime = stime.rstrip(" ")
         self.__fspan = stime
         self.__caller = str(self.__caller)
 
     def __cupdate(self, c):
+        """Updates __caller with new caller
+        """
         if not self.__sflag:
             if c:
                 c = str(c)
@@ -109,11 +130,18 @@ class ZTimer:
                 self.__end_caller = c
 
     def __tupdate(self):
+        """Updates __toc and calculates __span
+        Condition
+        ----------
+        __sflag must be False
+        """
         if not self.__sflag:
             self.__toc = time.perf_counter()
             self.__tspan = self.__toc - self.__tic
 
     def __ftstr(self):
+        """Creates a formatted str for console output.
+        """
         self.__t2s()
         self.__fstr = "Caller[{0}] \
             Span[{1}]seconds".format(

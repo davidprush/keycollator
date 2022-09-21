@@ -13,11 +13,10 @@ Example:
 
         $ python keycollator.py
 
-        *Notes
+        Usage:
 
 Todo:
-
-        *
+    ❌ Migrate click functionality to cli.py
 
 """
 import sys
