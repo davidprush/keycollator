@@ -21,3 +21,7 @@ upgrade:
 
 build:
 	python3 -m build
+
+pypi:
+	python3 -m twin upload dist/*
+	
