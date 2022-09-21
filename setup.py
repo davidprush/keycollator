@@ -17,7 +17,7 @@ setup(
         'verboselogs',
         'nltk',
         'fuzzywuzzy',
-        'python-Levenshtein'
+        'python-Levenshtein',
         'halo'
     ],
     entry_points='''
