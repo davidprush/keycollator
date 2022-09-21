@@ -3,14 +3,18 @@
 [![Build status](https://github.com/davidprush/keycollator/workflows/build/badge.svg?branch=master&event=push)](https://github.com/davidprush/keycollator/actions?query=workflow%3Abuild)
 [![Python Version](https://img.shields.io/pypi/pyversions/keycollator.svg)](https://pypi.org/project/keycollator/)
 [![License](https://img.shields.io/github/license/davidprush/keycollator)](https://github.com/davidprush/keycollator/blob/master/LICENSE)
+
+<div align="center">
 ```
                 ┬┌─┌─┐┬ ┬┌─┐┌─┐┬  ┬  ┌─┐┌┬┐┌─┐┬─┐
                 ├┴┐├┤ └┬┘│  │ ││  │  ├─┤ │ │ │├┬┘
                 ┴ ┴└─┘ ┴ └─┘└─┘┴─┘┴─┘┴ ┴ ┴ └─┘┴└─
 ```
-Compares text in a file to reference/glossary/key-items/dictionary file.
+<div align="left">
 
-Built by 'David Rush <https://github.com/davidprush>'
+`Compares text in a file to reference/glossary/key-items/dictionary file.`
+
+🧱 Built by 'David Rush <https://github.com/davidprush>'
 
 The latest version of this document can be found at
 <https://github.com/davidprush/keycollator/blob/main/README.rst>; 
@@ -19,7 +23,7 @@ the Markdown/reStructuredText source at
 <https://github.com/davidprush/keycollator>. You can contact 
 the author via e-mail at <davidprush@gmail.com>.
 
-# 🗂️ Directory Structure
+## 🗂️ Structure
 ```bash
 .
 │
@@ -66,7 +70,7 @@ the author via e-mail at <davidprush@gmail.com>.
 - Find matches of keys in text file
 - Apply fuzzy matching
 
-## Installation
+## 🧰 Installation
 
 - Future plans to install as python package
 
@@ -74,7 +78,7 @@ the author via e-mail at <davidprush@gmail.com>.
 pip install keycollator
 ```
 
-## Documentation
+## 📄 Documentation
 
 Official documentation can be found here:
 https://github.com/davidprush
@@ -90,7 +94,7 @@ https://github.com/davidprush
 
     from keycollator import extractionator
 
-## CLI
+## 🖥️ CLI
 
 keycollator uses the `CLI` to change default parameters and functions
 
@@ -172,13 +176,13 @@ keycollator -l
     ❌ Update `CONTRIBUTING.md`
     ❌ Format KeyCrawler results as a table
 
-## Project resource acknowledgements
+## 👔 Project Resource Acknowledgements
 
     - https://betterscientificsoftware.github.io/python-for-hpc/tutorials/python-pypi-packaging/#creating-a-python-package
 
     - https://gist.github.com/javiertejero/4585196
 
-### Deployment features
+## 💼 Deployment Features
 
 
 ## 📈 Releases
