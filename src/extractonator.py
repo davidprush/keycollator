@@ -20,26 +20,27 @@ Contains classes:
 Notes:
     -
 Todo:
-    ❌ Update requirements.txt
-    ❌ Add CHANGELOG.md
-    ❌ Update requirements.txt
-    ❌ Add functions/methods to handle STOP_WORDS
-    ❌ Verify python3 -m nltk.downloader punkt is properly immported
-    ✅ Separating project into multiple files
-    ✅ Add progress inicator using halo when extracting and comparing
-    ✅Create a logger class (for some reason **logging** is broken)
-    ✅ KeyKrawler matching is broken
-    ✅ Update README.md(.rst) with correct CLI
-    ❌ Create method to KeyKrawler to select and _create missing files_
-    ❌ Update CODE_OF_CONDUCT.md
-    ❌ Update CONTRIBUTING.md
-    ✅ Format KeyCrawler console results as a table
-    ❌ Create ZLog class in extractonator.py (parse out __logit method)
-    ❌ Cleanup verbose output (conflicts with halo)
-    ❌ Update all comments
-    ❌ Migrate click functionality to cli.py
-    ✅ Refactor all methods and functions
-    ❌ Test ALL CLI options
+    ✔ Format KeyCrawler console results as a table
+    ✔ Separating project into multiple files
+    ✔ Add progress inicator using halo when extracting and comparing
+    ✔ Create a logger class (for some reason logging is broken)
+    ✔ KeyKrawler matching is broken
+    ✔ Update README.md(.rst) with correct CLI
+    ✔ Refactor all methods and functions
+    ✖ Update requirements.txt
+    ✖ Add proper error handling
+    ✖ Add CHANGELOG.md
+    ✖ Update requirements.txt
+    ✖ Add functions/methods to handle STOP_WORDS
+    ✖ Verify python3 -m nltk.downloader punkt is properly immported
+    ✖ Create method to KeyKrawler to select and _create missing files_
+    ✖ Update CODE_OF_CONDUCT.md
+    ✖ Update CONTRIBUTING.md
+    ✖ Create ZLog class in extractonator.py (parse out __logit method)
+    ✖ Cleanup verbose output (conflicts with halo)
+    ✖ Update all comments
+    ✖ Migrate click functionality to cli.py
+    ✖ Test ALL CLI options
 """
 import sys
 import time

@@ -19,6 +19,36 @@ Compares text in a file to reference/glossary/key-items/dictionary.
 
 ***
 
+# 👇 Table of Contents
+
+1. [Structure](#structure)
+2. [Features](#features)
+3. [Installation](#installation)
+    1. [Install from **Pypi** using pip3](#install-from-pypi-using-pip3)
+4. [Documentation](#documentation)
+5. [Supported File Formats](#supported-file-formats)
+6. [Usage](#usage)
+    1. [Import _keycollator_ into Python Projects](#import-keycollator-into-python-projects)
+    2. [CLI](#cli)
+    3. [Turn on _verbose_ output](#turn-on-verbose-output)
+    4. [Apply _fuzzy matching_](#apply-fuzzy-matching)
+    5. [Set the _key file_](#set-the-key-file)
+    6. [Set the _text file_](#set-the-text-file)
+    7. [Specify the _output file_](#specify-the-output-file)
+    8. [Set _limit results_ for console and _output file_](#set-limit-results-for-console-and-output-file)
+    9. [Set _upper bound limit_](#set-the-upper-bound-limit)
+    10. [Turn on _logging_:](#turn-on-logging)
+    11. [Create a _log file_](#create-a-log-file)
+7. [Example Output](#example-output)
+8. [Todo](#todo)
+9. [Project Resource Acknowledgements](#project-resource-acknowledgements)
+10. [Deployment Features](#deployment-features)
+11. [Releases](#releases)
+12. [License](#license)
+13. [bibtex](#bibtex)
+14. [Additional Information](#additional-information)
+
+<a name="structure"></a>
 ## 🗂️ Structure
 
 ```bash
@@ -60,6 +90,7 @@ Compares text in a file to reference/glossary/key-items/dictionary.
 └── setup.py
 ```
 
+<a name="features"></a>
 ## 🚀 Features
 
 - Extract text from file to dictionary
@@ -67,8 +98,10 @@ Compares text in a file to reference/glossary/key-items/dictionary.
 - Find matches of keys in text file
 - Apply fuzzy matching
 
+<a name="installation"></a>
 ## 🧰 Installation
 
+<a name="install-from-pypi-using-pips"></a>
 ### 🖥️ Install from **Pypi** using pip3
 
 📦 <https://pypi.org/project/keycollator/>
@@ -77,25 +110,30 @@ Compares text in a file to reference/glossary/key-items/dictionary.
 pip3 install keycollator
 ```
 
+<a name="documentation"></a>
 ## 📄 Documentation
 
 Official documentation can be found here:
 
 <https://github.com/davidprush/keycollator/tree/main/docs>
 
+<a name="supported-file-formats"></a>
 ## 💪 Supported File Formats
 
 - TXT/CSV files (Mac/Linux/Win)
 - Plans to add PDF and JSON
 
+<a name="usage"></a>
 ## 📐 Usage
 
-### 🖥️ Import _keycollator_ it into Python Projects
+<a name="import-keycollator-into-python-project"></a>
+### 🖥️ Import _keycollator_ into Python Projects
 
 ```
 from keycollator import ZTimer, KeyKrawler
 ```
 
+<a name="cli"></a>
 ### 🖥️ CLI
 
 keycollator uses the `CLI` to change default parameters and functions
@@ -137,6 +175,7 @@ Options:
   --help                          Show this message and exit.
 ```
 
+<a name="turn-on-verbose-output"></a>
 #### 🖥️ Turn on _verbose_ output
 
   >currently provides only one level for verbose, future versions will implement multiple levels (DEBUG, INFO, WARN, etc.)
@@ -145,6 +184,7 @@ Options:
 keycollator --verbose
 ```
 
+<a name="apply-fuzzy-matching"></a>
 #### 🖥️ Apply _fuzzy matching_
 
   >_fuzzy matching_ uses approximate matches (edit distances) whereby 0 is the least strict and accepts nearly anything as a match and more strictly 99 accepts only nearly identical matches; by default the app uses level 99 only if regular matching finds no matches
@@ -153,6 +193,7 @@ keycollator --verbose
 keycollator --fuzzy-matching=[0-99]
 ```
 
+<a name="set-the-key-file"></a>
 #### 🖥️ Set the _key file_
 
   >each line of text represents a key which will be used to match with items in the _text file_
@@ -161,6 +202,7 @@ keycollator --fuzzy-matching=[0-99]
 keycollator --key-file="/path/to/key/file/keys.txt"
 ```
 
+<a name="set-the-text-file"></a>
 #### 🖥️ Set the _text file_
 
   >text file whereby each line represents an item that will be compared with the items in the _keys file_
@@ -169,6 +211,7 @@ keycollator --key-file="/path/to/key/file/keys.txt"
 keycollator --text-file="/path/to/key/file/text.txt"
 ```
 
+<a name="specify-the-output-file"></a>
 #### 🖥️ Specify the _output file_
 
   >currently uses CSV but will add additional file formats in future releases (PDF/JSON/DOCX)
@@ -177,6 +220,7 @@ keycollator --text-file="/path/to/key/file/text.txt"
 keycollator --output-file="/path/to/results/result.csv"
 ```
 
+<a name="set-limit-results-for-console-and-output-file"></a>
 #### 🖥️ Set _limit results_ for console and _output file_
 
   >Limit the number of results
@@ -185,6 +229,7 @@ keycollator --output-file="/path/to/results/result.csv"
 keycollator --limit-results=30
 ```
 
+<a name="set-upper-bound-limit"></a>
 #### 🖥️ Set _upper bound limit_
 
   >rejects items with matches over the integer value set, helps with eroneous matches when using fuzzy matching
@@ -193,6 +238,7 @@ keycollator --limit-results=30
 keycollator --ubound-limit
 ```
 
+<a name="turn-on-loggin"></a>
 #### 🖥️ Turn on _logging_:
 
   >turn on _logging_ whereby if no _log file_ is supplied by user it will create one using the default _log.log_
@@ -201,6 +247,7 @@ keycollator --ubound-limit
 keycollator --set-logging
 ```
 
+<a name="create-a-log-file"></a>
 #### 🖥️ Create a _log file_
 
   >set the name of the _log file_ to be used by _logging_
@@ -209,6 +256,7 @@ keycollator --set-logging
 keycollator --log-file="/path/to/log/file/log.log"
 ```
 
+<a name="example-output"></a>
 ## Example Output
 
 ```bash
@@ -257,51 +305,57 @@ python3 src/keycollator.py --set-logging --limit-results=30
 ╰─────────────┴────────╯
  ```
 
+<a name="todo"></a>
 ## 🎯 Todo 📌
 
 ```bash
+    ✅ Format KeyCrawler console results as a table
+    ✅ Separating project into multiple files
+    ✅ Add progress inicator using halo when extracting and comparing
+    ✅ Create a logger class (for some reason logging is broken)
+    ✅ KeyKrawler matching is broken
+    ✅ Update README.md(.rst) with correct CLI
+    ✅ Refactor all methods and functions
     ❌ Update requirements.txt
     ❌ Add proper error handling
     ❌ Add CHANGELOG.md
     ❌ Update requirements.txt
     ❌ Add functions/methods to handle STOP_WORDS
     ❌ Verify python3 -m nltk.downloader punkt is properly immported
-    ✅ Separating project into multiple files
-    ✅ Add progress inicator using halo when extracting and comparing
-    ✅ Create a logger class (for some reason logging is broken)
-    ✅ KeyKrawler matching is broken
-    ✅ Update README.md(.rst) with correct CLI
     ❌ Create method to KeyKrawler to select and _create missing files_
     ❌ Update CODE_OF_CONDUCT.md
     ❌ Update CONTRIBUTING.md
-    ✅ Format KeyCrawler console results as a table
     ❌ Create ZLog class in extractonator.py (parse out __logit method)
     ❌ Cleanup verbose output (conflicts with halo)
     ❌ Update all comments
     ❌ Migrate click functionality to cli.py
-    ✅ Refactor all methods and functions
     ❌ Test ALL CLI options
 ```
 
+<a name="project-resource-acknowledgements"></a>
 ## 👔 Project Resource Acknowledgements
 
   1. [Creating a Python Package](https://betterscientificsoftware.github.io/python-for-hpc/tutorials/python-pypi-packaging/#creating-a-python-package)
   1. [javiertejero](https://gist.github.com/javiertejero/4585196)
 
+<a name="deployment-features"></a>
 ## 💼 Deployment Features
 
 
 
+<a name="releases"></a>
 ## 📈 Releases
 
   >Currently stage: *_testing_*
 
+<a name="license"></a>
 ## 🛡 License
 
 [![License](https://img.shields.io/github/license/davidprush/keycollator)](https://github.com/davidprush/keycollator/blob/master/LICENSE)
 
 This project is licensed under the terms of the **MIT** license. See [LICENSE](https://github.com/davidprush/keycollator/blob/master/LICENSE) for more details.
 
+<a name="bibtex"></a>
 ```bibtex
 @misc{keycollator,
   author = {David Rush},
@@ -315,6 +369,7 @@ This project is licensed under the terms of the **MIT** license. See [LICENSE](h
 
 ***
 
+<a name="additional-information"></a>
 #### Additional Information
 
 1. _The latest version of this document can be found [here](https://github.com/davidprush/keycollator/blob/main/README.md); if you are viewing it there (via HTTPS), you can download the Markdown/reStructuredText source [here](https://github.com/davidprush/keycollator)._ 

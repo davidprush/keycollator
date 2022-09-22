@@ -46,3 +46,11 @@ punkt:
 	pip3 install nltk
 	python3 -m nltk.downloader punkt
 
+alias:
+	# Create aliases for python and pip to use python3 and pip3 respectively
+	# alias myenv=source venv/bin/activate
+	# alias py=venv/bin/python3
+	# sed '' 's/abc/myenv/g' ~/.zshrc
+	# sed '' 's/abc/'alias myenv=source venv/bin/activate'/g' ~/.zshrc
+
+
