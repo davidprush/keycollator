@@ -94,7 +94,7 @@ Official documentation can be found here:
 from keycollator import ZTimer, KeyKrawler
 ```
 
-## 🖥️ CLI
+### 🖥️ CLI
 
 keycollator uses the `CLI` to change default parameters and functions
 
@@ -175,6 +175,14 @@ keycollator --text-file="/path/to/key/file/text.txt"
 keycollator --output-file="/path/to/results/result.csv"
 ```
 
+#### 🖥️ Set _limit results_ for console and _output file_
+
+  >Limit the number of results
+
+```bash
+keycollator --limit-results=30
+```
+
 #### 🖥️ Set _upper bound limit_
 
   >rejects items with matches over the integer value set, helps with eroneous matches when using fuzzy matching
@@ -203,14 +211,10 @@ keycollator --log-file="/path/to/log/file/log.log"
 
 ```bash
 python3 src/keycollator.py --set-logging --limit-results=30
-✔ Extracted text.txt items.[Timer[0.12]seconds]
-Timer[0.12]seconds
-✔ Extracted keys.txt items.[Timer[0.22]seconds]
-Timer[0.22]seconds
-✔ Match keys.txt items to text.txt items. Timer[73.61]seconds
-Timer[73.61]seconds
-✔ results.csv Complete.[Timer[73.67]seconds]
-Timer[73.67]seconds
+✔ Extracted text.txt items.[[0.16]seconds]
+✔ Extracted keys.txt items.[[0.25]seconds]
+✔ Matched keys.txt items to text.txt items.[[76.45]seconds]
+✔ results.csv Complete.[[76.52]seconds]
 ╭─────┬───────────────┬───────╮
 │ No. │ Key           │ Count │
 ├─────┼───────────────┼───────┤
@@ -226,11 +230,11 @@ Timer[73.67]seconds
 ├─────┼───────────────┼───────┤
 │  6  │ analysis      │  36   │
 ├─────┼───────────────┼───────┤
-│  7  │ perform       │  32   │
-├─────┼───────────────┼───────┤
-│  8  │ maintain      │  28   │
-├─────┼───────────────┼───────┤
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+├─────┼───────────────┼───────┤
+│ 28  │ dashboards    │  11   │
+├─────┼───────────────┼───────┤
+│ 29  │ sales         │  10   │
 ├─────┼───────────────┼───────┤
 │ 30  │ create        │  10   │
 ╰─────┴───────────────┴───────╯
@@ -247,27 +251,35 @@ Timer[73.67]seconds
 ├─────────────┼────────┤
 │ Logs        │   0    │
 ├─────────────┼────────┤
-│ Runtime     │ 73.76  │
+│ Runtime     │ 76.60  │
 ╰─────────────┴────────╯
  ```
 
 ## 🎯 Todo 📌
 
+```bash
+    ❌ Update requirements.txt
+    ❌ Add proper error handling
+    ❌ Add CHANGELOG.md
+    ❌ Update requirements.txt
+    ❌ Add functions/methods to handle STOP_WORDS
+    ❌ Verify python3 -m nltk.downloader punkt is properly immported
     ✅ Separating project into multiple files
-    ✅ Add progress inicator using **halo** when extracting and comparing
-    ✅Create a logger class (for some reason **logging** is broken)
-    ✅ **KeyKrawler** matching is broken
-    ✅ Update **README.md(.rst)** with correct CLI
+    ✅ Add progress inicator using halo when extracting and comparing
+    ✅ Create a logger class (for some reason logging is broken)
+    ✅ KeyKrawler matching is broken
+    ✅ Update README.md(.rst) with correct CLI
     ❌ Create method to KeyKrawler to select and _create missing files_
-    ❌ Update **CODE_OF_CONDUCT.md**
-    ❌ Update **CONTRIBUTING.md**
+    ❌ Update CODE_OF_CONDUCT.md
+    ❌ Update CONTRIBUTING.md
     ✅ Format KeyCrawler console results as a table
-    ❌ Create ZLog class in extractonator.py _(custom logger)_
-    ❌ Cleanup verbose output _(conflicts with halo)_
-    ❌ Update **all** comments
-    ❌ Migrate click functionality to _cli.py_
+    ❌ Create ZLog class in extractonator.py (parse out __logit method)
+    ❌ Cleanup verbose output (conflicts with halo)
+    ❌ Update all comments
+    ❌ Migrate click functionality to cli.py
     ✅ Refactor all methods and functions
-
+    ❌ Test ALL CLI options
+```
 
 ## 👔 Project Resource Acknowledgements
 

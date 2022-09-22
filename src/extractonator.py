@@ -20,20 +20,26 @@ Contains classes:
 Notes:
     -
 Todo:
+    ❌ Update requirements.txt
+    ❌ Add CHANGELOG.md
+    ❌ Update requirements.txt
+    ❌ Add functions/methods to handle STOP_WORDS
+    ❌ Verify python3 -m nltk.downloader punkt is properly immported
     ✅ Separating project into multiple files
-    ✅ Add progress inicator using **halo** when extracting and comparing
+    ✅ Add progress inicator using halo when extracting and comparing
     ✅Create a logger class (for some reason **logging** is broken)
-    ✅ **KeyKrawler** matching is broken
-    ✅ Update **README.md(.rst)** with correct CLI
+    ✅ KeyKrawler matching is broken
+    ✅ Update README.md(.rst) with correct CLI
     ❌ Create method to KeyKrawler to select and _create missing files_
-    ❌ Update **CODE_OF_CONDUCT.md**
-    ❌ Update **CONTRIBUTING.md**
+    ❌ Update CODE_OF_CONDUCT.md
+    ❌ Update CONTRIBUTING.md
     ✅ Format KeyCrawler console results as a table
-    ❌ Create ZLog class in extractonator.py _(custom logger)_
-    ❌ Cleanup verbose output _(conflicts with halo)_
-    ❌ Update **all** comments
-    ❌ Migrate click functionality to _cli.py_
+    ❌ Create ZLog class in extractonator.py (parse out __logit method)
+    ❌ Cleanup verbose output (conflicts with halo)
+    ❌ Update all comments
+    ❌ Migrate click functionality to cli.py
     ✅ Refactor all methods and functions
+    ❌ Test ALL CLI options
 """
 import sys
 import time
@@ -47,6 +53,9 @@ from collections import defaultdict
 import nltk.data
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
+# Requires:
+#           python3 -m nltk.downloader punkt
+#
 
 # Default file names
 LOGZ = "log.log"
@@ -159,7 +168,7 @@ class ZTimer:
         Creates a formatted str for console output.
         """
         self.__t2s()
-        self.__fstr = "Timer[{0}]seconds".format(
+        self.__fstr = "[{0}]seconds".format(
             self.__fspan
         )
         return self.__fstr
@@ -531,7 +540,6 @@ class KeyKrawler:
                 self.timer.get_string()
             )
         )
-        self.timer.echo()
 
     def itemize_text(self):
         fhtxt = open(self.text_file, 'r')
@@ -558,7 +566,6 @@ class KeyKrawler:
                 self.timer.get_string()
             )
         )
-        self.timer.echo()
 
     def match_txt2keys(self):
         spinner = Halo(
@@ -645,13 +652,12 @@ class KeyKrawler:
         self.trunc_results()
         spinner.stop_and_persist(
             '✔',
-            "Match {} items to {} items. {}".format(
+            "Matched {} items to {} items.[{}]".format(
                 self.key_file,
                 self.text_file,
                 self.timer.get_string()
             )
         )
-        self.timer.echo()
 
     def reset_log(self):
         results_file = open(self.log_file, 'w')
@@ -689,7 +695,6 @@ class KeyKrawler:
                 self.timer.get_string()
             )
         )
-        self.timer.echo()
 
     def verify_filez(self, *args):
         for arg in args:

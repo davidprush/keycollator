@@ -33,3 +33,7 @@ pypi:
 setup:
 	python setup.py sdist
 
+punkt:
+	pip3 install nltk
+	python3 -m nltk.downloader punkt
+
