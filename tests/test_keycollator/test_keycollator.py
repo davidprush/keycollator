@@ -1,7 +1,7 @@
 """Tests for hello function."""
 import pytest
 
-from keycollator.example import *
+from keycollator import *
 
 
 @pytest.mark.parametrize(
@@ -18,6 +18,6 @@ from keycollator.example import *
         ("Isabella", "Hello Isabella!"),
     ],
 )
-def test_hello(name, expected):
+def test_keycollator(name, expected):
     """Example test with parametrization."""
-    assert hello(name) == expected
+    assert main(name) == expected

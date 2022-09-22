@@ -20,7 +20,8 @@ setup(
         'python-Levenshtein',
         'halo',
         'termtables',
-        'datetime'
+        'datetime',
+        'pytest'
     ],
     entry_points='''
         [console_scripts]
