@@ -1,12 +1,20 @@
 #* Variables
 #* SHELL := /usr/bin/env bash
 #*pwd := `pwd`
+########################################################################################
+# Targets for managing the Devstack repo itself.
+########################################################################################
+
+# Generates a help message. Borrowed from https://github.com/pydanny/cookiecutter-djangopackage.
+help: ## Display this help message.
+	@echo "Please use \`make <target>' where <target> is one of"
+	@awk -F ':.*?## ' '/^[a-zA-Z]/ && NF==2 {printf "\033[36m  %-28s\033[0m %s\n", $$1, $$2}' Makefile | sort
 
 run:
 	python3 src/keycollator.py --set-logging --limit-results=30
 
 setup: requirements.txt
-	pip3 install -r requirements.txt
+	pip3 install -r src/requirements.txt
 
 clean:
 	rm -rf src/__pycache__
@@ -24,6 +32,7 @@ upgrade:
 	python3 -m pip install --upgrade twine
 
 build:
+	python3 -m pip install --upgrade build
 	python3 -m build
 
 pypi:

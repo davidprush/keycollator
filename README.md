@@ -15,6 +15,8 @@ Compares text in a file to reference/glossary/key-items/dictionary.
 
 🧱 Built by [David Rush](https://github.com/davidprush) fueled by ☕️ ℹ️ [info](#additional-information)
 
+<https://pypi.org/project/keycollator/0.0.3/>
+
 ***
 
 ## 🗂️ Structure

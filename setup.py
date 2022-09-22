@@ -24,6 +24,6 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        keycollator=keycollator:cli
+        keycollator=keycollator:main
     '''
 )
