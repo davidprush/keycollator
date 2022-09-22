@@ -29,7 +29,7 @@ Todo:
     ❌ Update **CODE_OF_CONDUCT.md**
     ❌ Update **CONTRIBUTING.md**
     ❌ Format KeyCrawler console results as a table
-    ❌ Create ZLog class in extractonator.py _(custom logger)_
+    ❌ Create ZLog class
     ❌ Cleanup verbose output _(conflicts with halo)_
     ❌ Update **all** comments
     ❌ Migrate click functionality to _cli.py_
@@ -39,13 +39,13 @@ import time
 import os.path
 import string
 import termtables as tt
+from datetime import dateime
 from halo import Halo
-# from time import sleep
 from fuzzywuzzy import fuzz
 from collections import defaultdict
 import nltk.data
 from nltk.stem import PorterStemmer
-from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.tokenize import word_tokenize
 
 # Default file names
 LOGZ = "log.log"
@@ -107,7 +107,8 @@ class ZTimer:
         self,
         caller="ZTimer"
     ):
-        """Constructs and starts the ZTimer object.
+        """
+        Constructs and starts the ZTimer object.
         Parameters
         ----------
         caller : str, optional
@@ -123,15 +124,18 @@ class ZTimer:
         self.__sflag = False
 
     def __t2s(self):
-        """Formats __fspan and __caller as str
+        """
+        Formats/strips __fspanas str with
+        2 decimals and ensures caller is str
         """
         stime = str(f"{self.__tspan:0.2f}")
-        stime = stime.strip("")
+        stime = stime.strip(" ")
         self.__fspan = stime
         self.__caller = str(self.__caller)
 
     def __cupdate(self, c):
-        """Updates __caller with new caller
+        """
+        Updates __caller with new caller
         """
         if not self.__sflag:
             if c:
@@ -140,7 +144,7 @@ class ZTimer:
                 self.__end_caller = c
 
     def __tupdate(self):
-        """Updates __toc and calculates __span
+        """        Updates __toc and calculates __span
         Condition
         ----------
         __sflag must be False
@@ -150,7 +154,8 @@ class ZTimer:
             self.__tspan = self.__toc - self.__tic
 
     def __ftstr(self):
-        """Creates a formatted str for console output.
+        """
+        Creates a formatted str for console output.
         """
         self.__t2s()
         self.__fstr = "Timer[{0}]seconds".format(
@@ -160,6 +165,15 @@ class ZTimer:
         return self.__fstr
 
     def stopit(self, caller="stopit"):
+        """
+        Updates __toc and calculates __span
+        Arguement
+        ----------
+        caller: str, optional
+            can be anything to assign text to
+            to the formatted str __sflag to give
+            context to the timestamp
+        """
         if not self.__sflag:
             self.__cupdate(caller)
             self.__tupdate()
@@ -167,24 +181,54 @@ class ZTimer:
             self.__sflag = True
 
     def echo(self):
+        """
+        Updates __toc and calculates __span
+        Condition
+        ----------
+        __sflag must be False
+        """
         if not self.__sflag:
             self.__tupdate
         print(self.__ftstr())
 
     def get_start(self):
+        """
+        Returns __tic which is the time the
+            timer started
+        """
         return self.__tic
 
     def get_stop(self):
+        """
+        Returns __toc which is the time the
+            timer stopped
+        """
         return self.__toc
 
-    def get_span(self, as_str=False):
+    def timestamp(self, as_str=False):
+        """
+        Updates the timer and returns time
+        as str or unformatted time str
+        Arguement
+        ----------
+        as_str: bool, optional
+        """
         self.__tupdate()
         if as_str:
-            return self.__fspan
+            return str(self.__tspan)
         else:
             return self.__tspan
 
     def get_string(self):
+        """
+        Updates timer and returns formatted
+        time in a string
+        Arguement
+        ----------
+        as_str: bool, optional
+            Updates the timer and returns time
+            as str or unformatted time str
+        """
         self.__tupdate()
         return self.__ftstr()
 
@@ -203,7 +247,8 @@ class KeyKrawler:
         fuzzyness=99,
         set_logging=False
     ):
-        """Constructs the KeyCrawler object.
+        """
+        Constructs the KeyCrawler object.
         Parameters
         ----------
         text_file: str, optional
@@ -281,12 +326,15 @@ class KeyKrawler:
         self.timer.stopit(sys._getframe().f_code.co_name)
 
     def __sanitext(self, text):
-        """Remove special chars, spaces, end line and
+        """
+        Remove special chars, spaces, end line and
         convert to lowercase
         Parameters
         ----------
-        text: str
+            text: str, required
         """
+        if not isinstance(text, str):
+            text = str(text)
         text = text.translate(text.maketrans(
             "",
             "",
@@ -296,22 +344,73 @@ class KeyKrawler:
         text = text.rstrip(ENDL)
         return text
 
-    def __logit(self, *args):
+    def __logit(self, *args, *kwargs):
+        """
+        Takes args and creates a log str
+        for output to the log file
+        Condition
+        ----------
+        set_logging must be true, otherwise
+            test for param to update set_logging
+            to True
+        arguements
+        ----------
+        args:
+            all args are converted to strings and
+            appended to text str
+        Parameters
+        ----------
+        kwargs:
+            text: str, optional
+            setlog: bool, optional
+            filemode: str, optional
+            level: str, optional
+            logfile: str, optional
+            dtformat: str, optional
+        """
         if self.set_logging:
+            params = {
+                ('filename': None)
+                ('filemode': None)
+                ('setlog': None)
+                ('level': None)
+                ('logfile': None)
+            }
+            modes = ['a', 'r', 'w']
+            dttemplate = [
+                '%d', '%m', '%Y',
+                '%H', '%M', '%S',
+                ' ', ':', '/']
+            text = kwargs.get('text', "")
+            self.set_logging = kwargs.get(
+                'setlog',
+                self.set_logging
+            )
+            dtemp = []
+            params['filemode'] = str(kwargs.get('filemode', 'a'))
+            params['level'] = str(kwargs.get('level', 'DEFAULT'))
+            params['logfile'] = str(kwargs.get('logfile', LOGZ))
+            params['dtformat'] = str(kwargs.get('dtformat', "%d/%m/%Y %H:%M:%S"))
+            for d in dttemplate:
+                if d in params['dtformat']:
+                    dtemp.append(d)
+            if dtemp != dtformat:
+                dtdiff = [x for x in dtformat if x not in dtemp]
+                dtdiff = [str(li) for li in dtdiff]
+                diffmsg =
+                "WARNING: dtformat invalid options: [" \
+                    + "], [".join(dtdiff) + "]"
+                return false
+            dtstamp = now.strftime(dtformat)
+            for arg in args:
+                params['text'] += "[{0}]".format(str(arg))
+            lfh = open(logfile, filemode)
             self.__lcount += 1
-            # logging.basicConfig(
-            #     filename=LOGZ,
-            #     filemode='a',
-            #     format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-            #     datefmt='%H:%M:%S',
-            #     level=logging.DEBUG
-            # )
-        log_string = ""
-        for arg in args:
-            log_string += "[{0}]".format(str(arg))
-            # log_string = log_string.rstrip(" ")
-            # logging.info(log_string)
-        return str(log_string)
+            logmsg = str(self.__lcount)
+            for p in params:
+                logmsg += " [{}] ".format(str(params[p]))
+            lfh.write(logmsg)
+        return logmsg
 
     def trunc_results(self):
         if self.__limr >= 1:
@@ -346,9 +445,7 @@ class KeyKrawler:
                     self.__rezd[i]
                 ])
                 self.__logit(
-                    self.timer.get_string(),
-                    n, i, ",",
-                    self.__rezd[i]
+                    n, i, self.__rezd[i]
                 )
         tt.print(
             tbldat,
@@ -368,7 +465,7 @@ class KeyKrawler:
             ["Matches", self.__mcount],
             ["Comparisons", self.__ccount],
             ["Logs", self.__lcount],
-            ["Runtime", self.timer.get_span(True)]
+            ["Runtime", self.timer.timestamp(True)]
         ]
         tt.print(
             stats,
@@ -392,8 +489,7 @@ class KeyKrawler:
                 self.__keyd[key] = 0
                 self.__kcount += 1
                 info = self.__logit(
-                    self.__kcount,
-                    ADDED, key
+                    self.__kcount, key
                 )
                 if self.__v:
                     print(
@@ -417,8 +513,7 @@ class KeyKrawler:
             self.__txtd[text] = 0
             self.__tcount += 1
             info = self.__logit(
-                self.__tcount,
-                ADDED, text
+                self.__tcount, text
             )
             if self.__v:
                 print(info)
@@ -444,10 +539,7 @@ class KeyKrawler:
                     key, item)
                 self.__ccount += 1
                 info = self.__logit(
-                    self.__ccount,
-                    SEPR, key, SEPR,
-                    self.__ccount,
-                    ADDED, item
+                    self.__ccount, key, self.__ccount, item
                 )
                 if self.__v:
                     print(
@@ -458,11 +550,8 @@ class KeyKrawler:
                     self.__rezd[key] += 1
                     self.__mcount += 1
                     info = self.__logit(
-                        self.__ccount,
-                        SEPR, self.__mcount,
-                        SEPR, key, ADDED,
-                        self.__txtd[item],
-                        item
+                        self.__ccount, self.__mcount,
+                        key, self.__txtd[item], item
                     )
                     if self.__v:
                         print(
@@ -491,11 +580,8 @@ class KeyKrawler:
                         self.__rezd[key] += 1
                         self.__mcount += 1
                         info = self.__logit(
-                            self.__ccount,
-                            SEPR, self.__mcount,
-                            SEPR, key, ADDED,
-                            self.__txtd[item],
-                            item
+                            self.__ccount, self.__mcount,
+                            key, self.__txtd[item], item
                         )
                         if self.__v:
                             print(
@@ -506,8 +592,7 @@ class KeyKrawler:
                         self.__rezd[key] += 1
                         self.__mcount += 1
                         info = self.__logit(
-                            FUZZ.format(self.__fuzz),
-                            SEPR, key, SEPR, ADDED,
+                            FUZZ.format(self.__fuzz), key,
                             self.__txtd[item], item
                         )
                         if self.__v:
@@ -550,8 +635,7 @@ class KeyKrawler:
                 rf.write(ritem)
                 rf.write(ENDL)
                 info = self.__logit(
-                    write_count, i, ",",
-                    self.__rezd[i]
+                    write_count, i, self.__rezd[i]
                 )
                 if self.__v:
                     print(
