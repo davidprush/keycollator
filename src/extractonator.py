@@ -39,7 +39,7 @@ import time
 import os.path
 import string
 import termtables as tt
-from datetime import dateime
+from datetime import datetime
 from halo import Halo
 from fuzzywuzzy import fuzz
 from collections import defaultdict
@@ -344,7 +344,7 @@ class KeyKrawler:
         text = text.rstrip(ENDL)
         return text
 
-    def __logit(self, *args, *kwargs):
+    def __logit(self, *args, **kwargs):
         """
         Takes args and creates a log str
         for output to the log file
@@ -355,12 +355,12 @@ class KeyKrawler:
             to True
         arguements
         ----------
-        args:
+        *args:
             all args are converted to strings and
             appended to text str
         Parameters
         ----------
-        kwargs:
+        **kwargs:
             text: str, optional
             setlog: bool, optional
             filemode: str, optional
@@ -369,48 +369,74 @@ class KeyKrawler:
             dtformat: str, optional
         """
         if self.set_logging:
+            onerr = False
+            params = defaultdict(str)
             params = {
-                ('filename': None)
-                ('filemode': None)
-                ('setlog': None)
-                ('level': None)
-                ('logfile': None)
+                'filename': "",
+                'filemode': "",
+                'setlog': "",
+                'level': "",
+                'logfile': "",
+                'dtformat': [],
             }
             modes = ['a', 'r', 'w']
             dttemplate = [
                 '%d', '%m', '%Y',
                 '%H', '%M', '%S',
-                ' ', ':', '/']
-            text = kwargs.get('text', "")
+                ' ', ':', '/'
+            ]
+            dtdefault = [
+                '%d', '/', '%m',
+                '/', '%Y', ' ',
+                '%H', ':', '%M',
+                ':', '%S'
+            ]
+            params['text'] = kwargs.get('text', "")
             self.set_logging = kwargs.get(
                 'setlog',
                 self.set_logging
             )
             dtemp = []
+            errs = defaultdict(str)
             params['filemode'] = str(kwargs.get('filemode', 'a'))
+            if params['filemode'] not in modes:
+                errs['filemode'] = params['filemode']
+                onerr = True
             params['level'] = str(kwargs.get('level', 'DEFAULT'))
             params['logfile'] = str(kwargs.get('logfile', LOGZ))
-            params['dtformat'] = str(kwargs.get('dtformat', "%d/%m/%Y %H:%M:%S"))
+            params['dtformat'] = kwargs.get(
+                'dtformat', dtdefault)
             for d in dttemplate:
                 if d in params['dtformat']:
-                    dtemp.append(d)
-            if dtemp != dtformat:
-                dtdiff = [x for x in dtformat if x not in dtemp]
+                    dtemp.append(str(d))
+            dtdiff = [x for x in params['dtformat'] if x not in dtemp]
+            if len(dtdiff) > 1:
                 dtdiff = [str(li) for li in dtdiff]
-                diffmsg =
-                "WARNING: dtformat invalid options: [" \
+                errs['dtformat'] = "WARNING: dtformat invalid options: [" \
                     + "], [".join(dtdiff) + "]"
-                return false
-            dtstamp = now.strftime(dtformat)
+                onerr = True
+            dtstamp = datetime.now()
+            dtstamp = dtstamp.strftime(str(params['dtformat']))
             for arg in args:
                 params['text'] += "[{0}]".format(str(arg))
-            lfh = open(logfile, filemode)
-            self.__lcount += 1
-            logmsg = str(self.__lcount)
-            for p in params:
-                logmsg += " [{}] ".format(str(params[p]))
-            lfh.write(logmsg)
-        return logmsg
+            if onerr:
+                errmsg = "INVALID OPTIONS:" + str(self.__lcount) + str(dtstamp)
+                for err in errs:
+                    errmsg += err
+                    errmsg += str(errs[err])
+                print(errmsg)
+                return errmsg
+            else:
+                logmsg = str(self.__lcount) + str(dtstamp)
+                for p in params:
+                    logmsg += " [{}]".format(params[p])
+                logmsg += ENDL
+                if self.__v:
+                    lfh = open(
+                        params['logfile'], params['filemode'])
+                    self.__lcount += 1
+                    lfh.write(logmsg)
+                return logmsg
 
     def trunc_results(self):
         if self.__limr >= 1:

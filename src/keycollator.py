@@ -133,7 +133,8 @@ def cli(
         set_verbose,
         ubound_limit,
         lbound_limit,
-        fuzzy_matching
+        fuzzy_matching,
+        set_logging
     )
 
 
