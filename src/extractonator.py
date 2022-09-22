@@ -41,6 +41,12 @@ Todo:
     ✖ Update all comments
     ✖ Migrate click functionality to cli.py
     ✖ Test ALL CLI options
+    ✖ Github: issue and pr templates
+    ✖ Workflow Automation
+    ✖ Makefile Usage
+    ✖ Dockerfile
+    ✖ @dependabot configuration
+    ✖ Release Drafter (release-drafter.yml)
 """
 import sys
 import time

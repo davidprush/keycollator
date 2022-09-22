@@ -11,11 +11,11 @@
 ```
 ***
 
-Compares text in a file to reference/glossary/key-items/dictionary.
+Compares text in a file to reference/glossary/key-items/dictionary.[[1]](#citation1)[[2]](#citation2)
 
 🧱 Built by [David Rush](https://github.com/davidprush) fueled by ☕️ ℹ️ [info](#additional-information)
 
-<https://pypi.org/project/keycollator>
+[keycollator #.#.# Pypi Project Description](https://pypi.org/project/keycollator)
 
 ***
 
@@ -44,6 +44,7 @@ Compares text in a file to reference/glossary/key-items/dictionary.
 9. [Project Resource Acknowledgements](#project-resource-acknowledgements)
 10. [Deployment Features](#deployment-features)
 11. [Releases](#releases)
+    1. [Pypi Versions](#pypi-versions)
 12. [License](#license)
 13. [bibtex](#bibtex)
 14. [Additional Information](#additional-information)
@@ -101,7 +102,7 @@ Compares text in a file to reference/glossary/key-items/dictionary.
 <a name="installation"></a>
 ## 🧰 Installation
 
-<a name="install-from-pypi-using-pips"></a>
+<a name="install-from-pypi-using-pip3"></a>
 ### 🖥️ Install from **Pypi** using pip3
 
 📦 <https://pypi.org/project/keycollator/>
@@ -330,6 +331,12 @@ python3 src/keycollator.py --set-logging --limit-results=30
     ❌ Update all comments
     ❌ Migrate click functionality to cli.py
     ❌ Test ALL CLI options
+    ❌ Github: issue and pr templates
+    ❌ Workflow Automation
+    ❌ Makefile Usage
+    ❌ Dockerfile
+    ❌ @dependabot configuration
+    ❌ Release Drafter (release-drafter.yml)
 ```
 
 <a name="project-resource-acknowledgements"></a>
@@ -341,12 +348,30 @@ python3 src/keycollator.py --set-logging --limit-results=30
 <a name="deployment-features"></a>
 ## 💼 Deployment Features
 
-
+  | Feature | Notes |
+  | ------- | ----- |
+  | Github | issue and pr templates |
+  | Workflows | [Automate your workflow from idea to production](https://github.com/features/actions?&ef_id=Cj0KCQjwj7CZBhDHARIsAPPWv3cJBfbABq5nd5kGwDIiJ5Ax-TFF_8CbqlKvQ92R7L1EuyjMgr2FacgaAnUiEALw_wcB:G:s&OCID=AID2202669_SEM_Cj0KCQjwj7CZBhDHARIsAPPWv3cJBfbABq5nd5kGwDIiJ5Ax-TFF_8CbqlKvQ92R7L1EuyjMgr2FacgaAnUiEALw_wcB:G:s&gclid=Cj0KCQjwj7CZBhDHARIsAPPWv3cJBfbABq5nd5kGwDIiJ5Ax-TFF_8CbqlKvQ92R7L1EuyjMgr2FacgaAnUiEALw_wcB) |
+  | Makefile-usage | [Makefile Usage](https://github.com/TezRomacH/python-package-template/blob/master/README.md#makefile-usage) |
+  | Dockerfile | [Docker Library: Python](https://github.com/docker-library/python) |
+  | @dependabot | [Configuring Dependabot version updates](https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuring-dependabot-version-updates#enabling-github-dependabot-version-updates) |
+  | Release Drafter | release-drafter.yml |
 
 <a name="releases"></a>
 ## 📈 Releases
 
-  >Currently stage: *_testing_*
+  | Release | Version | Status |
+  | ------- | ------- | ------- |
+  | **Current:** | [0.0.4](https://pypi.org/project/keycollator/0.0.4/) | Working |
+
+<a name="pypi-versions"></a>
+### 📦 Pypi Versions
+
+  | Version | Notes |
+  | ------- | ----- |
+  | [0.0.1](https://pypi.org/project/keycollator/0.0.1/) | Initial prototype |
+  | [0.0.2](https://pypi.org/project/keycollator/0.0.2/) | Bug fixes |
+  | [0.0.4](https://pypi.org/project/keycollator/0.0.4/) | Fixed functions/methods |
 
 <a name="license"></a>
 ## 🛡 License
@@ -372,5 +397,7 @@ This project is licensed under the terms of the **MIT** license. See [LICENSE](h
 <a name="additional-information"></a>
 #### Additional Information
 
+<a name="citation1"></a>
 1. _The latest version of this document can be found [here](https://github.com/davidprush/keycollator/blob/main/README.md); if you are viewing it there (via HTTPS), you can download the Markdown/reStructuredText source [here](https://github.com/davidprush/keycollator)._ 
+<a name="citation2"></a>
 2. _You can contact the author via [e-mail](davidprush@gmail.com)._
