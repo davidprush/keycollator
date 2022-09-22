@@ -49,7 +49,7 @@ Compares text in a file to reference/glossary/key-items/dictionary.[[1]](#citati
 11. [Releases](#releases)
     1. [Pypi Versions](#pypi-versions)
 12. [License](#license)
-13. [bibtex](#bibtex)
+13. [Citation](#citation)
 14. [Additional Information](#additional-information)
 
 <a name="structure"></a>
@@ -383,7 +383,9 @@ python3 src/keycollator.py --set-logging --limit-results=30
 
 This project is licensed under the terms of the **MIT** license. See [LICENSE](https://github.com/davidprush/keycollator/blob/master/LICENSE) for more details.
 
-<a name="bibtex"></a>
+<a name="citation"></a>
+## 📄 Citation
+
 ```bibtex
 @misc{keycollator,
   author = {David Rush},
