@@ -10,42 +10,53 @@ help: ## Display this help message.
 	@echo "Please use \`make <target>' where <target> is one of"
 	@awk -F ':.*?## ' '/^[a-zA-Z]/ && NF==2 {printf "\033[36m  %-28s\033[0m %s\n", $$1, $$2}' Makefile | sort
 
+.PHONY: run
 run:
 	python3 src/keycollator.py --set-logging --limit-results=30
 
+.PHONY: setup
 setup: requirements.txt
 	pip3 install -r src/requirements.txt
 
+.PHONY: clean
 clean:
 	rm -rf src/__pycache__
 
+.PHONY: push
 push:
 	git add .
 	git commit -m "$(filter-out $@, $(msg))"
 	git push
 
+.PHONY: venv
 venv:
 	./make-venv.sh
 
+.PHONY: upgrade
 upgrade:
 	python3 -m pip install --upgrade build
 	python3 -m pip install --upgrade twine
 
+.PHONY: build
 build:
 	python3 -m pip install --upgrade build
 	python3 -m build
 
+.PHONY: pypi
 pypi:
 	python setup.py sdist
 	twine upload --skip-existing dist/*
 
+.PHONY: setup
 setup:
 	python setup.py sdist
 
+.PHONY: punkt
 punkt:
 	pip3 install nltk
 	python3 -m nltk.downloader punkt
 
+.PHONY: alias
 alias:
 	# Create aliases for python and pip to use python3 and pip3 respectively
 	# alias myenv=source venv/bin/activate
