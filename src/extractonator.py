@@ -27,6 +27,7 @@ Todo:
     ✔ KeyKrawler matching is broken
     ✔ Update README.md(.rst) with correct CLI
     ✔ Refactor all methods and functions
+    ✖ Fix pylint errors
     ✖ Update requirements.txt
     ✖ Add proper error handling
     ✖ Add CHANGELOG.md

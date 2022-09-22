@@ -320,6 +320,7 @@ python3 src/keycollator.py --set-logging --limit-results=30
     ✅ KeyKrawler matching is broken
     ✅ Update README.md(.rst) with correct CLI
     ✅ Refactor all methods and functions
+    ❌ Fix pylint errors
     ❌ Update requirements.txt
     ❌ Add proper error handling
     ❌ Add CHANGELOG.md
