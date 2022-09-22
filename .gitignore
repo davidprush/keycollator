@@ -131,6 +131,7 @@ dmypy.json
 # Misc. text files
 log.log
 results.csv
+keys.txt
 skills.txt
 text.txt
 venv/
