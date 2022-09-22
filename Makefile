@@ -3,7 +3,7 @@
 #*pwd := `pwd`
 
 run:
-	python3 src/keycollator.py --set-logging
+	python3 src/keycollator.py --set-logging --limit-results=30
 
 setup: requirements.txt
 	pip3 install -r requirements.txt

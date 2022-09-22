@@ -22,17 +22,18 @@ Notes:
 Todo:
     ✅ Separating project into multiple files
     ✅ Add progress inicator using **halo** when extracting and comparing
-    ❌Create a logger class (for some reason **logging** is broken)
+    ✅Create a logger class (for some reason **logging** is broken)
     ✅ **KeyKrawler** matching is broken
     ✅ Update **README.md(.rst)** with correct CLI
     ❌ Create method to KeyKrawler to select and _create missing files_
     ❌ Update **CODE_OF_CONDUCT.md**
     ❌ Update **CONTRIBUTING.md**
-    ❌ Format KeyCrawler console results as a table
-    ❌ Create ZLog class
+    ✅ Format KeyCrawler console results as a table
+    ❌ Create ZLog class in extractonator.py _(custom logger)_
     ❌ Cleanup verbose output _(conflicts with halo)_
     ❌ Update **all** comments
     ❌ Migrate click functionality to _cli.py_
+    ✅ Refactor all methods and functions
 """
 import sys
 import time
@@ -129,7 +130,6 @@ class ZTimer:
         2 decimals and ensures caller is str
         """
         stime = str(f"{self.__tspan:0.2f}")
-        stime = stime.strip(" ")
         self.__fspan = stime
         self.__caller = str(self.__caller)
 
@@ -152,6 +152,7 @@ class ZTimer:
         if not self.__sflag:
             self.__toc = time.perf_counter()
             self.__tspan = self.__toc - self.__tic
+        self.__t2s()
 
     def __ftstr(self):
         """
@@ -161,7 +162,6 @@ class ZTimer:
         self.__fstr = "Timer[{0}]seconds".format(
             self.__fspan
         )
-        self.__fstr = self.__fstr.strip(" ")
         return self.__fstr
 
     def stopit(self, caller="stopit"):
@@ -189,6 +189,7 @@ class ZTimer:
         """
         if not self.__sflag:
             self.__tupdate
+        self.__t2s()
         print(self.__ftstr())
 
     def get_start(self):
@@ -215,7 +216,7 @@ class ZTimer:
         """
         self.__tupdate()
         if as_str:
-            return str(self.__tspan)
+            return str(self.__fspan)
         else:
             return self.__tspan
 
@@ -523,7 +524,13 @@ class KeyKrawler:
                         info
                     )
         fhkey.close()
-        spinner.stop_and_persist('✔')
+        spinner.stop_and_persist(
+            '✔',
+            "Extracted {} items.[{}]".format(
+                self.key_file,
+                self.timer.get_string()
+            )
+        )
         self.timer.echo()
 
     def itemize_text(self):
@@ -544,7 +551,13 @@ class KeyKrawler:
             if self.__v:
                 print(info)
         fhtxt.close()
-        spinner.stop_and_persist('✔')
+        spinner.stop_and_persist(
+            '✔',
+            "Extracted {} items.[{}]".format(
+                self.text_file,
+                self.timer.get_string()
+            )
+        )
         self.timer.echo()
 
     def match_txt2keys(self):
@@ -669,7 +682,13 @@ class KeyKrawler:
                         info
                     )
         rf.close()
-        spinner.stop_and_persist('✔')
+        spinner.stop_and_persist(
+            '✔',
+            "{} Complete.[{}]".format(
+                self.result_file,
+                self.timer.get_string()
+            )
+        )
         self.timer.echo()
 
     def verify_filez(self, *args):

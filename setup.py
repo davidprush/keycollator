@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='keycollator',
-    version='0.0.2',
+    version='0.0.3',
     long_description=long_description,
     py_modules=[
         'cli',
@@ -19,7 +19,8 @@ setup(
         'fuzzywuzzy',
         'python-Levenshtein',
         'halo',
-        'termtables'
+        'termtables',
+        'datetime'
     ],
     entry_points='''
         [console_scripts]

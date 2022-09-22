@@ -99,24 +99,27 @@ from keycollator import ZTimer, KeyKrawler
 keycollator uses the `CLI` to change default parameters and functions
 
 ```bash
+python3 src/keycollator.py --help                         
 Usage: keycollator.py [OPTIONS] COMMAND [ARGS]...
 
   keycollator is an app that finds occurances of keys in a text file
 
 Options:
-  -v, --set-verbose               Turn on verbose
-  -f, --fuzzy-matching INTEGER RANGE
-                                  Find valid matches using edit distances or
-                                  approximate matches, uses acceptance ratio
-                                  of integer values from 0 to 99, where 99 is
-                                  near identical  [0<=x<=99]
+  -t, --text-file PATH            Path/file name of the text to be searched
+                                  for against items in the key file
   -k, --key-file PATH             Path/file name of the key file containing a
                                   dictionary, key items, glossary, or
                                   reference list used to search the text file
-  -t, --text-file PATH            Path/file name of the text to be searched
-                                  for against items in the key file
-  -o, --output-file PATH          Path/file name of the output file that
+  -O, --output-file PATH          Path/file name of the output file that
                                   will contain the results (CSV or TXT)
+  -R, --limit-results INTEGER     Limit the number of results
+  -f, --fuzzy-matching INTEGER RANGE
+                                  Set the level of fuzzy matching (default=99)
+                                  to validate matches using
+                                  approximations/edit distances, uses
+                                  acceptance ratios with integer values from 0
+                                  to 99, where 99 is nearly identical and 0 is
+                                  not similar  [0<=x<=99]
   -U, --ubound-limit INTEGER RANGE
                                   Ignores items from the results with matches
                                   greater than the upper boundary (upper-
@@ -126,6 +129,7 @@ Options:
                                   Ignores items from the results with matches
                                   less than the lower boundary (lower-limit);
                                   reduce eroneous matches  [0<=x<=99999]
+  -v, --set-verbose               Turn on verbose
   -l, --set-logging               Turn on logging
   -Z, --log-file PATH             Path/file name to be used for the log file
   --help                          Show this message and exit.
@@ -198,64 +202,71 @@ keycollator --log-file="/path/to/log/file/log.log"
 ## Example Output
 
 ```bash
-
-python3 src/keycollator.py -l
-✔ Extract data from text.txt
-[__init__]=[0.86]seconds
-✔ Extract data from keys.txt
-[__init__]=[0.86]seconds
-✔ Match keys.txt items to text.txt items
-[__init__]=[0.86]seconds
-✔ Writing results to results.csv
-[__init__]=[0.86]seconds
-==============================
-           Results            
-1 manage , 73
-2 develop , 62
-3 report , 58
-4 support , 46
-5 process , 43
-6 analysis , 36
-7 perform , 32
-8 maintain , 28
-9 ensure , 26
-10 provide , 26
-11 technical , 24
-12 lead , 24
-13 database , 22
-14 deliver , 20
-15 design , 19
-16 document , 17
-17 operations , 17
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-------------------------------
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Stats for this run... 
- Total Key Items: 701 
- Total Text Items: 695 
- Total Matches: 1207 
- Total Comparisons: 376855 
- Total Items Logged: 0 
- Total Runtime: 67.38 seconds
-
+python3 src/keycollator.py --set-logging --limit-results=30
+✔ Extracted text.txt items.[Timer[0.12]seconds]
+Timer[0.12]seconds
+✔ Extracted keys.txt items.[Timer[0.22]seconds]
+Timer[0.22]seconds
+✔ Match keys.txt items to text.txt items. Timer[73.61]seconds
+Timer[73.61]seconds
+✔ results.csv Complete.[Timer[73.67]seconds]
+Timer[73.67]seconds
+╭─────┬───────────────┬───────╮
+│ No. │ Key           │ Count │
+├─────┼───────────────┼───────┤
+│  1  │ manage        │  73   │
+├─────┼───────────────┼───────┤
+│  2  │ develop       │  62   │
+├─────┼───────────────┼───────┤
+│  3  │ report        │  58   │
+├─────┼───────────────┼───────┤
+│  4  │ support       │  46   │
+├─────┼───────────────┼───────┤
+│  5  │ process       │  43   │
+├─────┼───────────────┼───────┤
+│  6  │ analysis      │  36   │
+├─────┼───────────────┼───────┤
+│  7  │ perform       │  32   │
+├─────┼───────────────┼───────┤
+│  8  │ maintain      │  28   │
+├─────┼───────────────┼───────┤
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+├─────┼───────────────┼───────┤
+│ 30  │ create        │  10   │
+╰─────┴───────────────┴───────╯
+╭─────────────┬────────╮
+│ Statistic   │ Total  │
+├─────────────┼────────┤
+│ Keys        │  701   │
+├─────────────┼────────┤
+│ Text        │  695   │
+├─────────────┼────────┤
+│ Matches     │  1207  │
+├─────────────┼────────┤
+│ Comparisons │ 376855 │
+├─────────────┼────────┤
+│ Logs        │   0    │
+├─────────────┼────────┤
+│ Runtime     │ 73.76  │
+╰─────────────┴────────╯
  ```
 
 ## 🎯 Todo 📌
 
     ✅ Separating project into multiple files
     ✅ Add progress inicator using **halo** when extracting and comparing
-    ❌Create a logger class (for some reason **logging** is broken)
+    ✅Create a logger class (for some reason **logging** is broken)
     ✅ **KeyKrawler** matching is broken
     ✅ Update **README.md(.rst)** with correct CLI
     ❌ Create method to KeyKrawler to select and _create missing files_
     ❌ Update **CODE_OF_CONDUCT.md**
     ❌ Update **CONTRIBUTING.md**
-    ❌ Format KeyCrawler console results as a table
+    ✅ Format KeyCrawler console results as a table
     ❌ Create ZLog class in extractonator.py _(custom logger)_
     ❌ Cleanup verbose output _(conflicts with halo)_
     ❌ Update **all** comments
     ❌ Migrate click functionality to _cli.py_
+    ✅ Refactor all methods and functions
 
 
 ## 👔 Project Resource Acknowledgements
