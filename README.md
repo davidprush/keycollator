@@ -1,15 +1,18 @@
 ***
+
 [![Pylint](https://github.com/davidprush/keycollator/actions/workflows/pylint.yml/badge.svg)](https://github.com/davidprush/keycollator/actions/workflows/pylint.yml)
 [![Makefile CI](https://github.com/davidprush/keycollator/actions/workflows/makefile.yml/badge.svg)](https://github.com/davidprush/keycollator/actions/workflows/makefile.yml)
 [![Python Version](https://img.shields.io/pypi/pyversions/keycollator.svg)](https://pypi.org/project/keycollator/)
 [![License](https://img.shields.io/github/license/davidprush/keycollator)](https://github.com/davidprush/keycollator/blob/master/LICENSE)
+
+#
 
 ```bash
 ┬┌─┌─┐┬ ┬┌─┐┌─┐┬  ┬  ┌─┐┌┬┐┌─┐┬─┐
 ├┴┐├┤ └┬┘│  │ ││  │  ├─┤ │ │ │├┬┘
 ┴ ┴└─┘ ┴ └─┘└─┘┴─┘┴─┘┴ ┴ ┴ └─┘┴└─
 ```
-***
+#
 
 Compares text in a file to reference/glossary/key-items/dictionary.[[1]](#citation1)[[2]](#citation2)
 
@@ -401,3 +404,5 @@ This project is licensed under the terms of the **MIT** license. See [LICENSE](h
 1. _The latest version of this document can be found [here](https://github.com/davidprush/keycollator/blob/main/README.md); if you are viewing it there (via HTTPS), you can download the Markdown/reStructuredText source [here](https://github.com/davidprush/keycollator)._ 
 <a name="citation2"></a>
 2. _You can contact the author via [e-mail](davidprush@gmail.com)._
+
+***
