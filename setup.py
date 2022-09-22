@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='keycollator',
-    version='0.0.3',
+    version='0.0.4',
     long_description=long_description,
     py_modules=[
         'cli',
