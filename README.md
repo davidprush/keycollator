@@ -378,7 +378,7 @@ python3 src/keycollator.py --set-logging --limit-results=30
 
   | Release | Version | Status |
   | ------- | ------- | ------- |
-  | **Current:** | [0.0.4](https://pypi.org/project/keycollator/0.0.4/) | Working |
+  | **Current:** | [0.0.5](https://pypi.org/project/keycollator/0.0.5/) | Working |
 
 <a name="pypi-versions"></a>
 ### 📦 Pypi Versions
@@ -388,6 +388,7 @@ python3 src/keycollator.py --set-logging --limit-results=30
   | [0.0.1](https://pypi.org/project/keycollator/0.0.1/) | Initial prototype |
   | [0.0.2](https://pypi.org/project/keycollator/0.0.2/) | Bug fixes |
   | [0.0.4](https://pypi.org/project/keycollator/0.0.4/) | Fixed functions/methods |
+  | [0.0.5](https://pypi.org/project/keycollator/0.0.5/) | Fixed functions/methods |
 
 <a name="license"></a>
 ## 🛡 License

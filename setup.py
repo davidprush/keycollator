@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='keycollator',
-    version='0.0.4',
+    version='0.0.5',
     long_description=long_description,
     url="https://github.com/davidprush/keycollator",
     author="David Rush",
@@ -25,10 +25,7 @@ setup(
         "Topic :: Office/Business",
         "Topic :: Software Development :: Testing",
         "Topic :: Text Processing",
-        "Topic :: Text Processing :: Filters"
-        "Topic :: Text Processing :: Indexing",
         "Topic :: Utilities",
-        "Programming Language :: Python :: 3 :: Only"
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
@@ -44,7 +41,6 @@ setup(
         'fuzzywuzzy>=0.18.0',
         'halo>=0.0.31',
         'nltk>=3.7',
-        'pytest>=7.1.3',
         'python-Levenshtein>=0.12.2',
         'termtables>=0.2.4'
     ],
