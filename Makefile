@@ -12,11 +12,11 @@ help: ## Display this help message.
 
 .PHONY: run
 run:
-	python3 src/keycollator.py --set-logging --limit-results=30
+	python3 src/keycollator.py --limit-result=30
 
 .PHONY: setup
 setup: requirements.txt
-	pip3 install -r src/requirements.txt
+	python3 -m pip install -r requirements.txt
 
 .PHONY: clean
 clean:
@@ -36,24 +36,26 @@ venv:
 upgrade:
 	python3 -m pip install --upgrade build
 	python3 -m pip install --upgrade twine
+	python3 -m pip install --upgrade -r requirements.txt
 
 .PHONY: build
 build:
 	python3 -m pip install --upgrade build
+	python3 -m pip install -r requirements.txt
 	python3 -m build
 
 .PHONY: pypi
 pypi:
-	python setup.py sdist
+	python3 setup.py sdist
 	twine upload --skip-existing dist/*
 
 .PHONY: setup
 setup:
-	python setup.py sdist
+	python3 setup.py sdist
 
 .PHONY: punkt
 punkt:
-	pip3 install nltk
+	python3 -m pip install nltk
 	python3 -m nltk.downloader punkt
 
 .PHONY: alias
