@@ -32,16 +32,17 @@ Compares text in a file to reference/glossary/key-items/dictionary.[[1]](#citati
 5. [Supported File Formats](#supported-file-formats)
 6. [Usage](#usage)
     1. [Import _keycollator_ into Python Projects](#import-keycollator-into-python-projects)
-    2. [CLI](#cli)
-    3. [Turn on _verbose_ output](#turn-on-verbose-output)
-    4. [Apply _fuzzy matching_](#apply-fuzzy-matching)
-    5. [Set the _key file_](#set-the-key-file)
-    6. [Set the _text file_](#set-the-text-file)
-    7. [Specify the _output file_](#specify-the-output-file)
-    8. [Set _limit results_ for console and _output file_](#set-limit-results-for-console-and-output-file)
-    9. [Set _upper bound limit_](#set-the-upper-bound-limit)
-    10. [Turn on _logging_:](#turn-on-logging)
-    11. [Create a _log file_](#create-a-log-file)
+    2. [Requirements](#requirements)
+    3. [CLI](#cli)
+    4. [Turn on _verbose_ output](#turn-on-verbose-output)
+    5. [Apply _fuzzy matching_](#apply-fuzzy-matching)
+    6. [Set the _key file_](#set-the-key-file)
+    7. [Set the _text file_](#set-the-text-file)
+    8. [Specify the _output file_](#specify-the-output-file)
+    9. [Set _limit results_ for console and _output file_](#set-limit-results-for-console-and-output-file)
+    10. [Set _upper bound limit_](#set-the-upper-bound-limit)
+    11. [Turn on _logging_:](#turn-on-logging)
+    12. [Create a _log file_](#create-a-log-file)
 7. [Example Output](#example-output)
 8. [Todo](#todo)
 9. [Project Resource Acknowledgements](#project-resource-acknowledgements)
@@ -134,7 +135,32 @@ Official documentation can be found here:
 ### 🖥️ Import _keycollator_ into Python Projects
 
 ```
-from keycollator import ZTimer, KeyKrawler
+from keycollator.customlogger import CustomLogger as cl
+from keycollator.proceduretimer import ProcedureTimer as pt
+
+clobj = cl([message=str], [filemode='a'|'w'|'r'], [level='info'|'success'|'warning'|'error'],
+        [filename=str], [dtformat='locale'|'standar'|'timeonly'|'compressed'|'long'|'micro'])
+        **locale='%c', default='%d/%m/%Y %H:%M:%S',
+        timeonly='%H:%M:%S', compressed='%d%m%Y%H%M%S',
+        long='%A %B %d, %Y, [%I:%M:%S %p]', micro='%H:%M:%S:%f'
+
+ptobj = pt([str])
+        *where str is whatever message you want saved for the timer
+```
+
+
+<a name="requirements"></a>
+### 🖥️ Requirements
+
+```
+click >= 8.0.2
+datetime >= 4.7
+fuzzywuzzy >= 0.18.0
+halo >= 0.0.31
+nltk >= 3.7
+pytest >= 7.1.3
+python-Levenshtein >= 0.12.2
+termtables >= 0.2.4
 ```
 
 <a name="cli"></a>
