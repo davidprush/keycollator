@@ -316,11 +316,9 @@ python3 src/keycollator.py --set-logging --limit-results=30
     ❌ Fix pylint errors
     ❌ Add proper error handling
     ❌ Add CHANGELOG.md
-    ❌ Update requirements.txt
     ❌ Create method to KeyKrawler to select and _create missing files_
     ❌ Update CODE_OF_CONDUCT.md
     ❌ Update CONTRIBUTING.md
-    ❌ Cleanup verbose output (conflicts with halo)
     ❌ Update all comments
     ❌ Migrate click functionality to cli.py
     ❌ Github: issue and pr templates
