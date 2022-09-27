@@ -726,10 +726,10 @@ class ItemizeFile:
         -------
         -> str, without stop words
         """
+        text = ""
         for i, word in enumerate(self.__stopwords):
+            text = text.replace(" {0} ".format(word), " ")
             self.log.append([i, word, text])
-            print(word)
-            return text.replace(" {0} ".format(word), " ")
         self.log.append(['stop-words-removed', text])
         return text
 
@@ -841,9 +841,8 @@ class ItemizeFile:
         """
         if len(self.__log) > 1:
             for log in self.__log:
-                log = "".join(log)
+                log = "".join(str(log))
                 log = log.replace(LINE, '')
-                print("{0}".format(log))
             return True
         else:
             return False
@@ -1348,51 +1347,36 @@ class KeyKrawler:
         echo_stats() -> None
         """
         self.reset_log_file()
-        spinner = Halo(
-            "Itemizing Text",
-            spinner='dots'
-        )
+
+        spinner = Halo("Itemizing Text", spinner='dots')
         spinner.start()
+
         self.__textobj.stopwords = [x for x in STOP_WORDS]
         self.__textobj.get_itemized_file()
-        spinner.stop_and_persist(
-            SYMB['success'],
-            LOGTXT['extract'].format(
-                self.__key_file,
-                self.__timer.timestampstr()
-            )
-        )
-        # self.__itemize_keys()
-        spinner = Halo(
-            "Itemizing Keys",
-            spinner='dots'
-        )
+
+        spinner.stop_and_persist(SYMB['success'], LOGTXT['extract'].format(
+            self.__key_file, self.__timer.timestampstr()))
+
+        spinner = Halo("Itemizing Keys", spinner='dots')
         spinner.start()
-        self.__keyobj.stopwords = [x for x in STOP_WORDS]
+
+        self.__keyobj.stopwords = self.__textobj.stopwords
         self.__keyobj.get_itemized_file()
         self.__keyobj.echo_log()
-        spinner.stop_and_persist(
-            SYMB['success'],
-            LOGTXT['extract'].format(
-                self.__key_file,
-                self.__timer.timestampstr()
-            )
-        )
-        spinner = Halo(
-            "Itemizing Keys",
-            spinner='dots'
-        )
+
+        spinner.stop_and_persist(SYMB['success'], LOGTXT['extract'].format(
+            self.__text_file, self.__timer.timestampstr()))
+
+        spinner = Halo("Itemizing Keys", spinner='dots')
         spinner.start()
+
         self.__textobj.run_anlysis(self.__keyobj)
-        spinner.stop_and_persist(
-            SYMB['success'],
-            LOGTXT['extract'].format(
-                self.__key_file,
-                self.__timer.timestampstr()
-            )
-        )
+
+        spinner.stop_and_persist(SYMB['success'], LOGTXT['extract'].format(
+            self.__key_file, self.__timer.timestampstr()))
+
+        self.echo_result()
         self.write_result2file()
-        # self.__echo_result()
         self.echo_stats()
 
     def verify_files_exist(self, *args) -> bool:

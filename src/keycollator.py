@@ -21,9 +21,9 @@ Todo:
 
 """
 import sys
-from proceduretimer import ProcedureTimer
+from proceduretimer import ProcedureTimer as pt
 import click
-from extractonator import KeyKrawler
+from extractonator import KeyKrawler as kk
 from consts import LOG, TEXT, CSV, KEY
 
 
@@ -129,7 +129,7 @@ def cli(
 keycollator is an app that finds occurances of keys in a text file\n
 ==================================================================\n
     """
-    KeyKrawler(
+    app_kk = kk(
         text_file,
         key_file,
         result_file,
@@ -141,16 +141,18 @@ keycollator is an app that finds occurances of keys in a text file\n
         lbound_limit,
         fuzzy_match_ratio,
         logging,
-        True
+        False
     )
 
+    return app_kk
 
-def main(**kwargs):
-    pt.stop_timer(sys._getframe().f_code.co_name)
-    pt.echo(False, sys._getframe().f_code.co_name)
+
+def main(obj, app_timer, **kwargs):
+    app_timer.stop_timer(sys._getframe().f_code.co_name)
+    obj.run()
+    app_timer.echo(False, sys._getframe().f_code.co_name)
 
 
 if __name__ == '__main__':
-    pt = ProcedureTimer(sys._getframe().f_code.co_name)
-    cli()
-    main(pt)
+    app_timer = pt(sys._getframe().f_code.co_name)
+    main(cli(), app_timer)
