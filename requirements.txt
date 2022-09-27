@@ -5,3 +5,5 @@ halo >= 0.0.31
 nltk >= 3.7
 python-Levenshtein >= 0.12.2
 termtables >= 0.2.4
+numpy >= 1.23.3
+joblib >= 1.2.0

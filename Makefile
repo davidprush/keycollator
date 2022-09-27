@@ -12,7 +12,7 @@ help: ## Display this help message.
 
 .PHONY: run
 run:
-	python3 src/keycollator.py --limit-result=30
+	python3 src/keycollator.py --logging --limit-result=20
 
 .PHONY: setup
 setup: requirements.txt

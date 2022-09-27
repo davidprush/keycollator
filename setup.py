@@ -1,3 +1,12 @@
+# -*- coding: utf-8 -*-
+"""
+Copyright (C) 2022 Rush Solutions, LLC
+Author: David Rush <davidprush@gmail.com>
+License: MIT
+Contains class:
+    keycollator
+        └──setup:
+"""
 from setuptools import setup, find_packages
 
 with open("README.md", "r") as fh:
@@ -5,7 +14,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='keycollator',
-    version='0.0.5',
+    version='0.0.6',
     long_description=long_description,
     url="https://github.com/davidprush/keycollator",
     author="David Rush",
@@ -42,7 +51,9 @@ setup(
         'halo>=0.0.31',
         'nltk>=3.7',
         'python-Levenshtein>=0.12.2',
-        'termtables>=0.2.4'
+        'termtables>=0.2.4',
+        'numpy >= 1.23.3',
+        'joblib >= 1.2.0'
     ],
     entry_points='''
         [console_scripts]

@@ -8,12 +8,51 @@ Contains class:
         └──usage:
 """
 import os
+from functools import wraps
 from collections import defaultdict
 from datetime import datetime
-
 from consts import \
-    DEFAULT_LOG_FILE, SYMBOLS, END_LINE, \
-    MODES, LOG_DEFAULT_PARAMS, DATETIME_FORMATS
+    LOG, SYMB, LINE, LOGTXT, LPARAMS, DTFMT, MODES, DIV
+
+
+# Function for decorator
+def custom_logger(CustomLogger):
+    """
+    wrapper
+    Parameters
+    ----------
+        []]: [type], [required/optional]
+    """
+    logger = CustomLogger(
+        message="Iniate logger",
+        filemode=MODES[0],
+        filename='LOG',
+        level='info',
+        dtformat=DTFMT['compressed'])
+    logger.write_log(" {0} ".format())
+    return logger
+
+
+def exception(logger):
+    """
+    exception handler
+    Parameters
+    ----------
+        []]: [type], [required/optional]
+    """
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            try:
+                return func(*args, **kwargs)
+            except Exception as ex:
+                logger.set_log_msg(
+                    "exception in {0}{1}".format(
+                        func.__name__, ex))
+            raise
+
+        return wrapper
+    return decorator
 
 
 class CustomLogger:
@@ -34,7 +73,7 @@ class CustomLogger:
             level: str, optional
                 valid options are 'info', 'success', 'warning', 'error'
             filename: str, optional
-                name of the log file, default is DEFAULT_LOG_FILE from .consts
+                name of the log file, default is LOG from .consts
             dtformat: str, optional
                 format date with:
                     ['locale', 'standar', 'timeonly', 'compressed', 'long', 'micro']
@@ -45,7 +84,7 @@ class CustomLogger:
                 message used for the log
         """
         self.__dtstamp = datetime.now()
-        self.__log_symbol = SYMBOLS['info']
+        self.__log_symbol = SYMB['info']
         self.__log_msg = ""
         self.__err_msg = ""
         self.__log_err = False
@@ -53,58 +92,78 @@ class CustomLogger:
         self.__log_count = 0
         self.__params = defaultdict(str)
         self.__params = {
-            'filename': DEFAULT_LOG_FILE,
+            'filename': LOG,
             'filemode': 'a',
             'level': 'info',
             'dtformat': 'default',
             'message': '',
-            'phony': 'No',
+            'phony': kwargs.get('phony', 'no'),
         }
         if kwargs:
-            self.set_options(kwargs)
+            self.set_options(**kwargs)
         if args:
-            self.set_log_msg(args)
+            self.set_log_msg(*args)
 
     def __validate_dtformat(self):
-        if self.__params['dtformat'] in [x for x in DATETIME_FORMATS]:
+        """
+        CustomLogger
+        Parameters
+        ----------
+            []]: [type], [required/optional]
+        """
+        if self.__params['dtformat'] in [x for x in DTFMT]:
             self.__update_dtstamp
             return True
         else:
             self.__log_err = True
-            self.__logger_error(
-                "Invalid datetime format: ",
+            self.__logger_error(LOGTXT['__validate_dtformat'].format(
                 self.__params['dtformat'],
-                " falling back to \'default\': ",
-                DATETIME_FORMATS['default'], END_LINE,
-                "VALID datetime formats: ",
-                ''.join(["[ {0} ] ".format(key) for key in DATETIME_FORMATS.keys()]),
-                END_LINE
-            )
-            self.__params['dtformat'] = DATETIME_FORMATS['default']
+                DTFMT['default'],
+                ''.join([LOGTXT['join'].format(key) for key in DTFMT.keys()])
+            ))
+            self.__params['dtformat'] = DTFMT['default']
             self.__log_err = False
             return False
 
     def __logger_error(self, *args):
+        """
+        CustomLogger
+        Parameters
+        ----------
+            []]: [type], [required/optional]
+        """
         if self.__log_err:
-            self.__err_msg = "Log[{0}]::[{1}]::INVALID OPTIONS:{2}".format(
-                str(self.__log_count), str(self.__update_dtstamp()), END_LINE)
+            self.__err_msg = LOGTXT['options'].format(
+                str(self.__log_count), str(self.__update_dtstamp()))
             for arg in args:
                 for a in arg:
-                    self.__err_msg += "{0}".format(str(a))
-            if END_LINE not in self.__err_msg[len(self.__err_msg) - 2]:
-                self.__err_msg += END_LINE
+                    self.__err_msg += LOGTXT['__logger_error'].format(str(a))
+            if LINE not in self.__err_msg[len(self.__err_msg) - 2]:
+                self.__err_msg += LINE
             print(self.__err_msg)
             return True
         else:
             return False
 
     def __update_dtstamp(self):
+        """
+        CustomLogger
+        Parameters
+        ----------
+            []]: [type], [required/optional]
+        """
         self.__dtstamp = datetime.now()
         self.__dtstamp = \
-            self.__dtstamp.strftime(DATETIME_FORMATS[self.__params['dtformat']])
+            self.__dtstamp.strftime(DTFMT[self.__params['dtformat']])
         return self.__dtstamp
 
     def __set_params(self):
+        """
+        CustomLogger
+        Parameters
+        ----------
+            []]: [type], [required/optional]
+        """
         self.__valid_params = True
         self.__log_err = False
         param_err = defaultdict()
@@ -115,14 +174,14 @@ class CustomLogger:
             param_err['filemode'] = self.__params['filemode']
             self.__params['filemode'] = 'a'
             param_err['filemode'] = self.__params['filemode']
-        if self.__params['level'] not in SYMBOLS.keys():
+        if self.__params['level'] not in SYMB.keys():
             self.__valid_params = False
             self.__params['level'] = 'info'
             param_err['level'] = self.__params['level']
         if not os.path.exists(self.__params['filename']):
             self.__valid_params = False
             param_err['filename'] = self.__params['filename']
-            self.__params['filename'] = DEFAULT_LOG_FILE
+            self.__params['filename'] = LOG
         if not self.__validate_dtformat():
             self.__valid_params = False
             param_err['dtformat'] = self.__params['dtformat']
@@ -133,33 +192,48 @@ class CustomLogger:
         if not self.__valid_params:
             self.__log_err = True
             self.__logger_error(
-                ["{0}: {1} ".format(
+                [LOGTXT['__set_params'].format(
                     str(err), str(param_err[err])) for err in param_err]
             )
             self.__log_err = False
         return self.__valid_params
 
     def set_log_msg(self, *args, **kwargs):
+        """
+        CustomLogger
+        Parameters
+        ----------
+            []]: [type], [required/optional]
+        """
         self.__log_count += 1
         self.__log_msg = ""
-        if kwargs is not None:
+        if kwargs:
             self.__log_symbol = kwargs.get(
                 'symbol', 'info')
             new_kwargs = {k: v for k, v in kwargs.items() if k in ['symbol']}
-            self.set_options(new_kwargs)
-        self.__log_msg = "{0} {1}::{2}::".format(
-            SYMBOLS['info'], str(self.__log_count), str(self.__update_dtstamp()))
-        if args is not None:
+            self.set_options(**new_kwargs)
+        self.__log_msg = LOGTXT['set_log_msg'].format(
+            SYMB['info'], str(self.__log_count), str(self.__update_dtstamp()))
+        if args:
             for arg in args:
-                self.__log_msg += "{0}".format(str(arg))
-        if END_LINE != self.__log_msg[len(self.__log_msg) - 2]:
-            self.__log_msg += END_LINE
+                self.__log_msg += LOGTXT['arg'].format(str(arg))
+        self.__log_msg = self.__log_msg.translate(self.__log_msg.maketrans(
+            "",
+            "",
+        ))
+        self.__log_msg += LINE
         return self.__log_msg
 
     def write_log(self, *args, **kwargs):
-        if kwargs is not None:
-            self.set_options(kwargs)
-        self.set_log_msg(args)
+        """
+        CustomLogger
+        Parameters
+        ----------
+            []]: [type], [required/optional]
+        """
+        if kwargs:
+            self.set_options(**kwargs)
+        self.set_log_msg(*args)
         if self.__params['phony'].lower() == 'no':
             try:
                 with open(
@@ -168,26 +242,34 @@ class CustomLogger:
                     log_fh.write(self.__log_msg)
             finally:
                 log_fh.close()
+        self.__params['message'] = self.__log_msg
         return self.__params['message']
 
     def set_options(self, *args, **kwargs):
+        """
+        CustomLogger
+        Parameters
+        ----------
+            []]: [type], [required/optional]
+        """
         param_err = defaultdict(str)
         for opt in kwargs:
-            if opt not in [x for x in self.__params]:
+            if opt not in self.__params:
                 param_err[opt] = kwargs[opt]
                 self.__log_err = True
             else:
-                self.__params[opt] = opt
+                self.__params[opt] = kwargs[opt]
         for param in [
             li for li in self.__params
                 if li not in kwargs]:
-            if param in [x for x in LOG_DEFAULT_PARAMS]:
-                self.__params[param] = str(LOG_DEFAULT_PARAMS[param]) \
-                    if not isinstance(LOG_DEFAULT_PARAMS[param], str) \
-                    else LOG_DEFAULT_PARAMS[param]
+            if param in LPARAMS:
+                self.__params[param] = str(LPARAMS[param]) \
+                    if not isinstance(LPARAMS[param], str) \
+                    else LPARAMS[param]
         if self.__log_err:
             self.__logger_error(
-                ["{0}:{1}".format(str(e), str(param_err[e])) for e in param_err])
+                [LOGTXT['set_options'].format(
+                    str(e), str(param_err[e])) for e in param_err])
             return False
         elif self.__set_params():
             return True
@@ -203,8 +285,8 @@ class CustomLogger:
             log_fh.close()
 
     def set_symbol(self, symbol):
-        if symbol not in [SYMBOLS[x] for x in SYMBOLS]:
-            self.__logger_error('SYMBOL:=', symbol, " not valid!")
+        if symbol not in [SYMB[x] for x in SYMB]:
+            self.__logger_error(LOGTXT['set_symbol'].format(symbol))
             return False
         else:
             return True

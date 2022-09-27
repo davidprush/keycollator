@@ -21,13 +21,10 @@ Todo:
 
 """
 import sys
-import click
-
-from extractonator import KeyKrawler
 from proceduretimer import ProcedureTimer
-from consts import \
-    DEFAULT_LOG_FILE, DEFAULT_TEXT_FILE, \
-    DEFAULT_CSV_FILE, DEFAULT_KEY_FILE
+import click
+from extractonator import KeyKrawler
+from consts import LOG, TEXT, CSV, KEY
 
 
 @click.group(
@@ -37,14 +34,14 @@ from consts import \
     invoke_without_command=True)
 @click.option(
     '-t', '--text-file',
-    default=DEFAULT_TEXT_FILE,
+    default=TEXT,
     type=click.Path(exists=True),
     help='''Path/file name of the text to be searched
     for against items in the key file'''
 )
 @click.option(
     '-k', '--key-file',
-    default=DEFAULT_KEY_FILE,
+    default=KEY,
     type=click.Path(exists=True),
     help='''Path/file name of the key file containing a
         dictionary, key items, glossary, or reference
@@ -52,15 +49,20 @@ from consts import \
 )
 @click.option(
     '-r', '--result-file',
-    default=DEFAULT_CSV_FILE,
+    default=CSV,
     type=click.Path(exists=True),
     help="Path/file name of the output file that \
         will contain the results (CSV or TXT)"
 )
 @click.option(
     '--limit-result',
-    default=0,
+    default=None,
     help="Limit the number of results"
+)
+@click.option(
+    '--abreviate-result-items',
+    default=32,
+    help="Limit the text length of the results (default=32)"
 )
 @click.option(
     '--fuzzy-match-ratio',
@@ -73,7 +75,7 @@ from consts import \
 )
 @click.option(
     '--ubound-limit',
-    default=99999,
+    default=None,
     type=click.IntRange(1, 99999, clamp=True),
     help="""
         Ignores items from the results with
@@ -83,7 +85,7 @@ from consts import \
 )
 @click.option(
     '--lbound-limit',
-    default=0,
+    default=None,
     type=click.IntRange(0, 99999, clamp=True),
     help="""
         Ignores items from the results with
@@ -105,7 +107,7 @@ from consts import \
 )
 @click.option(
     '-L', '--log-file',
-    default=DEFAULT_LOG_FILE,
+    default=LOG,
     type=click.Path(exists=True),
     help="Path/file name to be used for the log file"
 )
@@ -116,47 +118,23 @@ def cli(
     text_file,
     limit_result,
     result_file,
+    abreviate_result_items,
     ubound_limit,
     lbound_limit,
     logging,
     log_file,
 ):
     """
-    keycollator is an app that finds occurances of keys in a text file
-        Parameters
-        ----------
-        text_file: str, optional
-            Name of the text file to find keys. (default: DEFAULT_TEXT_FILE)
-        key_file: str, optional
-            Name of file to read keys. (default: DEFAULT_KEY_FILE)
-        result_file str, optional
-            Name of the file to write results. (default: DEFAULT_CSV_FILE)
-        limit_result: int, optional
-            Sets the limit to the number (integer) of results
-            where 0 is no limit and any number equal or above
-            1 implements a limit (default: 0)
-        log_file: str, optional
-            Name of the file to write logs (default: DEFAULT_LOG_FILE)
-        verbose: bool, optional
-            Verbosity flag where False is off and True is on. (default: False)
-        ubound_limit: int, optional
-            Upper bound limit to reject key matches above the value.
-            Helps eliminate eroneous results when using fuzzy matching.
-            (default: 99999)
-        lbound_limit: int, optional
-            Lower bound limit to reject key matches below the value.
-            Helps eliminate eroneous results when using fuzzy matching. (default: 0)
-        fuzzy_match_ratio: int, optional
-            Sets the level of fuzzy matching, range(0:99), where 0 accepts
-            nearly everythong and 99 accepts nearly identical matches. (default: 99)
-        logging: bool, optional
-            Logging flag where False is off and True is on. (default: 0)
+==================================================================\n
+keycollator is an app that finds occurances of keys in a text file\n
+==================================================================\n
     """
     KeyKrawler(
         text_file,
         key_file,
         result_file,
         limit_result,
+        abreviate_result_items,
         log_file,
         verbose,
         ubound_limit,
