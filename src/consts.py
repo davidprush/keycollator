@@ -17,6 +17,12 @@ LOG = "log.log"
 TEXT = "text.txt"
 CSV = "results.csv"
 KEY = "keys.txt"
+PFILE = {
+    1: ".txt",
+    2: ".txt",
+    3: ".csv",
+    4: ".log"
+}
 STOP_WORDS = [
     "a", "about", "above", "after", "again", "against", "all", "am",
     "an", "and", "any", "are", "as", "at", "be", "because", "been",

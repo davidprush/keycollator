@@ -60,7 +60,7 @@ from consts import LOG, TEXT, CSV, KEY
     help="Limit the number of results"
 )
 @click.option(
-    '--abreviate-result-items',
+    '--abreviate',
     default=32,
     help="Limit the text length of the results (default=32)"
 )
@@ -118,7 +118,7 @@ def cli(
     text_file,
     limit_result,
     result_file,
-    abreviate_result_items,
+    abreviate,
     ubound_limit,
     lbound_limit,
     logging,
@@ -129,30 +129,28 @@ def cli(
 keycollator is an app that finds occurances of keys in a text file\n
 ==================================================================\n
     """
-    app_kk = kk(
+    appkk = kk(
         text_file,
         key_file,
         result_file,
-        limit_result,
-        abreviate_result_items,
         log_file,
-        verbose,
-        ubound_limit,
-        lbound_limit,
-        fuzzy_match_ratio,
         logging,
-        False
+        fuzzy_match_ratio,
+        limit_result,
+        abreviate,
+        verbose,
+        lbound_limit,
+        ubound_limit
     )
+    main(appkk)
 
-    return app_kk
 
-
-def main(obj, app_timer, **kwargs):
-    app_timer.stop_timer(sys._getframe().f_code.co_name)
-    obj.run()
-    app_timer.echo(False, sys._getframe().f_code.co_name)
+def main(obj, **kwargs):
+    # app_timer.stop_timer(sys._getframe().f_code.co_name)
+    obj.match_keys()
+    # app_timer.echo(False, sys._getframe().f_code.co_name)
 
 
 if __name__ == '__main__':
     app_timer = pt(sys._getframe().f_code.co_name)
-    main(cli(), app_timer)
+    cli()

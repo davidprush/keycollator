@@ -290,3 +290,21 @@ class CustomLogger:
             return False
         else:
             return True
+
+    def reset_log_file(self) -> bool:
+        """
+        Class: KeyKrawler method reset_log_file() -> bool
+        Resets the log file (__log_file) be overwriting it
+        ...
+        Attributes
+        ----------
+        __log_file:=str, name of file to write log
+
+        Return
+        ------
+        -> bool, True if file is written
+        """
+        with open(self.__log_file, 'w') as fh:
+            fh.close()
+            return True
+        return False
