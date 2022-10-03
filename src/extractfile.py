@@ -374,10 +374,9 @@ class ItemizeFileData:
             ps = PorterStemmer()
             wnl = WordNetLemmatizer()
             for word in stopwords:
-                sw.append(word_tokenize(ps.stem(wnl.lemmatize(word))))
-                for s in sw:
+                for s in (word_tokenize(ps.stem(wnl.lemmatize(word)))):
                     if len(s) > 1 and s not in stopwords:
-                        sw.append(s)
+                        sw.append(str(s))
             for w in sw:
                 if w not in stopwords:
                     stopwords.append(w)
