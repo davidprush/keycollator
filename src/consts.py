@@ -23,6 +23,7 @@ PFILE = {
     3: ".csv",
     4: ".log"
 }
+SEP = "|"
 STOP_WORDS = [
     "a", "about", "above", "after", "again", "against", "all", "am",
     "an", "and", "any", "are", "as", "at", "be", "because", "been",

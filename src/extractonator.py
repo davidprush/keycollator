@@ -37,11 +37,11 @@ from collections import defaultdict
 
 import nltk.data
 
-from extractfile import ItemizedFileData as ifd
+from extractfile import ItemizeFileData as ifd
 from analysis import KeyTextAnalysis as kta
 
 from consts import \
-    LINE, STOP_WORDS, SYMB, LOGTXT, TEXT, \
+    LINE, STOP_WORDS, LOGTXT, TEXT, \
     KEY, CSV, LOG, RTBLHDR, STBLHDR, PFILE
 
 
@@ -66,36 +66,36 @@ class KeyKrawler:
 
     Attributes
     ----------
-    __textobj = ifd(TEXT, STOP_WORDS)
-    __keyobj = ifd(KEY, STOP_WORDS)
+    __tobj = ifd(TEXT, STOP_WORDS)
+    __kobj = ifd(KEY, STOP_WORDS)
     __csv = CSV
     __log = LOG
-    __limit_result = limit_result
-    __abreviate = abreviate
-    __ulbound = ubound
-    __llbound = lbound
-    __fuzz_ratio = fuzz_ratio
-    __verbose = verbose
-    __comparisons = 0
-    __logct = 0
-    __rct = 0
-    __noresult = True
+    __limres = limit_result
+    __abrvt = abreviate
+    __uplb = ubound
+    __lolb = lbound
+    __fuzrat = fuzz_ratio
+    __vrbs = verbose
+    __cmprsns = 0
+    __lgcnt = 0
+    __rcnt = 0
+    __nrslt = True
     __logging = logging
     __logger = CustomLogger(
         phony="yes") if verbose else CustomLogger(
             phony="no")
-    __sent_detector = nltk.data.load(
+    __sntdtctr = nltk.data.load(
         'tokenizers/punkt/english.pickle')
 
     Methods
     -------
     echo_result()
     echo_stats()
-    set_result2file()
-    match_keys()
+    results2file()
+    get_key2text_matches()
     __purge_limits()
     __limresult()
-    __verbose()
+    __vrbs()
     __verify_files()
 
     Parameters
@@ -128,41 +128,52 @@ class KeyKrawler:
         ubound=None
     ) -> None:
         """
-        Class: KeyKrawler Method:
-            __init__(text_file=TEXT, key_file=KEY,
-                csv_file=CSV, log_file=LOG, logging=False,
-                fuzz_ratio=99, limit_result=None, abreviate=32,
-                verbose=False, ubound_limit=None, lbound_limit=None) -> obj
 
-        └──subclass:ItemizedFileData
-               obj = Itemizefile(filename: str, [stopwords]: list) -> obj
+        Class: KeyKrawler
 
-        └──subclass:ItemizeFile.KeyTextAnalysis:
-                obj = ItemizeFile.KeyTextAnalysis([fuzz_ratio]: int, optional) -> obj
+        Method:__init__(
+                        text_file=TEXT, key_file=KEY,
+                        csv_file=CSV, log_file=LOG,
+                        logging=False, fuzz_ratio=99,
+                        limit_result=None, abreviate=32,
+                        verbose=False, ubound_limit=None,
+                        lbound_limit=None
+                    ) -> obj
+
+            └──inherited class:ItemizeFileData
+                       obj = Itemizefile(
+                                filename: str,
+                                [stopwords]: list
+                            ) -> obj
+
+            └──inherited class:KeyTextAnalysis:
+                        obj = ItemizeFile.KeyTextAnalysis(
+                                [fuzz_ratio]: int, optional
+                            ) -> obj
 
         ...
 
         Attributes
         ----------
-        __textobj = ifd(TEXT, STOP_WORDS)
-        __keyobj = ifd(KEY, STOP_WORDS)
+        __tobj = ifd(TEXT, STOP_WORDS)
+        __kobj = ifd(KEY, STOP_WORDS)
         __csv = CSV
         __log = LOG
-        __limit_result = limit_result
-        __abreviate = abreviate
-        __ulbound = ubound
-        __llbound = lbound
-        __fuzz_ratio = fuzz_ratio
-        __verbose = verbose
-        __comparisons = 0
-        __logct = 0
-        __rct = 0
-        __noresult = True
+        __limres = limit_result
+        __abrvt = abreviate
+        __uplb = ubound
+        __lolb = lbound
+        __fuzrat = fuzz_ratio
+        __vrbs = verbose
+        __cmprsns = 0
+        __lgcnt = 0
+        __rcnt = 0
+        __nrslt = True
         __logging = logging
         __logger = CustomLogger(
             phony="yes") if verbose else CustomLogger(
                 phony="no")
-        __sent_detector = nltk.data.load(
+        __sntdtctr = nltk.data.load(
             'tokenizers/punkt/english.pickle')
 
         Parameters
@@ -179,29 +190,27 @@ class KeyKrawler:
         lbound=None,
         ubound=None
         """
-        self.__textobj = ifd(TEXT, STOP_WORDS)
-        self.__keyobj = ifd(KEY, STOP_WORDS)
+        self.__tobj = ifd(TEXT, STOP_WORDS)
+        self.__kobj = ifd(KEY, STOP_WORDS)
+        self.__robj = None
         self.__csv = CSV
         self.__log = LOG
-        self.__resobj = None
-        self.__limit_result = limit_result
-        self.__abreviate = abreviate
-        self.__ulbound = ubound
-        self.__llbound = lbound
-        self.__fuzz_ratio = fuzz_ratio
-        self.__verbose = verbose
-        self.__comparisons = 0
-        self.__logct = 0
-        self.__rct = 0
-        self.__noresult = True
-        self.__dirlist = defaultdict(str)
-        self.__pwd_list = [i for i in os.listdir()]
+        self.__limres = limit_result
+        self.__abrvt = abreviate
+        self.__uplb = ubound
+        self.__lolb = lbound
+        self.__fuzrat = fuzz_ratio
+        self.__vrbs = verbose
+        self.__cmprsns = 0
+        self.__lgcnt = 0
+        self.__rcnt = 0
+        self.__nrslt = True
+        self.__drlst = defaultdict(str)
         self.__pwd = os.getcwd()
+        self.__pwdlst = [i for i in os.listdir()]
         # self.__logger = CustomLogger(
         #     phony="yes") if verbose else CustomLogger(
         #         phony="no")
-        self.__sent_detector = nltk.data.load(
-            'tokenizers/punkt/english.pickle')
 
     def filename_update(self):
         """
@@ -210,8 +219,8 @@ class KeyKrawler:
 
             No.         File            Property (Vars)
             --          ----            ---------------
-            1.          text            __textobj.filename
-            2.          key             __keyobj.filename
+            1.          text            __tobj.filename
+            2.          key             __kobj.filename
             3.          csv             __csv
             4.          log             __log
 
@@ -229,8 +238,8 @@ class KeyKrawler:
                     2. Key: {1} \n \
                     3. CSV: {2} \n \
                     4. log: {3} \n".format(
-                        self.__textobj.filename,
-                        self.__keyobj.filename,
+                        self.__tobj.filename,
+                        self.__kobj.filename,
                         self.__csv,
                         self.__log_count)))
         f = 0
@@ -238,29 +247,29 @@ class KeyKrawler:
             fext = fname[len(fname) - 4]
             if fext == PFILE[fid]:
                 f += 1
-                self.__dirlist[n] = fname
+                self.__drlst[n] = fname
                 print("{0}. {1}".format(f, fname))
         fnum = 0
         while fnum not in PFILE.keys():
             fnum = int(input("Enter file # from list: "))
-            if fnum in self.__dirlist and \
-                    os.path.exists(self.__dirlist[fnum]):
+            if fnum in self.__drlst and \
+                    os.path.exists(self.__drlst[fnum]):
                 if fid == 1:
                     print("Updated text file from {0} to {1}".format(
-                        self.__textobj.filename, self.__dirlist[fnum]))
-                    self.__textobj.filename = self.__dirlist[fnum]
+                        self.__tobj.filename, self.__drlst[fnum]))
+                    self.__tobj.filename = self.__drlst[fnum]
                 if fid == 2:
                     print("Updated key file from {0} to {1}".format(
-                        self.__keyobj.filename, self.__dirlist[fnum]))
-                    self.__keyobj.filename = self.__dirlist[fnum]
+                        self.__kobj.filename, self.__drlst[fnum]))
+                    self.__kobj.filename = self.__drlst[fnum]
                 if fid == 3:
                     print("Updated csv file from {0} to {1}".format(
-                        self.__csv, self.__dirlist[fnum]))
-                    self.__csv = self.__dirlist[fnum]
+                        self.__csv, self.__drlst[fnum]))
+                    self.__csv = self.__drlst[fnum]
                 if fid == 4:
                     print("Updated log file from {0} to {1}".format(
-                        self.__log_count, self.__dirlist[fnum]))
-                    self.__log_count = self.__dirlist[fnum]
+                        self.__log_count, self.__drlst[fnum]))
+                    self.__log_count = self.__drlst[fnum]
 
     def echo_result(self) -> None:
         """
@@ -270,15 +279,15 @@ class KeyKrawler:
         """
         table_data = []
         self.__purge_limits()
-        for i, item in enumerate([x for x in self.__resobj.key_matches]):
+        for i, item in enumerate([x for x in self.__robj.key_matches]):
             item = LOGTXT['echo_result'].format(
-                item[0:self.__abreviate]
-                if len(item) > self.__abreviate
+                item[0:self.__abrvt]
+                if len(item) > self.__abrvt
                 else item)
             table_data.append([
                 i,
                 item,
-                self.__resobj.key_matches
+                self.__robj.key_matches
             ])
         tt.print(
             table_data,
@@ -295,10 +304,10 @@ class KeyKrawler:
         ...
         """
         table_data = [
-            ["Keys", self.__keyobj.unique_item_count],
-            ["Text", self.__textobj.unique_item_count],
-            ["Matches", self.__resobj.total_matches],
-            ["Comparisons", self.__resobj.total_comparisons]
+            ["Keys", self.__kobj.unique_item_count],
+            ["Text", self.__tobj.unique_item_count],
+            ["Matches", self.__robj.total_matches],
+            ["Comparisons", self.__robj.total_comparisons]
             # ["Logs", self.__logger.log_count]
             # ["Runtime", self.__timer.timestamp(True)]
         ]
@@ -310,51 +319,50 @@ class KeyKrawler:
             alignment="lc"
         )
 
-    def match_keys(self) -> None:
+    def get_key2text_matches(self) -> dict:
         """
-        Class: KeyKrawler method: match_keys() -> None
+        Class: KeyKrawler Method: get_key2text_matches() -> None
         Completes all necessary procedures to evaluate the text
+        by finding key matches in the text
+
         ...
+
+        Returns
+        -------
+        -> dict,
+            where key:=[unique text/str]
+            and item:=[ total number of matches found in text]
         """
         # spinner = Halo("Itemizing Text", spinner='dots')
         # spinner.start()
-
-        self.__textobj.itemize_file()
-
+        self.__tobj.itemize_file()
         # spinner.stop_and_persist(SYMB['success'], LOGTXT['extract'].format(
         #     self.__key_file, self.__timer.timestampstr()))
-
         # spinner = Halo("Itemizing Keys", spinner='dots')
         # spinner.start()
-
-        self.__keyobj.itemize_file()
-
+        self.__kobj.itemize_file()
         # spinner.stop_and_persist(SYMB['success'], LOGTXT['extract'].format(
         #     self.__text_file, self.__timer.timestampstr()))
-
         # spinner = Halo("Itemizing Keys", spinner='dots')
         # spinner.start()
-
-        self.__resobj = kta(
-            self.__textobj.dict,
-            self.__keyobj.dict,
-            self.__fuzz_ratio
+        self.__robj = kta(
+            self.__tobj.dict,
+            self.__kobj.dict,
+            STOP_WORDS,
+            self.__fuzrat
         )
-
-        self.__resobj.eval_keys2text()
-        self.__resobj.echo_key_matches()
-
+        if self.__robj.run_match_analysis():
+            if self.results2file():
+                if self.__robj.echo_matches():
+                    return self.__robj.key_matches
         # spinner.stop_and_persist(SYMB['success'], LOGTXT['extract'].format(
         #     self.__key_file, self.__timer.timestampstr()))
+        return None
 
-        self.echo_result()
-        self.echo_stats()
-        self.set_result2file()
-
-    def set_result2file(self) -> bool:
+    def results2file(self) -> bool:
         """
-        Class: KeyKrawler method set_result2file() -> bool
-        Get KeyTextAnalysis results from __resobj.key_matches
+        Class: KeyKrawler Method: results2file() -> bool
+        Get KeyTextAnalysis results from __robj.key_matches
         and formats to write it to CSV file (__csv)
         ...
         """
@@ -367,10 +375,10 @@ class KeyKrawler:
             # )
             # spinner.start()
             self.__purge_limits()
-            for item in self.__resobj.key_matches:
+            for item in self.__robj.key_matches:
                 write_count += 1
                 csv_formatted_item = LOGTXT['csv_formatted_item'].format(
-                    str(item), str(self.__resobj.key_matches), LINE)
+                    str(item), str(self.__robj.key_matches), LINE)
                 fh.write(csv_formatted_item)
             fh.close()
             # spinner.stop_and_persist(
@@ -385,57 +393,58 @@ class KeyKrawler:
 
     def __limresult(self) -> bool:
         """
-        Class: KeyKrawler method __limresult() -> bool
-        Remove items above the __limit_result
+        Class: KeyKrawler Method: __limresult() -> bool
+        Remove items above the __limres
         ...
 
         Return
         ------
         -> bool, True if limit is set for items to be removed from result
         """
-        if self.__limit_result is not None:
-            for i, item in enumerate([x for x in self.__resobj.key_matches]):
-                if i >= self.__limit_result:
-                    del self.__resobj.key_matches[item]
+        if self.__limres is not None:
+            for i, item in enumerate([x for x in self.__robj.key_matches]):
+                if i >= self.__limres:
+                    del self.__robj.key_matches[item]
             return True
         return False
 
     def __purge_limits(self) -> bool:
         """
-        Class: KeyKrawler method __purge_limits() -> bool
+        Class: KeyKrawler Method: __purge_limits() -> bool
         Remove items with total number of matches
         below the lower boundry and above upper-boundry
+
         ...
 
         Return
         ------
         -> bool, True if items were removed outside the limits set
         """
-        if self.__llbound is not None \
-                and self.__ulbound is not None:
-            for item in enumerate([x for x in self.__resobj.key_matches]):
-                if (self.__resobj.key_matches[item] < self.__llbound) \
-                    and (self.__resobj.key_matches[item]
-                         > self.__ulbound):
-                    del self.__resobj.key_matches[item]
-                    self.__rct -= 1
+        if self.__lolb is not None \
+                and self.__uplb is not None:
+            for item in enumerate([x for x in self.__robj.key_matches]):
+                if (self.__robj.key_matches[item] < self.__lolb) \
+                    and (self.__robj.key_matches[item]
+                         > self.__uplb):
+                    del self.__robj.key_matches[item]
+                    self.__rcnt -= 1
             return True
         return True
 
-    # def __verbose(self, *args) -> None:
-        
-    #     Class: KeyKrawler method __verbose() -> None
+    # def __vrbs(self, *args) -> None:
+
+    #     Class: KeyKrawler Method: __vrbs() -> None
     #     If _set_verbose:=True then increase output to console
     #     ...
-        
-    #     if self.__verbose and args:
+
+    #     if self.__vrbs and args:
     #         print(self.__logger.write_log(
     #             [str(x) for x in args], phony="yes"
     #         ))
 
     def __verify_files(self, *args) -> bool:
         """
-        Class: KeyKrawler method: __verify_files(*args) -> bool
+        Class: KeyKrawler Method: __verify_files(*args) -> bool
         Verifies all file names (str) passed as args are valid
         ...
 

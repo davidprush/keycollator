@@ -13,7 +13,7 @@ Text File
                 (removes punctionation/end-lines/converts to all lower case)
                     └──> Extracts Raw Text
 
-This module provides a class ItemizedFileData (filename, [stopwords]) which stores
+This module provides a class ItemizeFileData (filename, [stopwords]) which stores
 data from the file using the following methods:
 
  ...
@@ -31,7 +31,7 @@ data from the file using the following methods:
 *itemize_file(self) -> dict
     =>Searches text file (self.__filename) for unique lines oftext, sanitizes each
 *line of text, adds values to the listed attributes
-*sort_dict(self) -> bool
+*__sort_dict(self) -> bool
     =>Sorts __dict (dict) by item count (integer)
 """
 import os.path
@@ -39,17 +39,23 @@ import string
 
 from collections import defaultdict
 
-from consts import LINE
+import nltk
+import nltk.data
+from nltk.corpus import stopwords as stpw
+from nltk.stem import PorterStemmer
+from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import word_tokenize
+
+from consts import LINE, STOP_WORDS
 
 
-class ItemizedFileData:
+class ItemizeFileData:
     """
     Class: ItemizeFile
 
-    obj = Itemizefile(filename: str, [stopwords]: list)
+    obj = Itemizefile(filename: str, [stopwords]: list, optional)
 
     ...
-
 
     Attributes
     ----------
@@ -64,18 +70,18 @@ class ItemizedFileData:
 
     Methods
     -------
-    get_raw(self) -> list =>Opens the file (filename) and creates a list containing
-                    items for each line of text
-    sanitize(self, text=None) -> str =>If text is passed to method it will be sanitized
+    get_raw() -> list =>Opens the file (filename) and creates a list containing
+                    unique items for each line of text
+    sanitize(text=None) -> str =>If text is passed to method it will be sanitized
                     usingthe private method __sanitize_text(text) -> str, elseit
                     cycles through each key in __dict and runs__sanitize_text(text)
                     on each key of text and updatesaccordingly
-    pop_stop_words(self, text=None) -> str =>Removes stop_words from text: str
-    file_exists(self, file_name=None) -> bool =>Verifies file_name (filename) exists
-    itemize_file(self) -> dict =>Searches text file (self.__filename) for
+    pop_stop_words(text=None) -> str =>Removes stop_words from text: str
+    file_exists(file_name=None) -> bool =>Verifies file_name (filename) exists
+    itemize_file() -> dict =>Searches text file (self.__filename) for
                     unique lines oftext, sanitizes each line of text, adds values to
                     the listed attributes
-    sort_dict(self) -> bool =>Sorts __dict (dict) by item count (integer)
+    __sort_dict() -> bool =>Sorts __dict (dict) by item count (integer)
 
     Parameters
     ----------
@@ -89,7 +95,7 @@ class ItemizedFileData:
         stop_words=[]
     ) -> None:
         """
-        Class: ItemizeFile method:__init__ to instantiate class attributes
+        Class: ItemizeFile Method:__init__ to instantiate class attributes
 
         ...
 
@@ -102,7 +108,7 @@ class ItemizedFileData:
         """
         self.__filename = file_name
         self.__file_exists = self.file_exists(file_name)
-        self.__stopwords = stop_words
+        self.__stopwords = self.expand_stopwords(stop_words)
         self.__raw = []
         self.__dict = defaultdict(int)
         self.__origin = defaultdict(int)
@@ -112,7 +118,7 @@ class ItemizedFileData:
         self.__populated = False
 
     def __eq__(self, obj) -> bool:
-        if not isinstance(obj, ItemizedFileData):
+        if not isinstance(obj, ItemizeFileData):
             return NotImplemented
         return self.__self__ is obj.__self__
 
@@ -218,30 +224,6 @@ class ItemizedFileData:
         """
         self.__file_item_count = value
 
-    def __sanitize_text(self, text=None) -> str:
-        """
-        Class: ItemizeFile Method: __sanitize_text(text) -> str
-        Removes all punctuation and end lines then converts it
-        to all lower case
-
-        ...
-
-
-        Returns
-        -------
-        -> str, sanitized text
-        """
-        if text is not None:
-            text = str(text) if not isinstance(text, str) else text
-            text = text.replace(LINE, '')
-            text = text.translate(text.maketrans(
-                "",
-                "",
-                string.punctuation
-            ))
-            text.lower()
-            return text
-
     def get_raw(self) -> list:
         """
         Class: ItemizeFile Method: get_raw(self) -> list
@@ -249,7 +231,6 @@ class ItemizedFileData:
         items for each line of text
 
         ...
-
 
         Returns
         -------
@@ -276,11 +257,9 @@ class ItemizedFileData:
 
         ...
 
-
         Parameters
         ----------
         text : str, Text to sanitize
-
 
         Returns
         -------
@@ -295,7 +274,7 @@ class ItemizedFileData:
                 del dict[item]
                 self.__dict[text] = dict_value
         else:
-            return ""
+            return None
 
     def pop_stop_words(self, text=None) -> str:
         """
@@ -303,7 +282,6 @@ class ItemizedFileData:
         Removes stop_words from text: str
 
         ...
-
 
         Parameters
         ----------
@@ -331,7 +309,6 @@ class ItemizedFileData:
 
         ...
 
-
         Parameters
         ----------
         file_name : str, The name of the file to be verified
@@ -352,9 +329,9 @@ class ItemizedFileData:
     def itemize_file(self) -> dict:
         """
         Class: ItemizeFile Method: itemize_file() -> dict
-        Searches text file (self.__filename) for unique lines of
-        text, sanitizes each line of text, adds values to the listed
-        attributes
+        Searches the text file (filename) for unique lines of text,
+        sanitizes each line of text, adds init incrementers value
+        for each key as a total count of the matches
 
         ...
 
@@ -380,9 +357,41 @@ class ItemizedFileData:
         else:
             return None
 
-    def sort_dict(self) -> bool:
+    def expand_stopwords(self, stopwords) -> list:
         """
-        Class: ItemizeFile Method: sort_dict() -> bool
+        Class: ItemizeFile Method: expand_stopwords() -> list
+        Uses supplied stopwords and expands them using lemmatize,
+        PorterStemmer(), and nltk stopwords.
+
+        ...
+
+        Returns
+        -------
+        -> list, expanded stopword list (appends nltk stopwords)
+        """
+        if stopwords is not None:
+            sw = []
+            ps = PorterStemmer()
+            wnl = WordNetLemmatizer()
+            for word in stopwords:
+                sw.append(word_tokenize(ps.stem(wnl.lemmatize(word))))
+                for s in sw:
+                    if len(s) > 1 and s not in stopwords:
+                        sw.append(s)
+            for w in sw:
+                if w not in stopwords:
+                    stopwords.append(w)
+            sw = []
+            for w in stpw.words('english'):
+                if w not in stopwords:
+                    stopwords.append(w)
+            self.__stopwords = stopwords.copy()
+            self.__stopwords = sorted(self.__stopwords, key=lambda x: str(x))
+        return stopwords
+
+    def __sort_dict(self) -> bool:
+        """
+        Class: ItemizeFile Method: __sort_dict() -> bool
         Sorts __dict (dict) by item count (integer)
 
         ...
@@ -398,3 +407,26 @@ class ItemizedFileData:
             return True
         else:
             return False
+
+    def __sanitize_text(self, text=None) -> str:
+        """
+        Class: ItemizeFile Method: __sanitize_text(text) -> str
+        Removes all punctuation and end lines then converts it
+        to all lower case
+
+        ...
+
+        Returns
+        -------
+        -> str, sanitized text
+        """
+        if text is not None:
+            text = str(text) if not isinstance(text, str) else text
+            text = text.replace(LINE, '')
+            text = text.translate(text.maketrans(
+                "",
+                "",
+                string.punctuation
+            ))
+            text.lower()
+            return text

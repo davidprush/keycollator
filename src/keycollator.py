@@ -147,7 +147,7 @@ keycollator is an app that finds occurances of keys in a text file\n
 
 def main(obj, **kwargs):
     # app_timer.stop_timer(sys._getframe().f_code.co_name)
-    obj.match_keys()
+    obj.get_key2text_matches()
     # app_timer.echo(False, sys._getframe().f_code.co_name)
 
 
