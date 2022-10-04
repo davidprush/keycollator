@@ -448,17 +448,20 @@ class KeyTextAnalysis:
         -> bool, True if has_matches, False otherwise
         """
         if self._sort_keys_found():
+            # col_list = []
             for i, item in enumerate(self._keys_found):
                 print("{0}.{1}[{2}]".format(
                     str(i + 1),
                     ((item + FSPC[0:(9 - len(item))])
-                        if len(item) < 10
+                        if len(item) < 1
                         else "{0}...".format(item[0:6])),
                     self._keys_found[item]),
-                    end=((TAB + TAB) if ((i + 1) % 4) else LINE))
+                    end=((TAB) if ((i + 1) % 4) else LINE))
                 if not ((i + 1) % 20):
-                    print("{0}{0}{0}{0}".format(('-' * 15) + (TAB * 2)), end='')
-                    input("Enter to cont...")
+                    print("{0}{0}{0}{1}".format(
+                        ('-' * 15) + (TAB),
+                        ('-' * 15)), end='')
+                    input("[Enter] to cont...")
             return True
         else:
             return False
