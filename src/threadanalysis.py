@@ -19,6 +19,17 @@ import nltk
 import nltk.data
 import nltk.downloader
 from nltk.tokenize import word_tokenize
+
+__author__ = "David Rush"
+__copyright__ = "Copyright 2022, Rush Solutions, LLC"
+__credits__ = ["David Rush", "...", "...", "..."]
+__license__ = "MIT"
+__version__ = "0.0.5"
+__maintainer__ = "David Rush"
+__email__ = "davidprush@gmail.com"
+__status__ = "Development"
+
+
 # from nltk.corpus import wordnet as wn
 
 """
@@ -38,34 +49,74 @@ try:
 except Exception as ex:
     print(ex)  # replace with CustomLogger
 
+
 class KeyThreader:
     def __init__(self, key: str, text: dict, fuzz: int) -> None:
-        self.__key = key
-        self.__text = text.copy()
-        self.__fuzz = fuzz
-        self.__dict = defaultdict(int)
-        self.__count = 0
-        self.__thread = threading.Thread(target=self.__needle)
+        self._key = key
+        self._text = text.copy()
+        self._fuzz = fuzz
+        self._key_found = defaultdict(int)
+        self._origin = defaultdict(list)
+        self._count = 0
+        self._line = 0
+        self._flag = False
+        self._thread = threading.Thread(target=self._needle)
 
     @property
     def count(self) -> int:
-        return self.__count
+        return self._count
 
-    def __needle(self) -> None:
-        for item in self.__text:
-            kstr = str(word_tokenize(self.__key))
+    @property
+    def key(self) -> str:
+        return self._key
+
+    @property
+    def key_found(self) -> dict:
+        return self._key_found
+
+    @property
+    def origin(self) -> dict:
+        return self._origin
+
+    @property
+    def line(self) -> int:
+        return self._line
+
+    @property
+    def thread(self) -> obj:
+        return self._thread
+
+    def _needle(self) -> None:
+        for item in self._text:
+            self._flag = False
+            self._line += 1
+            kstr = str(word_tokenize(self._key))
             istr = str(word_tokenize(item))
-            if self.__key in item:
-                self.__count += 1
+            if self._key in item:
+                self._count += 1
+                self._flag = True
             elif kstr in istr:
-                self.__count += 1
-            elif fuzz.partial_ratio(self.__key, item) >= self.__fuzz:
-                self.__count += 1
-        if self.__count > 0:
-            self.__dict[self.__key] = self.__log_count
+                self._count += 1
+                self._flag = True
+            elif fuzz.partial_ratio(self._key, item) >= self._fuzz:
+                self._count += 1
+                self._flag = True
+            if self._flag:
+                self._origin[self._key] = [
+                    "Line:=", self._line,
+                    "Text:=", item,
+                    "Count:=", self._count,
+                    "Key:=", self._key
+                ]
+        if self._count > 0:
+            self._keys_found[self._key] = self._count
+            self._flag = True
 
-    def start(self) -> dict:
-        self.__thread.start()
+    def start(self) -> None:
+        self._thread.start()
+
+    def join(self) -> None:
+        self._thread.join()
 
 
 class KeyTextAnalysis:
@@ -78,14 +129,14 @@ class KeyTextAnalysis:
 
     Attributes
     ----------
-    __text_dict:=dict, text_dict parameter passed at instantiation
-    __key_dict:=dict, key_dict parameter passed at instantiation
-    __fuzz_ratio:=int, init to fuzz_ratio=99, see not below
-    __key_matches:=dict, key=>[unique text]: str, item=>[match count], int
-    __key2text_index:=list, metadata; incrementers; origin text
-    __total_matches:=int, init to 0, total number of key matches
-    __total_comparisons:=int, init to 0, total number of key to text evaluations
-    __has_match:=bool, init to False
+    _text_dict:=dict, text_dict parameter passed at instantiation
+    _key_dict:=dict, key_dict parameter passed at instantiation
+    _fuzz_ratio:=int, init to fuzz_ratio=99, see not below
+    _key_matches:=dict, key=>[unique text]: str, item=>[match count], int
+    _key2text_index:=list, metadata; incrementers; origin text
+    _total_matches:=int, init to 0, total number of key matches
+    _total_comparisons:=int, init to 0, total number of key to text evaluations
+    _has_match:=bool, init to False
 
     Methods
     -------
@@ -93,15 +144,15 @@ class KeyTextAnalysis:
         against the text dictionary (text_dict), populates the key_matches
         dictionary with the key and the total number of times the key appears
         in the text
-    __sort_dict() -> bool: Sorts the __key_matches (dict) in descending order
+    _sort_dict() -> bool: Sorts the _key_matches (dict) in descending order
     echo_matches() -> bool: Prints the dictionary of key matches to console
     echo_indexed() -> bool: Prints the list of analysis comparisons to console
     dump_indexed() -> bool: Dumps indexed list to file indexed_list_dump.csv
     dump_matches() -> bool: Dumps matches to file key_match_dump.csv
     run_match_analysis() -> bool:
-    __eval_direct(key, item) -> bool:
-    __eval_tokenized(skey, item) -> bool:
-    __eval_fuzz(key, item) -> bool:
+    _eval_direct(key, item) -> bool:
+    _eval_tokenized(skey, item) -> bool:
+    _eval_fuzz(key, item) -> bool:
 
     Parameters
     ----------
@@ -123,7 +174,7 @@ class KeyTextAnalysis:
         fuzz_ratio=99
     ) -> None:
         """
-        Class: KeyTextAnalysis Method:__init__ to instantiate class attributes
+        (Class:KeyTextAnalysis) => Method:__init__ to instantiate class attributes
             └──obj = KeyTextAnalysis(text_dict: dict, key_dict: dict,
                                     [fuzz_ratio]: int, optional) -> obj
 
@@ -131,14 +182,14 @@ class KeyTextAnalysis:
 
         Attributes
         ----------
-        __text_dict:=dict, text_dict parameter passed at instantiation
-        __key_dict:=dict, key_dict parameter passed at instantiation
-        __fuzz_ratio:=int, init to fuzz_ratio=99, see not below
-        __key_matches:=dict, key=>[unique text]: str, item=>[match count], int
-        __key2text_index:=list, metadata; incrementers; origin text
-        __total_matches:=int, init to 0, total number of key matches
-        __total_comparisons:=int, init to 0, total number of key to text evaluations
-        __has_match:=bool, init to False
+        _text_dict:=dict, text_dict parameter passed at instantiation
+        _key_dict:=dict, key_dict parameter passed at instantiation
+        _fuzz_ratio:=int, init to fuzz_ratio=99, see not below
+        _key_matches:=dict, key=>[unique text]: str, item=>[match count], int
+        _key2text_index:=list, metadata; incrementers; origin text
+        _total_matches:=int, init to 0, total number of key matches
+        _total_comparisons:=int, init to 0, total number of key to text evaluations
+        _has_match:=bool, init to False
 
         Parameters
         ----------
@@ -153,23 +204,23 @@ class KeyTextAnalysis:
                     two sequences. Informally, the Levenshtein distance between
                     two words is the minimum number of single-character edits
         """
-        self.__text_dict = text_dict
-        self.__key_dict = key_dict
-        self.__fuzz_ratio = fuzz_ratio
-        self.__key_matches = defaultdict(int)
-        self.__key2text_index = []
-        self.__total_matches = 0
-        self.__total_comparisons = 0
-        self.__has_match = False
+        self._text_dict = text_dict
+        self._key_dict = key_dict
+        self._fuzz_ratio = fuzz_ratio
+        self._key_matches = defaultdict(int)
+        self._key2text_index = []
+        self._total_matches = 0
+        self._total_comparisons = 0
+        self._has_match = False
 
     def __repr__(self) -> str:
-        return f'False{{0}}, __text_dict={{1}}, __key_dict={{2}}, __fuzz_ratio={{3}}, \
-            __key_matches={{4}}, =__key2text_index{{5}}, __total_matches={{6}}, \
-            __total_comparisons={{7}}, __has_match={{8}}, __sent_detect={{9}}'.format(
-            {type(self).__name__}, self.__text_dict, self.__key_dict,
-            self.__fuzz_ratio, self.__key_matches, self.__key2text_index,
-            self.__total_matches, self.__total_comparisons, self.__has_match,
-            self.__sent_detect)
+        return f'False{{0}}, _text_dict={{1}}, _key_dict={{2}}, _fuzz_ratio={{3}}, \
+            _key_matches={{4}}, =_key2text_index{{5}}, _total_matches={{6}}, \
+            _total_comparisons={{7}}, _has_match={{8}}, _sent_detect={{9}}'.format(
+            {type(self).__name__}, self._text_dict, self._key_dict,
+            self._fuzz_ratio, self._key_matches, self._key2text_index,
+            self._total_matches, self._total_comparisons, self._has_match,
+            self._sent_detect)
 
     def __eq__(self, obj) -> bool:
         if not isinstance(obj, KeyTextAnalysis):
@@ -182,115 +233,115 @@ class KeyTextAnalysis:
     @property
     def text_dict(self) -> dict:
         """
-        Class: KeyTextAnalysis Property: text_dict() -> dict
+        (Class:KeyTextAnalysis) => Property: text_dict() -> dict
         ...
         Returns
         -------
         -> dict, text dictionary
         """
-        return self.__text_dict
+        return self._text_dict
 
     @text_dict.setter
     def text_dict(self, obj=None) -> dict:
         """
-        Class: KeyTextAnalysis Property: key_dict(obj) -> dict
+        (Class:KeyTextAnalysis) => Property: key_dict(obj) -> dict
         ...
         """
-        self.__text_dict = dict(obj).copy
+        self._text_dict = dict(obj).copy
 
     @property
     def key_dict(self) -> dict:
         """
-        Class: KeyTextAnalysis Property: key_dict() -> dict
+        (Class:KeyTextAnalysis) => Property: key_dict() -> dict
         ...
         Returns
         -------
         -> dict, text keys dictionary
         """
-        return self.__key_text
+        return self._key_text
 
     @key_dict.setter
     def key_dict(self, obj=None) -> None:
         """
-        Class: KeyTextAnalysis Property: key_dict(obj: dict) -> None
+        (Class:KeyTextAnalysis) => Property: key_dict(obj: dict) -> None
         ...
         """
-        self.__key_dict = dict(obj).copy
+        self._key_dict = dict(obj).copy
 
     @property
     def total_matches(self) -> int:
         """
-        Class: KeyTextAnalysis Property: total_matches() -> int
+        (Class:KeyTextAnalysis) => Property: total_matches() -> int
         ...
         Returns
         -------
-        -> int, value of __total_matches
+        -> int, value of _total_matches
         """
-        return self.__total_matches
+        return self._total_matches
 
     @property
     def total_comparisons(self) -> int:
         """
-        Class: KeyTextAnalysis Property: total_comparisons() -> int
+        (Class:KeyTextAnalysis) => Property: total_comparisons() -> int
         ...
         Returns
         -------
-        -> int, value of __total_comparisons
+        -> int, value of _total_comparisons
         """
-        return self.__total_comparisons
+        return self._total_comparisons
 
     @property
     def fuzz_ratio(self) -> int:
         """
-        Class: KeyTextAnalysis Property: fuzz_ratio() -> int
+        (Class:KeyTextAnalysis) => Property: fuzz_ratio() -> int
         ...
         Returns
         -------
         -> int, value of __search_text
         """
-        return self.__fuzz_ratio
+        return self._fuzz_ratio
 
     @fuzz_ratio.setter
     def fuzz_ratio(self, value=None) -> None:
         """
-        Class: KeyTextAnalysis Property: fuzz_ratio(value: int) -> None
+        (Class:KeyTextAnalysis) => Property: fuzz_ratio(value: int) -> None
         ...
         """
-        self.__fuzz_ratio = value
+        self._fuzz_ratio = value
 
     @property
     def key_matches(self) -> dict:
         """
-        Class: KeyTextAnalysis Property: key_matches() -> dict
+        (Class:KeyTextAnalysis) => Property: key_matches() -> dict
         ...
         Returns
         -------
         -> dict, containing the key matches with count totals
         """
-        return self.__key_matches
+        return self._key_matches
 
     @key_matches.setter
     def key_matches(self, obj=None) -> None:
         """
-        Class: KeyTextAnalysis Property: key_matches(obj: dict) -> None
+        (Class:KeyTextAnalysis) => Property: key_matches(obj: dict) -> None
         ...
         """
-        self.__key_matches = dict(obj).copy
+        self._key_matches = dict(obj).copy
 
     @property
     def key2text_index(self) -> list:
         """
-        Class: KeyTextAnalysis Property: key2text_index() -> list
+        (Class:KeyTextAnalysis) => Property: key2text_index() -> list
         ...
         Returns
         -------
         -> list, metadata; incrementers; origin text
         """
-        return self.__key2text_index
+        return self._key2text_index
 
     def eval_keys2text(self) -> bool:
         """
-        Class: KeyTextAnalysis Method: eval_keys2text() -> bool
+        (Class:KeyTextAnalysis) => Method: eval_keys2text() -> bool
         Evaluates the key dictionary (key_dict) against the text
         dictionary (text_dict), populates the key_matches dictionary
         accordingly with the key and the total number of times
@@ -301,36 +352,40 @@ class KeyTextAnalysis:
         Methods
         -------
         eval_keys2text() -> bool, True if matches found, otherwise False
-            └──:__eval_direct(key, item) -> bool
-                    └──:__eval_tokenized(key, item) -> bool
-                            └──:__eval_fuzzy(key, item) -> bool
-                                    └──:__sort_dict() -> bool
+            └──:_eval_direct(key, item) -> bool
+                    └──:_eval_tokenized(key, item) -> bool
+                            └──:_eval_fuzzy(key, item) -> bool
+                                    └──:_sort_dict() -> bool
 
         Returns
         -------
         -> bool, True if matches found, False otherwise
         """
-        if len(self.__text_dict) != 0 and len(self.__key_dict) != 0:
+        if len(self._text_dict) != 0 and len(self._key_dict) != 0:
             # reset flag for matches
-            self.__has_match = False
+            self._has_match = False
             # init empty index list
-            self.__key2text_index = []
+            self._key2text_index = []
             key_threader = {}
-            for key in self.__key_dict:
+            for key in self._key_dict:
                 key_threader[key] = KeyThreader(
                     key,
-                    self.__text_dict,
-                    self.__fuzz_ratio
+                    self._text_dict,
+                    self._fuzz_ratio
                 )
                 key_threader[key].start()
-            
-            if self.__has_match:
-                self.__sort_dict()
-        return self.__has_match
+            for key in key_threader:
+                key_threader[key].join()
+            for key in key_threader:
 
-    def __find_key(self, keys: dict, text: dict) -> bool:
+
+            if self._has_match:
+                self._sort_dict()
+        return self._has_match
+
+    def _find_key(self, keys: dict, text: dict) -> bool:
         """
-        Class: KeyTextAnalysis Method: eval_keys2text() -> bool
+        (Class:KeyTextAnalysis) => Method: eval_keys2text() -> bool
         Evaluates the key dictionary (key_dict) against the text
         dictionary (text_dict), populates the key_matches dictionary
         accordingly with the key and the total number of times
@@ -341,42 +396,42 @@ class KeyTextAnalysis:
         Methods
         -------
         eval_keys2text() -> bool, True if matches found, otherwise False
-            └──:__eval_direct(key, item) -> bool
-                    └──:__eval_tokenized(key, item) -> bool
-                            └──:__eval_fuzzy(key, item) -> bool
-                                    └──:__sort_dict() -> bool
+            └──:_eval_direct(key, item) -> bool
+                    └──:_eval_tokenized(key, item) -> bool
+                            └──:_eval_fuzzy(key, item) -> bool
+                                    └──:_sort_dict() -> bool
 
         Returns
         -------
         -> bool, True if matches found, False otherwise
         """
-        self.__total_comparisons += 1
-        if self.__eval_direct(key, item):
-            self.__key2text_index.append([
-                [str(key), str(self.__key_dict[key])],
-                [str(item), str(self.__text_dict[item])],
-                ["Direct", str(self.__total_matches),
-                    str(self.__total_comparisons)]
+        self._total_comparisons += 1
+        if self._eval_direct(key, item):
+            self._key2text_index.append([
+                [str(key), str(self._key_dict[key])],
+                [str(item), str(self._text_dict[item])],
+                ["Direct", str(self._total_matches),
+                    str(self._total_comparisons)]
             ])
-        elif self.__eval_tokenized(key, item):
-            self.__key2text_index.append([
-                [str(key), str(self.__key_dict[key])],
-                [str(item), str(self.__text_dict[item])],
-                ["Tokenized", str(self.__total_matches),
-                    str(self.__total_comparisons)]
+        elif self._eval_tokenized(key, item):
+            self._key2text_index.append([
+                [str(key), str(self._key_dict[key])],
+                [str(item), str(self._text_dict[item])],
+                ["Tokenized", str(self._total_matches),
+                    str(self._total_comparisons)]
             ])
-        elif self.__eval_fuzz(key, item):
-            self.__key2text_index.append([
-                [str(key), str(self.__key_dict[key])],
-                [str(item), str(self.__text_dict[item])],
-                ["Fuzzy", str(self.__total_matches),
-                    str(self.__total_comparisons)]
+        elif self._eval_fuzz(key, item):
+            self._key2text_index.append([
+                [str(key), str(self._key_dict[key])],
+                [str(item), str(self._text_dict[item])],
+                ["Fuzzy", str(self._total_matches),
+                    str(self._total_comparisons)]
             ])
-        return self.__has_match
+        return self._has_match
 
-    def __eval_direct(self, key, item) -> bool:
+    def _eval_direct(self, key, item) -> bool:
         """
-        Class: KeyTextAnalysis Method: __eval_direct(key, item) -> bool
+        (Class:KeyTextAnalysis) => Method: _eval_direct(key, item) -> bool
         Evaluates the key dictionary (key_dict) against the text
         dictionary (text_dict) for direct/exact matches
 
@@ -387,15 +442,15 @@ class KeyTextAnalysis:
         -> bool, True if direct match found, False otherwise
         """
         if key in item:
-            self.__total_matches += 1
-            self.__key_matches[key] += 1
-            self.__has_match = True
+            self._total_matches += 1
+            self._key_matches[key] += 1
+            self._has_match = True
             return True
         return False
 
-    def __eval_tokenized(self, key, item) -> bool:
+    def _eval_tokenized(self, key, item) -> bool:
         """
-        Class: KeyTextAnalysis Method: __eval_tokenized(key, item) -> bool
+        (Class:KeyTextAnalysis) => Method: _eval_tokenized(key, item) -> bool
         Evaluates the key dictionary (key_dict) against the text
         dictionary (text_dict) for tokenized (very near matches)
 
@@ -408,15 +463,15 @@ class KeyTextAnalysis:
         key_string = str(word_tokenize(key))
         item_string = str(word_tokenize(item))
         if key_string in item_string:
-            self.__total_matches += 1
-            self.__key_matches[key] += 1
-            self.__has_match = True
+            self._total_matches += 1
+            self._key_matches[key] += 1
+            self._has_match = True
             return True
         return False
 
-    def __eval_fuzz(self, key, item) -> bool:
+    def _eval_fuzz(self, key, item) -> bool:
         """
-        Class: KeyTextAnalysis Method: __eval_fuzz(key: str, item: str) -> bool
+        (Class:KeyTextAnalysis) => Method: _eval_fuzz(key: str, item: str) -> bool
         Uses the fuzzywuzzy library implementing:
             *Levenshtein distance =>
                 is a string metric for measuring the difference between
@@ -429,16 +484,16 @@ class KeyTextAnalysis:
         -------
         -> bool, True if ratio is >= fuzz_ratio, otherwise Fale
         """
-        if fuzz.partial_ratio(key, item) >= self.__fuzz_ratio:
-            self.__total_matches += 1
-            self.__key_matches[key] += 1
-            self.__has_match = True
+        if fuzz.partial_ratio(key, item) >= self._fuzz_ratio:
+            self._total_matches += 1
+            self._key_matches[key] += 1
+            self._has_match = True
             return True
         return False
 
-    def __sort_dict(self) -> bool:
+    def _sort_dict(self) -> bool:
         """
-        Class: KeyTextAnalysis Method: __sort_dict() -> bool
+        (Class:KeyTextAnalysis) => Method: _sort_dict() -> bool
         Sorts the key_matches (dict) in descending order
         keys:=str, unique text (lines) from file filename
         items:=int, iterative count, init to 0, increments
@@ -453,9 +508,9 @@ class KeyTextAnalysis:
         -------
         -> bool, True if has matches, otherwise False
         """
-        if self.__has_match:
-            self.__key_matches = dict(sorted(
-                self.__key_matches.items(),
+        if self._has_match:
+            self._key_matches = dict(sorted(
+                self._key_matches.items(),
                 key=lambda item: item[1],
                 reverse=True))
             return True
@@ -463,7 +518,7 @@ class KeyTextAnalysis:
 
     def echo_matches(self) -> bool:
         """
-        Class: KeyTextAnalysis Method: echo_matches() -> bool
+        (Class:KeyTextAnalysis) => Method: echo_matches() -> bool
         Prints the dictionary of key matches to console in the
         following format:
 
@@ -477,35 +532,35 @@ class KeyTextAnalysis:
         -------
         -> bool, True if has_matches, False otherwise
         """
-        if self.__has_match:
+        if self._has_match:
             i = 0
-            for item in self.__key_matches:
+            for item in self._key_matches:
                 i += 1
                 print("{0}.{1}:=[{2}]".format(
-                    i, item, self.__key_matches[item]))
+                    i, item, self._key_matches[item]))
             return True
         else:
             return False
 
     def echo_indexed(self) -> bool:
         """
-        Class: KeyTextAnalysis Method: echo_indexed() -> bool
+        (Class:KeyTextAnalysis) => Method: echo_indexed() -> bool
         Prints the analysis list to console
 
         ...
 
-            prints to console __key2text_index:
+            prints to console _key2text_index:
 
-        [key, self.__key_dict[key]],
-            [item, self.__text_dict[item]],
-                [EVAL_TYPE, self.__total_matches, self.__total_comparisons]])
+        [key, self._key_dict[key]],
+            [item, self._text_dict[item]],
+                [EVAL_TYPE, self._total_matches, self._total_comparisons]])
 
         Returns
         -------
         -> bool, True if it prints, False otherwise
         """
-        if len(self.__key2text_index) != 0:
-            for i, li in enumerate(self.__key2text_index):
+        if len(self._key2text_index) != 0:
+            for i, li in enumerate(self._key2text_index):
                 print("Index[{0}][{1}]".format(
                     i, str(li)))
             return True
@@ -514,7 +569,7 @@ class KeyTextAnalysis:
 
     def dump_indexed(self) -> bool:
         """
-        Class: KeyTextAnalysis Method: dump_indexed() -> bool
+        (Class:KeyTextAnalysis) => Method: dump_indexed() -> bool
         Dumps indexed list data to csv file (indexed_dump.csv)
 
         ...
@@ -523,15 +578,15 @@ class KeyTextAnalysis:
         -------
         -> bool, True if indexed is not equal to 0, otherwise False
         """
-        if len(self.__key2text_index) != 0:
-            joblib.dump(self.__key2text_index, 'index_dump.txt')
+        if len(self._key2text_index) != 0:
+            joblib.dump(self._key2text_index, 'index_dump.txt')
             return True
         else:
             return False
 
     def dump_matches(self) -> bool:
         """
-        Class: KeyTextAnalysis Method: dump_matches() -> bool
+        (Class:KeyTextAnalysis) => Method: dump_matches() -> bool
         Dumps all logs to CSV file (key_matches_dump.csv)
 
         ...
@@ -540,10 +595,10 @@ class KeyTextAnalysis:
         -------
         -> bool, True if logs are dumped, otherwise False
         """
-        if len(self.__key_matches) != 1:
+        if len(self._key_matches) != 1:
             key_match_list = []
-            for key in self.__key_matches:
-                key_match_list.append([key, self.__key_matches[key]])
+            for key in self._key_matches:
+                key_match_list.append([key, self._key_matches[key]])
             joblib.dump(key_match_list, 'key_matches_dump.txtm,,,')
             return True
         else:
@@ -551,7 +606,7 @@ class KeyTextAnalysis:
 
     def run_match_analysis(self) -> bool:
         """
-        Class: KeyTextAnalysis Method: run_match_analysis() -> bool
+        (Class:KeyTextAnalysis) => Method: run_match_analysis() -> bool
         Runs all necessary methods to complete matching analysis
         ...
 

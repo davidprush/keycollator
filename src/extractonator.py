@@ -46,6 +46,15 @@ from consts import \
     LINE, STOP_WORDS, LOGTXT, TEXT, \
     KEY, CSV, LOG, RTBLHDR, STBLHDR, PFILE
 
+__author__ = "David Rush"
+__copyright__ = "Copyright 2022, Rush Solutions, LLC"
+__credits__ = ["David Rush", "...", "...", "..."]
+__license__ = "MIT"
+__version__ = "0.0.5"
+__maintainer__ = "David Rush"
+__email__ = "davidprush@gmail.com"
+__status__ = "Development"
+
 
 class KeyKrawler:
     """
@@ -68,22 +77,22 @@ class KeyKrawler:
 
     Attributes
     ----------
-    __txtifd = ifd(TEXT, STOP_WORDS)
-    __keyifd = ifd(KEY, STOP_WORDS)
-    __csv = CSV
-    __log = LOG
-    __limres = limit_result
-    __abrvt = abreviate
-    __uplb = ubound
-    __lolb = lbound
-    __fuzrat = fuzz_ratio
-    __vrbs = verbose
-    __cmprsns = 0
-    __lgcnt = 0
-    __rcnt = 0
-    __nrslt = True
-    __logging = logging
-    __logger = CustomLogger(
+    _txtifd = ifd(TEXT, STOP_WORDS)
+    _keyifd = ifd(KEY, STOP_WORDS)
+    _csv = CSV
+    _log = LOG
+    _limres = limit_result
+    _abrvt = abreviate
+    _uplb = ubound
+    _lolb = lbound
+    _fuzrat = fuzz_ratio
+    _vrbs = verbose
+    _cmprsns = 0
+    _lgcnt = 0
+    _rcnt = 0
+    _nrslt = True
+    _logging = logging
+    _logger = CustomLogger(
         phony="yes") if verbose else CustomLogger(
             phony="no")
     __sntdtctr = nltk.data.load(
@@ -95,10 +104,10 @@ class KeyKrawler:
     echo_stats()
     results2file()
     get_key2text_matches()
-    __purge_limits()
-    __limresult()
-    __vrbs()
-    __verify_files()
+    _purge_limits()
+    _limresult()
+    _vrbs()
+    _verify_files()
 
     Parameters
     ----------
@@ -157,22 +166,22 @@ class KeyKrawler:
 
         Attributes
         ----------
-        __txtifd = ifd(TEXT, STOP_WORDS)
-        __keyifd = ifd(KEY, STOP_WORDS)
-        __csv = CSV
-        __log = LOG
-        __limres = limit_result
-        __abrvt = abreviate
-        __uplb = ubound
-        __lolb = lbound
-        __fuzrat = fuzz_ratio
-        __vrbs = verbose
-        __cmprsns = 0
-        __lgcnt = 0
-        __rcnt = 0
-        __nrslt = True
-        __logging = logging
-        __logger = CustomLogger(
+        _txtifd = ifd(TEXT, STOP_WORDS)
+        _keyifd = ifd(KEY, STOP_WORDS)
+        _csv = CSV
+        _log = LOG
+        _limres = limit_result
+        _abrvt = abreviate
+        _uplb = ubound
+        _lolb = lbound
+        _fuzrat = fuzz_ratio
+        _vrbs = verbose
+        _cmprsns = 0
+        _lgcnt = 0
+        _rcnt = 0
+        _nrslt = True
+        _logging = logging
+        _logger = CustomLogger(
             phony="yes") if verbose else CustomLogger(
                 phony="no")
         __sntdtctr = nltk.data.load(
@@ -192,39 +201,39 @@ class KeyKrawler:
         lbound=None,
         ubound=None
         """
-        self.__txtifd = ifd(TEXT, STOP_WORDS)
-        self.__keyifd = ifd(KEY, STOP_WORDS)
-        self.__reskta = kta(self.__txtifd.dict, self.__keyifd.dict, fuzz_ratio)
-        self.__csv = CSV
-        self.__log = LOG
-        self.__limres = limit_result
-        self.__abrvt = abreviate
-        self.__uplb = ubound
-        self.__lolb = lbound
-        self.__fuzrat = fuzz_ratio
-        self.__vrbs = verbose
-        self.__cmprsns = 0
-        self.__lgcnt = 0
-        self.__rcnt = 0
-        self.__nrslt = True
-        self.__drlst = defaultdict(str)
-        self.__pwd = os.getcwd()
-        self.__pwdlst = [i for i in os.listdir()]
-        # self.__logger = CustomLogger(
+        self._txtifd = ifd(TEXT, STOP_WORDS)
+        self._keyifd = ifd(KEY, STOP_WORDS)
+        self._reskta = kta(self._txtifd.dict, self._keyifd.dict, fuzz_ratio)
+        self._csv = CSV
+        self._log = LOG
+        self._limres = limit_result
+        self._abrvt = abreviate
+        self._uplb = ubound
+        self._lolb = lbound
+        self._fuzrat = fuzz_ratio
+        self._vrbs = verbose
+        self._cmprsns = 0
+        self._lgcnt = 0
+        self._rcnt = 0
+        self._nrslt = True
+        self._drlst = defaultdict(str)
+        self._pwd = os.getcwd()
+        self._pwdlst = [i for i in os.listdir()]
+        # self._logger = CustomLogger(
         #     phony="yes") if verbose else CustomLogger(
         #         phony="no")
 
     def filename_update(self):
         """
-        Class: KeyKrawler Method: filename_update() -> None
+        (Class:KeyKrawler) => Method: filename_update() -> None
         User prompt to update a one of the following 4 files:
 
             No.         File            Property (Vars)
             --          ----            ---------------
-            1.          text            __txtifd.filename
-            2.          key             __keyifd.filename
-            3.          csv             __csv
-            4.          log             __log
+            1.          text            _txtifd.filename
+            2.          key             _keyifd.filename
+            3.          csv             _csv
+            4.          log             _log
 
         *starts in current working directory
 
@@ -240,56 +249,56 @@ class KeyKrawler:
                     2. Key: {1} \n \
                     3. CSV: {2} \n \
                     4. log: {3} \n".format(
-                        self.__txtifd.filename,
-                        self.__keyifd.filename,
-                        self.__csv,
-                        self.__log_count)))
+                        self._txtifd.filename,
+                        self._keyifd.filename,
+                        self._csv,
+                        self._log_count)))
         f = 0
         for n, fname in enumerate(os.listdir()):
             fext = fname[len(fname) - 4]
             if fext == PFILE[fid]:
                 f += 1
-                self.__drlst[n] = fname
+                self._drlst[n] = fname
                 print("{0}. {1}".format(f, fname))
         fnum = 0
         while fnum not in PFILE.keys():
             fnum = int(input("Enter file # from list: "))
-            if fnum in self.__drlst and \
-                    os.path.exists(self.__drlst[fnum]):
+            if fnum in self._drlst and \
+                    os.path.exists(self._drlst[fnum]):
                 if fid == 1:
                     print("Updated text file from {0} to {1}".format(
-                        self.__txtifd.filename, self.__drlst[fnum]))
-                    self.__txtifd.filename = self.__drlst[fnum]
+                        self._txtifd.filename, self._drlst[fnum]))
+                    self._txtifd.filename = self._drlst[fnum]
                 if fid == 2:
                     print("Updated key file from {0} to {1}".format(
-                        self.__keyifd.filename, self.__drlst[fnum]))
-                    self.__keyifd.filename = self.__drlst[fnum]
+                        self._keyifd.filename, self._drlst[fnum]))
+                    self._keyifd.filename = self._drlst[fnum]
                 if fid == 3:
                     print("Updated csv file from {0} to {1}".format(
-                        self.__csv, self.__drlst[fnum]))
-                    self.__csv = self.__drlst[fnum]
+                        self._csv, self._drlst[fnum]))
+                    self._csv = self._drlst[fnum]
                 if fid == 4:
                     print("Updated log file from {0} to {1}".format(
-                        self.__log_count, self.__drlst[fnum]))
-                    self.__log_count = self.__drlst[fnum]
+                        self._log_count, self._drlst[fnum]))
+                    self._log_count = self._drlst[fnum]
 
     def echo_result(self) -> None:
         """
-        Class: KeyKrawler Method: echo_result() -> None
+        (Class:KeyKrawler) => Method: echo_result() -> None
         Print the results formatted in a table to the console
         ...
         """
         table_data = []
-        self.__purge_limits()
-        for i, item in enumerate([x for x in self.__reskta.key_matches]):
+        self._purge_limits()
+        for i, item in enumerate([x for x in self._reskta.key_matches]):
             item = LOGTXT['echo_result'].format(
-                item[0:self.__abrvt]
-                if len(item) > self.__abrvt
+                item[0:self._abrvt]
+                if len(item) > self._abrvt
                 else item)
             table_data.append([
                 i,
                 item,
-                self.__reskta.key_matches
+                self._reskta.key_matches
             ])
         tt.print(
             table_data,
@@ -301,16 +310,16 @@ class KeyKrawler:
 
     def echo_stats(self) -> None:
         """
-        Class: KeyKrawler echo_stats() -> None
+        (Class:KeyKrawler) => echo_stats() -> None
         Prints analysis totals in a table to the console
         ...
         """
         table_data = [
-            ["Keys", self.__keyifd.unique_item_count],
-            ["Text", self.__txtifd.unique_item_count],
-            ["Matches", self.__reskta.total_matches],
-            ["Comparisons", self.__reskta.total_comparisons]
-            # ["Logs", self.__logger.log_count]
+            ["Keys", self._keyifd.unique_item_count],
+            ["Text", self._txtifd.unique_item_count],
+            ["Matches", self._reskta.total_matches],
+            ["Comparisons", self._reskta.total_comparisons]
+            # ["Logs", self._logger.log_count]
             # ["Runtime", self.__timer.timestamp(True)]
         ]
         tt.print(
@@ -323,7 +332,7 @@ class KeyKrawler:
 
     def get_key2text_matches(self) -> dict:
         """
-        Class: KeyKrawler Method: get_key2text_matches() -> None
+        (Class:KeyKrawler) => Method: get_key2text_matches() -> None
         Completes all necessary procedures to evaluate the text
         by finding key matches in the text
 
@@ -337,86 +346,86 @@ class KeyKrawler:
         """
         # spinner = Halo("Itemizing Text", spinner='dots')
         # spinner.start()
-        self.__txtifd.thread.start()
+        self._txtifd.thread.start()
         # spinner.stop_and_persist(SYMB['success'], LOGTXT['extract'].format(
         #     self.__key_file, self.__timer.timestampstr()))
         # spinner = Halo("Itemizing Keys", spinner='dots')
         # spinner.start()
-        self.__keyifd.thread.start()
+        self._keyifd.thread.start()
         # spinner.stop_and_persist(SYMB['success'], LOGTXT['extract'].format(
         #     self.__text_file, self.__timer.timestampstr()))
         # spinner = Halo("Itemizing Keys", spinner='dots')
         # spinner.start()
 
-        self.__keyifd.echo_stopwords()
+        self._keyifd.echo_stopwords()
         input()
 
-        self.__reskta = kta(
-            self.__txtifd.dict,
-            self.__keyifd.dict,
+        self._reskta = kta(
+            self._txtifd.dict,
+            self._keyifd.dict,
             STOP_WORDS,
-            self.__fuzrat
+            self._fuzrat
         )
-        if self.__reskta.run_match_analysis():
+        if self._reskta.run_match_analysis():
             if self.results2file():
-                if self.__reskta.echo_matches():
-                    return self.__reskta.key_matches
+                if self._reskta.echo_matches():
+                    return self._reskta.key_matches
         # spinner.stop_and_persist(SYMB['success'], LOGTXT['extract'].format(
         #     self.__key_file, self.__timer.timestampstr()))
         return None
 
     def results2file(self) -> bool:
         """
-        Class: KeyKrawler Method: results2file() -> bool
-        Get KeyTextAnalysis results from __reskta.key_matches
-        and formats to write it to CSV file (__csv)
+        (Class:KeyKrawler) => Method: results2file() -> bool
+        Get KeyTextAnalysis results from _reskta.key_matches
+        and formats to write it to CSV file (_csv)
         ...
         """
-        with open(self.__csv, 'w') as fh:
+        with open(self._csv, 'w') as fh:
             write_count = 0
             # spinner = Halo(
             #     text=LOGTXT['write_results2file'].format(
-            #         self.__csv),
+            #         self._csv),
             #     spinner='dots'
             # )
             # spinner.start()
-            self.__purge_limits()
-            for item in self.__reskta.key_matches:
+            self._purge_limits()
+            for item in self._reskta.key_matches:
                 write_count += 1
                 csv_formatted_item = LOGTXT['csv_formatted_item'].format(
-                    str(item), str(self.__reskta.key_matches), LINE)
+                    str(item), str(self._reskta.key_matches), LINE)
                 fh.write(csv_formatted_item)
             fh.close()
             # spinner.stop_and_persist(
             #     SYMB['success'],
             #     "{0} Complete.[{1}]".format(
-            #         self.__csv,
+            #         self._csv,
             #         self.__timer.timestampstr()
             #     )
             # )
             return True
         return False
 
-    def __limresult(self) -> bool:
+    def _limresult(self) -> bool:
         """
-        Class: KeyKrawler Method: __limresult() -> bool
-        Remove items above the __limres
+        (Class:KeyKrawler) => Method: _limresult() -> bool
+        Remove items above the _limres
         ...
 
         Return
         ------
         -> bool, True if limit is set for items to be removed from result
         """
-        if self.__limres is not None:
-            for i, item in enumerate([x for x in self.__reskta.key_matches]):
-                if i >= self.__limres:
-                    del self.__reskta.key_matches[item]
+        if self._limres is not None:
+            for i, item in enumerate([x for x in self._reskta.key_matches]):
+                if i >= self._limres:
+                    del self._reskta.key_matches[item]
             return True
         return False
 
-    def __purge_limits(self) -> bool:
+    def _purge_limits(self) -> bool:
         """
-        Class: KeyKrawler Method: __purge_limits() -> bool
+        (Class:KeyKrawler) => Method: _purge_limits() -> bool
         Remove items with total number of matches
         below the lower boundry and above upper-boundry
 
@@ -426,31 +435,31 @@ class KeyKrawler:
         ------
         -> bool, True if items were removed outside the limits set
         """
-        if self.__lolb is not None \
-                and self.__uplb is not None:
-            for item in enumerate([x for x in self.__reskta.key_matches]):
-                if (self.__reskta.key_matches[item] < self.__lolb) \
-                    and (self.__reskta.key_matches[item]
-                         > self.__uplb):
-                    del self.__reskta.key_matches[item]
-                    self.__rcnt -= 1
+        if self._lolb is not None \
+                and self._uplb is not None:
+            for item in enumerate([x for x in self._reskta.key_matches]):
+                if (self._reskta.key_matches[item] < self._lolb) \
+                    and (self._reskta.key_matches[item]
+                         > self._uplb):
+                    del self._reskta.key_matches[item]
+                    self._rcnt -= 1
             return True
         return True
 
-    # def __vrbs(self, *args) -> None:
+    # def _vrbs(self, *args) -> None:
 
-    #     Class: KeyKrawler Method: __vrbs() -> None
+    #     (Class:KeyKrawler) => Method: _vrbs() -> None
     #     If _set_verbose:=True then increase output to console
     #     ...
 
-    #     if self.__vrbs and args:
-    #         print(self.__logger.write_log(
+    #     if self._vrbs and args:
+    #         print(self._logger.write_log(
     #             [str(x) for x in args], phony="yes"
     #         ))
 
-    def __verify_files(self, *args) -> bool:
+    def _verify_files(self, *args) -> bool:
         """
-        Class: KeyKrawler Method: __verify_files(*args) -> bool
+        (Class:KeyKrawler) => Method: _verify_files(*args) -> bool
         Verifies all file names (str) passed as args are valid
         ...
 

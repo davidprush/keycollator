@@ -26,6 +26,15 @@ import click
 from extractonator import KeyKrawler as kk
 from consts import LOG, TEXT, CSV, KEY
 
+__author__ = "David Rush"
+__copyright__ = "Copyright 2022, Rush Solutions, LLC"
+__credits__ = ["David Rush", "...", "...", "..."]
+__license__ = "MIT"
+__version__ = "0.0.5"
+__maintainer__ = "David Rush"
+__email__ = "davidprush@gmail.com"
+__status__ = "Development"
+
 
 @click.group(
     context_settings=dict(

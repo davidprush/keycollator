@@ -22,17 +22,17 @@ data from the file using the following methods:
     =>Opens the file (filename) and creates a list containing items for each line of text
 *sanitize(self, text=None) -> str
     =>If text is passed to method it will be sanitized usingthe private method
-*__sanitize_text(text) -> str, elseit cycles through each key in __dict and
-*runs__sanitize_text(text) on each key of text and updatesaccordingly
+*_sanitize_text(text) -> str, elseit cycles through each key in _dict and
+*runs_sanitize_text(text) on each key of text and updatesaccordingly
 *pop_stop_words(self, text=None) -> str
     =>Removes stop_words from text: str
 *file_exists(self, file_name=None) -> bool
     =>Verifies file_name (filename) exists
 *itemize_file(self) -> dict
-    =>Searches text file (self.__filename) for unique lines oftext, sanitizes each
+    =>Searches text file (self._filename) for unique lines oftext, sanitizes each
 *line of text, adds values to the listed attributes
-*__sort_dict(self) -> bool
-    =>Sorts __dict (dict) by item count (integer)
+*_sort_dict(self) -> bool
+    =>Sorts _dict (dict) by item count (integer)
 """
 import os.path
 import string
@@ -49,10 +49,19 @@ from nltk.tokenize import word_tokenize
 
 from consts import LINE, STOP_WORDS
 
+__author__ = "David Rush"
+__copyright__ = "Copyright 2022, Rush Solutions, LLC"
+__credits__ = ["David Rush", "...", "...", "..."]
+__license__ = "MIT"
+__version__ = "0.0.5"
+__maintainer__ = "David Rush"
+__email__ = "davidprush@gmail.com"
+__status__ = "Development"
+
 
 class ItemizeFileData:
     """
-    Class: ItemizeFile
+    (Class:ItemizeFileData) =>
 
     obj = Itemizefile(filename: str, [stopwords]: list, optional)
 
@@ -60,29 +69,29 @@ class ItemizeFileData:
 
     Attributes
     ----------
-    __filename:=str, set to optional file_name parameter
-    __file_exists:=bool, True if __filename exists, false otherwise
-    __raw:=list, raw list of text from the file
-    __stopwords:=list, words to be removed from the text
-    __dict:=dict, init to defaultdict(int),
-    __origin:= init to defaultdict(int),
-    __unique_item_count:=int, total num. of unique items added to __dict
-    __file_item_count:=int, total num. of items (lines) of text from __filename
+    _filename:=str, set to optional file_name parameter
+    _file_exists:=bool, True if _filename exists, false otherwise
+    _raw:=list, raw list of text from the file
+    _stopwords:=list, words to be removed from the text
+    _dict:=dict, init to defaultdict(int),
+    _origin:= init to defaultdict(int),
+    _unique_item_count:=int, total num. of unique items added to _dict
+    _file_item_count:=int, total num. of items (lines) of text from _filename
 
     Methods
     -------
     get_raw() -> list =>Opens the file (filename) and creates a list containing
                     unique items for each line of text
     sanitize(text=None) -> str =>If text is passed to method it will be sanitized
-                    usingthe private method __sanitize_text(text) -> str, elseit
-                    cycles through each key in __dict and runs__sanitize_text(text)
+                    usingthe private method _sanitize_text(text) -> str, elseit
+                    cycles through each key in _dict and runs_sanitize_text(text)
                     on each key of text and updatesaccordingly
     pop_stop_words(text=None) -> str =>Removes stop_words from text: str
     file_exists(file_name=None) -> bool =>Verifies file_name (filename) exists
-    itemize_file() -> dict =>Searches text file (self.__filename) for
+    itemize_file() -> dict =>Searches text file (self._filename) for
                     unique lines oftext, sanitizes each line of text, adds values to
                     the listed attributes
-    __sort_dict() -> bool =>Sorts __dict (dict) by item count (integer)
+    _sort_dict() -> bool =>Sorts _dict (dict) by item count (integer)
 
     Parameters
     ----------
@@ -96,7 +105,7 @@ class ItemizeFileData:
         stop_words=[]
     ) -> None:
         """
-        Class: ItemizeFile Method:__init__ to instantiate class attributes
+        (Class:ItemizeFileData) => Method:__init__ to instantiate class attributes
 
         ...
 
@@ -107,19 +116,19 @@ class ItemizeFileData:
         file_name:=str, required filename of text to be used by this instance
         stopwords=list, stop words to be removed from text, default=consts.STOP_WORDS
         """
-        self.__filename = file_name
-        self.__file_exists = self.file_exists(file_name)
-        self.__stopwords = self.expand_stopwords(stop_words)
-        self.__raw = []
-        self.__dict = defaultdict(int)
-        self.__origin = defaultdict(int)
-        self.__unique_item_count = 0
-        self.__file_item_count = 0
-        self.__stopwords_popped = 0
-        self.__populated = False
+        self._filename = file_name
+        self._file_exists = self.file_exists(file_name)
+        self._stopwords = self.expand_stopwords(stop_words)
+        self._raw = []
+        self._dict = defaultdict(int)
+        self._origin = defaultdict(int)
+        self._unique_item_count = 0
+        self._file_item_count = 0
+        self._stopwords_popped = 0
+        self._populated = False
         self.thread = threading.Thread(target=self.itemize_file, args=())
-        if self.__stopwords is not None:
-            if len(self.__stopwords) != 0:
+        if self._stopwords is not None:
+            if len(self._stopwords) != 0:
                 self.expand_stopwords()
 
     def __eq__(self, obj) -> bool:
@@ -134,104 +143,104 @@ class ItemizeFileData:
         return f'{{0}}(filename={{1}}, file_exists={{2}}, stopwords={{3}}, \
             raw={{4}}, dict={{5}}, origin={{6}}, unique_item_count={{7}}, \
             file_item_count={{8}}, stopwords_pooped={{9}})'.format(
-            {type(self).__name__}, self.__filename,
-            self.__file_exists, self.__stopwords, self.__raw,
-            self.__dict, self.__origin, self.__unique_item_count,
-            self.__file_item_count, self.__stopwords_popped)
+            {type(self).__name__}, self._filename,
+            self._file_exists, self._stopwords, self._raw,
+            self._dict, self._origin, self._unique_item_count,
+            self._file_item_count, self._stopwords_popped)
 
     @property
     def filename(self) -> str:
         """
-        Class: ItemizeFile
-        Property: __filename
-        return self.__filename
+        (Class:ItemizeFileData) =>
+        Property: _filename
+        return self._filename
         """
-        return self.__filename
+        return self._filename
 
     @filename.setter
     def filename(self, value) -> None:
         """
-        Class: ItemizeFile
-        Property: __filename, setter
-        self.__filename = value
+        (Class:ItemizeFileData) =>
+        Property: _filename, setter
+        self._filename = value
         """
-        self.__filename = value
+        self._filename = value
 
     @property
     def dict(self) -> dict:
         """
-        Class: ItemizeFile
-        Property: __dict
-        return self.__dict
+        (Class:ItemizeFileData) =>
+        Property: _dict
+        return self._dict
         """
-        return self.__dict
+        return self._dict
 
     @dict.setter
     def dict(self, obj=None) -> None:
         """
-        Class: ItemizeFile
-        Property: __dict, setter
-        self.__dict = obj
+        (Class:ItemizeFileData) =>
+        Property: _dict, setter
+        self._dict = obj
         """
-        self.__dict = obj
+        self._dict = obj
 
     @property
     def stopwords(self) -> list:
         """
-        Class: ItemizeFile
-        Property: __stopwords
-        return list(self.__stopwords)
+        (Class:ItemizeFileData) =>
+        Property: _stopwords
+        return list(self._stopwords)
         """
-        return list(self.__stopwords)
+        return list(self._stopwords)
 
     @stopwords.setter
     def stopwords(self, obj=None) -> None:
         """
-        Class: ItemizeFile
-        Property: __stopwords, setter
-        self.__stopwords = list(obj)
+        (Class:ItemizeFileData) =>
+        Property: _stopwords, setter
+        self._stopwords = list(obj)
         """
-        self.__stopwords = list(obj)
+        self._stopwords = list(obj)
 
     @property
     def unique_item_count(self) -> int:
         """
-        Class: ItemizeFile
-        Property: __unique_item_count
-        return self.__unique_item_count
+        (Class:ItemizeFileData) =>
+        Property: _unique_item_count
+        return self._unique_item_count
         """
-        return self.__unique_item_count
+        return self._unique_item_count
 
     @unique_item_count.setter
     def unique_item_count(self, value) -> None:
         """
-        Class: ItemizeFile
-        Property: __unique_item_count, setter
-        self.__unique_item_count = value
+        (Class:ItemizeFileData) =>
+        Property: _unique_item_count, setter
+        self._unique_item_count = value
         """
-        self.__unique_item_count = value
+        self._unique_item_count = value
 
     @property
     def file_item_count(self) -> int:
         """
-        Class: ItemizeFile
-        Property: __stopwords
-        return self.__file_item_count
+        (Class:ItemizeFileData) =>
+        Property: _stopwords
+        return self._file_item_count
         """
-        return self.__file_item_count
+        return self._file_item_count
 
     @file_item_count.setter
     def file_item_count(self, value) -> None:
         """
-        Class: ItemizeFile
-        Property: __stopwords, setter
-        self.__file_item_count = value
+        (Class:ItemizeFileData) =>
+        Property: _stopwords, setter
+        self._file_item_count = value
         """
-        self.__file_item_count = value
+        self._file_item_count = value
 
     def get_raw(self) -> list:
         """
-        Class: ItemizeFile Method: get_raw(self) -> list
+        (Class:ItemizeFileData) => Method: get_raw(self) -> list
         Opens the file (filename) and creates a list containing
         items for each line of text
 
@@ -243,21 +252,21 @@ class ItemizeFileData:
             each item of the list is a line of text from the file
             assigned to the class instance:
         """
-        if self.__file_exists:
-            with open(self.__filename, 'r') as fh:
-                self.__raw = [line for line in fh.readlines()]
+        if self._file_exists:
+            with open(self._filename, 'r') as fh:
+                self._raw = [line for line in fh.readlines()]
                 fh.close()
-            return self.__raw
-        print("The file: {0} does not exist!".format(self.__filename))
+            return self._raw
+        print("The file: {0} does not exist!".format(self._filename))
         return []
 
     def sanitize(self, text=None) -> str:
         """
-        Class: ItemizeFile Method: sanitize(text: str) -> str
+        (Class:ItemizeFileData) => Method: sanitize(text: str) -> str
         If text is passed to method it will be sanitized using
-        the private method __sanitize_text(text) -> str, else
-        it cycles through each key in __dict and runs
-        __sanitize_text(text) on each key of text and updates
+        the private method _sanitize_text(text) -> str, else
+        it cycles through each key in _dict and runs
+        _sanitize_text(text) on each key of text and updates
         accordingly
 
         ...
@@ -271,19 +280,19 @@ class ItemizeFileData:
         -> str, all lowercase, without special chars, nor end lines
         """
         if text is not None:
-            return self.__sanitize_text(text)
-        elif self.__file_exists and len(self.__dict) != 0:
-            for item in self.__dict:
-                text = self.__sanitize_text(item)
-                dict_value = self.__dict[item]
+            return self._sanitize_text(text)
+        elif self._file_exists and len(self._dict) != 0:
+            for item in self._dict:
+                text = self._sanitize_text(item)
+                dict_value = self._dict[item]
                 del dict[item]
-                self.__dict[text] = dict_value
+                self._dict[text] = dict_value
         else:
             return None
 
     def pop_stop_words(self, text=None) -> str:
         """
-        Class: ItemizeFile Method: pop_stop_words(text: str) -> str
+        (Class:ItemizeFileData) => Method: pop_stop_words(text: str) -> str
         Removes stop_words from text: str
 
         ...
@@ -297,19 +306,19 @@ class ItemizeFileData:
         -------
         -> str, without stop words
         """
-        if isinstance(self.__stopwords, list) and \
-                self.__stopwords is not None and \
+        if isinstance(self._stopwords, list) and \
+                self._stopwords is not None and \
                 text is not None:
-            for word in enumerate(self.__stopwords):
+            for word in enumerate(self._stopwords):
                 whole_word = " {0} ".format(word)
                 if whole_word in text:
-                    self.__stopwords_popped += 1
+                    self._stopwords_popped += 1
                     text = text.replace(whole_word, " ")
         return text
 
     def echo_stopwords(self) -> bool:
         """
-        Class: ItemizeFile Method: echo_stopwords() -> bool
+        (Class:ItemizeFileData) => Method: echo_stopwords() -> bool
         Prints stopwords in with columns of 10
 
         ...
@@ -318,8 +327,8 @@ class ItemizeFileData:
         -------
         -> bool (True if there are stopwords, otherwise False)
         """
-        if self.__stopwords is not None:
-            if len(self.__stopwords) != 0:
+        if self._stopwords is not None:
+            if len(self._stopwords) != 0:
                 col = 0
                 row = []
                 for w in self.stopwords:
@@ -333,7 +342,7 @@ class ItemizeFileData:
 
     def file_exists(self, file_name=None) -> bool:
         """
-        Class: ItemizeFile Method: file_exists(file_name: str) -> bool
+        (Class:ItemizeFileData) => Method: file_exists(file_name: str) -> bool
         Verifies file_name (filename) exists
 
         ...
@@ -349,7 +358,7 @@ class ItemizeFileData:
         """
         if file_name is not None:
             if os.path.exists(file_name):
-                self.__file_exists = True
+                self._file_exists = True
                 self.__text_file = file_name
                 return True
             else:
@@ -357,7 +366,7 @@ class ItemizeFileData:
 
     def itemize_file(self) -> dict:
         """
-        Class: ItemizeFile Method: itemize_file() -> dict
+        (Class:ItemizeFileData) => Method: itemize_file() -> dict
         Searches the text file (filename) for unique lines of text,
         sanitizes each line of text, adds init incrementers value
         for each key as a total count of the matches
@@ -370,24 +379,24 @@ class ItemizeFileData:
             keys: uqique lines of text from file as str
             items: int (0) for future use as iterator
         -> None
-            if __dict has no items
+            if _dict has no items
         """
-        for self.__file_item_count, item in enumerate(self.get_raw()):
+        for self._file_item_count, item in enumerate(self.get_raw()):
             indx = item = self.pop_stop_words(self.sanitize(item))
-            self.__origin[indx] = self.__file_item_count
-            if item not in [x for x in self.__dict]:
-                self.__unique_item_count += 1
-                self.__dict[item] = 0
-            self.__populated = True
-        if self.__file_item_count != 0:
-            self.__populated = True
-            return self.__dict
+            self._origin[indx] = self._file_item_count
+            if item not in [x for x in self._dict]:
+                self._unique_item_count += 1
+                self._dict[item] = 0
+            self._populated = True
+        if self._file_item_count != 0:
+            self._populated = True
+            return self._dict
         else:
             return None
 
     def expand_stopwords(self, stopwords=None) -> list:
         """
-        Class: ItemizeFile Method: expand_stopwords() -> list
+        (Class:ItemizeFileData) => Method: expand_stopwords() -> list
         Uses supplied stopwords and expands them using lemmatize,
         PorterStemmer(), and nltk stopwords.
 
@@ -420,31 +429,31 @@ class ItemizeFileData:
                     stopwords.append(w)
             stopwords = [*set(stopwords)]
             stopwords = sorted(stopwords, key=lambda x: str(x))
-            self.__stopwords = stopwords.copy()
+            self._stopwords = stopwords.copy()
         return stopwords
 
-    def __sort_dict(self) -> bool:
+    def _sort_dict(self) -> bool:
         """
-        Class: ItemizeFile Method: __sort_dict() -> bool
-        Sorts __dict (dict) by item count (integer)
+        (Class:ItemizeFileData) => Method: _sort_dict() -> bool
+        Sorts _dict (dict) by item count (integer)
 
         ...
 
         Returns
         -------
-        -> bool, True if __dict contains items, False otherwise
+        -> bool, True if _dict contains items, False otherwise
         """
-        if len(self.__dict) != 0:
-            self.__dict = dict(sorted(
-                self.__dict.items(),
+        if len(self._dict) != 0:
+            self._dict = dict(sorted(
+                self._dict.items(),
                 key=lambda item: item[1], reverse=True))
             return True
         else:
             return False
 
-    def __sanitize_text(self, text=None) -> str:
+    def _sanitize_text(self, text=None) -> str:
         """
-        Class: ItemizeFile Method: __sanitize_text(text) -> str
+        (Class:ItemizeFileData) => Method: _sanitize_text(text) -> str
         Removes all punctuation and end lines then converts it
         to all lower case
 
