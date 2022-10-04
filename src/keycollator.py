@@ -74,7 +74,7 @@ __status__ = "Development"
     help="Limit the text length of the results (default=32)"
 )
 @click.option(
-    '--fuzzy-match-ratio',
+    '--fuzz-ratio',
     default=99,
     type=click.IntRange(0, 99, clamp=True),
     help='''Set the level of fuzzy matching (default=99) to
@@ -122,7 +122,7 @@ __status__ = "Development"
 )
 def cli(
     verbose,
-    fuzzy_match_ratio,
+    fuzz_ratio,
     key_file,
     text_file,
     limit_result,
@@ -139,17 +139,17 @@ keycollator is an app that finds occurances of keys in a text file\n
 ==================================================================\n
     """
     appkk = kk(
-        text_file,
-        key_file,
-        result_file,
-        log_file,
-        logging,
-        fuzzy_match_ratio,
-        limit_result,
-        abreviate,
-        verbose,
-        lbound_limit,
-        ubound_limit
+        text_file=text_file,
+        key_file=key_file,
+        csv_file=result_file,
+        log_file=log_file,
+        logging=logging,
+        fuzz_ratio=fuzz_ratio,
+        limit_result=limit_result,
+        abreviate=abreviate,
+        verbose=verbose,
+        lbound=lbound_limit,
+        ubound=ubound_limit
     )
     main(appkk)
 

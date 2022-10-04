@@ -120,7 +120,7 @@ class KeyKrawler:
     """
 
     def __init__(
-        self,
+        self, *,
         text_file=TEXT,
         key_file=KEY,
         csv_file=CSV,
@@ -134,7 +134,6 @@ class KeyKrawler:
         ubound=None
     ) -> None:
         """
-
         Class: KeyKrawler
 
         Method:__init__(
@@ -146,17 +145,16 @@ class KeyKrawler:
                         lbound_limit=None
                     ) -> obj
 
-            └──inherited class:ItemizeFileData
+            └──class:ItemizeFileData
                        obj = Itemizefile(
                                 filename: str,
                                 [stopwords]: list
                             ) -> obj
 
-            └──inherited class:KeyTextAnalysis:
+            └──class:KeyTextAnalysis:
                         obj = ItemizeFile.KeyTextAnalysis(
                                 [fuzz_ratio]: int, optional
                             ) -> obj
-
 
         Attributes
         ----------
@@ -197,7 +195,10 @@ class KeyKrawler:
         """
         self._txtifd = ifd(TEXT, STOP_WORDS)
         self._keyifd = ifd(KEY, STOP_WORDS)
-        self._reskta = kta(self._txtifd.dict, self._keyifd.dict, fuzz_ratio)
+        self._reskta = kta(
+            self._txtifd.itemized_text,
+            self._keyifd.itemized_text,
+            fuzz_ratio)
         self._csv = CSV
         self._log = LOG
         self._limres = limit_result
@@ -331,15 +332,13 @@ class KeyKrawler:
         self._txtifd.thread.join()
         self._keyifd.thread.join()
         self._reskta = kta(
-            self._txtifd.dict,
-            self._keyifd.dict,
-            STOP_WORDS,
+            self._txtifd.itemized_text,
+            self._keyifd.itemized_text,
             self._fuzrat
         )
         if self._reskta.run_keys2text_all():
             if self.results2file():
-                if self._reskta.echo_keys_found():
-                    return self._reskta.keys_found
+                return self._reskta.keys_found
         return None
 
     def results2file(self) -> bool:

@@ -8,8 +8,10 @@ License: MIT
                                 [fuzz_ratio]: int, optional) -> obj
 
 """
+import sys
 import joblib
 import threading
+from threading import Thread
 
 from collections import defaultdict
 
@@ -19,6 +21,9 @@ import nltk
 import nltk.data
 import nltk.downloader
 from nltk.tokenize import word_tokenize
+from tqdm import tqdm
+
+from consts import LINE, TAB, FSPC
 
 __author__ = "David Rush"
 __copyright__ = "Copyright 2022, Rush Solutions, LLC"
@@ -47,11 +52,13 @@ try:
         dler._update_index()
         dler.download('punkt')
 except Exception as ex:
-    print(ex)  # replace with CustomLogger
+    ex = ex if ex else ''
+    pass  # print(ex)  # replace with CustomLogger
 
 
-class KeyThreader:
+class KeyThreader(Thread):
     def __init__(self, key: str, text: dict, fuzz: int) -> None:
+        Thread.__init__(self)
         self._key = key
         self._text = text.copy()
         self._fuzz = fuzz
@@ -60,7 +67,6 @@ class KeyThreader:
         self._count = 0
         self._line = 0
         self._flag = False
-        self._thread = threading.Thread(target=self._needle)
 
     @property
     def count(self) -> int:
@@ -82,7 +88,7 @@ class KeyThreader:
     def line(self) -> int:
         return self._line
 
-    def _needle(self) -> None:
+    def run(self) -> None:
         for item in self._text:
             self._flag = False
             self._line += 1
@@ -107,15 +113,6 @@ class KeyThreader:
         if self._count > 0:
             self._key_found[self._key] = self._count
             self._flag = True
-
-    def start(self) -> None:
-        self._thread.start()
-
-    def join(self) -> None:
-        self._thread.join()
-
-    def is_alive(self) -> bool:
-        return self._thread.is_alive()
 
 
 class KeyTextAnalysis:
@@ -143,7 +140,7 @@ class KeyTextAnalysis:
         against the text dictionary (text_dict), populates the keys_found
         dictionary with the key and the total number of times the key appears
         in the text
-    _sort_dict() -> bool: Sorts the _keys_found (dict) in descending order
+    _sort_keys_found() -> bool: Sorts the _keys_found (dict) in descending order
     echo_keys_found() -> bool: Prints the dictionary of key matches to console
     echo_keys2text_indexed() -> bool: Prints the list of analysis comparisons to console
     dump_keys2text_index() -> bool: Dumps indexed list to file indexed_list_dump.z
@@ -169,7 +166,6 @@ class KeyTextAnalysis:
         self,
         text_dict,
         key_dict,
-        stopwords=None,
         fuzz_ratio=99
     ) -> None:
         """
@@ -327,7 +323,7 @@ class KeyTextAnalysis:
             └──:_eval_direct_match(key, item) -> bool
                     └──:_eval_tokenized_match(key, item) -> bool
                             └──:_eval_fuzzy_matchy(key, item) -> bool
-                                    └──:_sort_dict() -> bool
+                                    └──:_sort_keys_found() -> bool
 
         Returns
         -------
@@ -338,6 +334,9 @@ class KeyTextAnalysis:
             self._keys2text_index = defaultdict(list)
             self._keys_found = defaultdict(int)
             key_threader = {}
+            print("Analyzing text for keys...")
+            pbar = tqdm(total=(len(self._key_dict)))
+            sys.stdout.flush()
             for key in self._key_dict:
                 key_threader[key] = KeyThreader(
                     key,
@@ -345,16 +344,17 @@ class KeyTextAnalysis:
                     self._fuzz_ratio
                 )
                 key_threader[key].start()
+                pbar.update(1)
+                sys.stdout.flush()
             for key in key_threader:
-                if key_threader[key].is_alive():
-                    key_threader[key].join()
-            for key in key_threader:
+                key_threader[key].join()
                 self._keys_found = \
                     self._keys_found | key_threader[key].key_found
                 self._keys2text_index = \
                     self._keys2text_index | key_threader[key].key_found
+            pbar.close()
             if len(self._keys_found) != 0:
-                self._sort_dict()
+                self._sort_keys_found()
                 self._has_key = True
         return self._has_key
 
@@ -417,9 +417,9 @@ class KeyTextAnalysis:
             return True
         return False
 
-    def _sort_dict(self) -> bool:
+    def _sort_keys_found(self) -> bool:
         """
-        (Class:KeyTextAnalysis) => Method: _sort_dict() -> bool
+        (Class:KeyTextAnalysis) => Method: _sort_keys_found() -> bool
         Sorts the keys_found (dict) in descending order
         keys:=str, unique text (lines) from file filename
         items:=int, iterative count, init to 0, increments
@@ -456,12 +456,18 @@ class KeyTextAnalysis:
         -------
         -> bool, True if has_matches, False otherwise
         """
-        if self._has_key:
-            i = 0
-            for item in self._keys_found:
-                i += 1
-                print("{0}.[{1}]:=[{2}]".format(
-                    i, item if len(item) > 32 else item[0:32], self._keys_found[item]))
+        if self._sort_keys_found():
+            for i, item in enumerate(self._keys_found):
+                print("{0}.{1}[{2}]".format(
+                    str(i + 1),
+                    ((item + FSPC[0:(9 - len(item))])
+                        if len(item) < 10
+                        else "{0}...".format(item[0:6])),
+                    self._keys_found[item]),
+                    end=((TAB + TAB) if ((i + 1) % 4) else LINE))
+                if not ((i + 1) % 20):
+                    print("{0}{0}{0}{0}".format(('-' * 15) + (TAB * 2)))
+                    input("Press Enter/return to continue...")
             return True
         else:
             return False
@@ -542,9 +548,8 @@ class KeyTextAnalysis:
         -> bool, True if all above tasks complete, otherwise False
         """
         if self.keys2text_find():
-            if self.echo_keys2text_indexed():
-                if self.echo_keys_found():
-                    if self.dump_keys_found():
-                        if self.dump_keys2text_index():
-                            return True
+            if self.echo_keys_found():
+                if self.dump_keys_found():
+                    if self.dump_keys2text_index():
+                        return True
         return False

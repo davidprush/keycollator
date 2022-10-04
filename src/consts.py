@@ -89,6 +89,7 @@ STBLHDR = [
 LINE = "\n"
 TAB = "\t"
 SQT = '\''
+FSPC = '          '
 LFMT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 DIV = "-------------------------\
 ------------------------------------------------\n"
