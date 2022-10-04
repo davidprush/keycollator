@@ -177,7 +177,6 @@ class KeyTextAnalysis:
             └──obj = KeyTextAnalysis(text_dict: dict, key_dict: dict,
                                     [fuzz_ratio]: int, optional) -> obj
 
-        ...
 
         Attributes
         ----------
@@ -233,9 +232,6 @@ class KeyTextAnalysis:
     def text_dict(self) -> dict:
         """
         (Class:KeyTextAnalysis) => Property: text_dict() -> dict
-        ...
-        Returns
-        -------
         -> dict, text dictionary
         """
         return self._text_dict
@@ -244,7 +240,6 @@ class KeyTextAnalysis:
     def text_dict(self, obj=None) -> dict:
         """
         (Class:KeyTextAnalysis) => Property: key_dict(obj) -> dict
-        ...
         """
         self._text_dict = dict(obj).copy
 
@@ -252,9 +247,6 @@ class KeyTextAnalysis:
     def key_dict(self) -> dict:
         """
         (Class:KeyTextAnalysis) => Property: key_dict() -> dict
-        ...
-        Returns
-        -------
         -> dict, text keys dictionary
         """
         return self._key_dict
@@ -263,7 +255,6 @@ class KeyTextAnalysis:
     def key_dict(self, obj=None) -> None:
         """
         (Class:KeyTextAnalysis) => Property: key_dict(obj: dict) -> None
-        ...
         """
         self._key_dict = dict(obj).copy
 
@@ -271,9 +262,6 @@ class KeyTextAnalysis:
     def total_keys_found(self) -> int:
         """
         (Class:KeyTextAnalysis) => Property: total_keys_founds() -> int
-        ...
-        Returns
-        -------
         -> int, value of _total_keys_found
         """
         return self._total_keys_found
@@ -282,9 +270,6 @@ class KeyTextAnalysis:
     def total_comparisons(self) -> int:
         """
         (Class:KeyTextAnalysis) => Property: total_comparisons() -> int
-        ...
-        Returns
-        -------
         -> int, value of _total_comparisons
         """
         return self._total_comparisons
@@ -293,9 +278,6 @@ class KeyTextAnalysis:
     def fuzz_ratio(self) -> int:
         """
         (Class:KeyTextAnalysis) => Property: fuzz_ratio() -> int
-        ...
-        Returns
-        -------
         -> int, value of __search_text
         """
         return self._fuzz_ratio
@@ -304,7 +286,6 @@ class KeyTextAnalysis:
     def fuzz_ratio(self, value=None) -> None:
         """
         (Class:KeyTextAnalysis) => Property: fuzz_ratio(value: int) -> None
-        ...
         """
         self._fuzz_ratio = value
 
@@ -312,9 +293,6 @@ class KeyTextAnalysis:
     def keys_found(self) -> dict:
         """
         (Class:KeyTextAnalysis) => Property: keys_found() -> dict
-        ...
-        Returns
-        -------
         -> dict, containing the key matches with count totals
         """
         return self._keys_found
@@ -323,7 +301,6 @@ class KeyTextAnalysis:
     def keys_found(self, obj=None) -> None:
         """
         (Class:KeyTextAnalysis) => Property: keys_found(obj: dict) -> None
-        ...
         """
         self._keys_found = dict(obj).copy
 
@@ -331,9 +308,6 @@ class KeyTextAnalysis:
     def keys2text_index(self) -> dict:
         """
         (Class:KeyTextAnalysis) => Property: keys2text_index() -> list
-        ...
-        Returns
-        -------
         -> list, metadata; incrementers; origin text
         """
         return self._keys2text_index
@@ -346,7 +320,6 @@ class KeyTextAnalysis:
         accordingly with the key and the total number of times
         the key appears in the text
 
-        ...
 
         Methods
         -------
@@ -391,7 +364,6 @@ class KeyTextAnalysis:
         Evaluates the key dictionary (key_dict) against the text
         dictionary (text_dict) for direct/exact matches
 
-        ...
 
         Returns
         -------
@@ -410,7 +382,6 @@ class KeyTextAnalysis:
         Evaluates the key dictionary (key_dict) against the text
         dictionary (text_dict) for tokenized (very near matches)
 
-        ...
 
         Returns
         -------
@@ -434,7 +405,6 @@ class KeyTextAnalysis:
                 two sequences. Informally, the Levenshtein distance between
                 two words is the minimum number of single-character edits
 
-        ...
 
         Returns
         -------
@@ -458,7 +428,6 @@ class KeyTextAnalysis:
         post-condition:=First item/key (unique str) has the greatest
         number of matches found in the text dictionary (text_dict)
 
-        ...
 
         Returns
         -------
@@ -482,7 +451,6 @@ class KeyTextAnalysis:
         ---     ---                         -----------
         1.      KEY:="A unique string",     COUNT:=[ 17 ]
 
-        ...
 
         Returns
         -------
@@ -492,8 +460,8 @@ class KeyTextAnalysis:
             i = 0
             for item in self._keys_found:
                 i += 1
-                print("{0}.{1}:=[{2}]".format(
-                    i, item, self._keys_found[item]))
+                print("{0}.[{1}]:=[{2}]".format(
+                    i, item if len(item) > 32 else item[0:32], self._keys_found[item]))
             return True
         else:
             return False
@@ -503,7 +471,6 @@ class KeyTextAnalysis:
         (Class:KeyTextAnalysis) => Method: echo_keys2text_indexed() -> bool
         Prints the analysis list to console
 
-        ...
 
             prints to console _keys2text_index:
 
@@ -516,9 +483,10 @@ class KeyTextAnalysis:
         -> bool, True if it prints, False otherwise
         """
         if len(self._keys2text_index) != 0:
-            for i, li in enumerate(self._keys2text_index):
-                print("Index[{0}][{1}]".format(
-                    i, str(li)))
+            for item in self._keys2text_index:
+                print("[Index:{0}][{1}]".format(
+                    str(item),
+                    str(self._keys2text_index[item])))
             return True
         else:
             return False
@@ -528,7 +496,6 @@ class KeyTextAnalysis:
         (Class:KeyTextAnalysis) => Method: dump_keys2text_index() -> bool
         Dumps indexed list data to csv file (indexed_dump.z)
 
-        ...
 
         Returns
         -------
@@ -545,7 +512,6 @@ class KeyTextAnalysis:
         (Class:KeyTextAnalysis) => Method: dump_keys_found() -> bool
         Dumps all logs to CSV file (keys_found_dump.z)
 
-        ...
 
         Returns
         -------
@@ -564,7 +530,6 @@ class KeyTextAnalysis:
         """
         (Class:KeyTextAnalysis) => Method: run_keys2text_all() -> bool
         Runs all necessary methods to complete matching analysis
-        ...
 
            keys2text_find():
                 └──echo_keys2text_indexed():

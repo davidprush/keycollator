@@ -40,12 +40,7 @@ import threading
 
 from collections import defaultdict
 
-import nltk
-import nltk.data
-from nltk.corpus import stopwords as stpw
-from nltk.stem import PorterStemmer
-from nltk.stem import WordNetLemmatizer
-from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords as sw
 
 from consts import LINE, STOP_WORDS
 
@@ -107,12 +102,7 @@ class ItemizeFileData:
         """
         (Class:ItemizeFileData) => Method:__init__ to instantiate class attributes
 
-        ...
-
         obj = Itemizefile(filename: str, [stopwords]: list)
-
-        Parameters
-        ----------
         file_name:=str, required filename of text to be used by this instance
         stopwords=list, stop words to be removed from text, default=consts.STOP_WORDS
         """
@@ -243,11 +233,6 @@ class ItemizeFileData:
         (Class:ItemizeFileData) => Method: get_raw(self) -> list
         Opens the file (filename) and creates a list containing
         items for each line of text
-
-        ...
-
-        Returns
-        -------
         -> list
             each item of the list is a line of text from the file
             assigned to the class instance:
@@ -263,20 +248,10 @@ class ItemizeFileData:
     def sanitize(self, text=None) -> str:
         """
         (Class:ItemizeFileData) => Method: sanitize(text: str) -> str
-        If text is passed to method it will be sanitized using
-        the private method _sanitize_text(text) -> str, else
-        it cycles through each key in _dict and runs
-        _sanitize_text(text) on each key of text and updates
-        accordingly
-
-        ...
-
-        Parameters
-        ----------
-        text : str, Text to sanitize
-
-        Returns
-        -------
+        If text is passed to method it will be sanitized using the private
+        method _sanitize_text(text) -> str, else it cycles through each key
+        in _dict and runs _sanitize_text(text) on each key of text and
+        updates accordingly
         -> str, all lowercase, without special chars, nor end lines
         """
         if text is not None:
@@ -294,16 +269,6 @@ class ItemizeFileData:
         """
         (Class:ItemizeFileData) => Method: pop_stop_words(text: str) -> str
         Removes stop_words from text: str
-
-        ...
-
-        Parameters
-        ----------
-        text : str, Text to remove stop words from
-
-
-        Returns
-        -------
         -> str, without stop words
         """
         if isinstance(self._stopwords, list) and \
@@ -320,11 +285,6 @@ class ItemizeFileData:
         """
         (Class:ItemizeFileData) => Method: echo_stopwords() -> bool
         Prints stopwords in with columns of 10
-
-        ...
-
-        Returns
-        -------
         -> bool (True if there are stopwords, otherwise False)
         """
         if self._stopwords is not None:
@@ -344,16 +304,6 @@ class ItemizeFileData:
         """
         (Class:ItemizeFileData) => Method: file_exists(file_name: str) -> bool
         Verifies file_name (filename) exists
-
-        ...
-
-        Parameters
-        ----------
-        file_name : str, The name of the file to be verified
-
-
-        Returns
-        -------
         -> bool (True if file exists, otherwise False)
         """
         if file_name is not None:
@@ -370,11 +320,6 @@ class ItemizeFileData:
         Searches the text file (filename) for unique lines of text,
         sanitizes each line of text, adds init incrementers value
         for each key as a total count of the matches
-
-        ...
-
-        Returns
-        -------
         -> dict
             keys: uqique lines of text from file as str
             items: int (0) for future use as iterator
@@ -397,50 +342,22 @@ class ItemizeFileData:
     def expand_stopwords(self, stopwords=None) -> list:
         """
         (Class:ItemizeFileData) => Method: expand_stopwords() -> list
-        Uses supplied stopwords and expands them using lemmatize,
-        PorterStemmer(), and nltk stopwords.
-
-        ...
-
-        Returns
-        -------
+        Combines nltk stopwords with stopwords
         -> list, expanded stopword list (appends nltk stopwords)
         """
         if stopwords is not None:
-            sw = stopwords.copy()
-            ps = PorterStemmer()
-            wnl = WordNetLemmatizer()
-            tword = sli = []
-            for word in stopwords:
-                tword = list(word_tokenize(word))
-                for s in tword:
-                    sli = list(wnl.lemmatize(str(s)))
-                    for li in sli:
-                        li = self.sanitize(str(s))
-                        if li not in stopwords:
-                            sw.append(li)
-                        tword = ps.stem(li)
-                        if tword not in stopwords:
-                            sw.append(str(tword))
-            stopwords = sw.copy()
-            for w in stpw.words('english'):
-                w = str(self.sanitize(w))
-                if w not in stopwords:
-                    stopwords.append(w)
-            stopwords = [*set(stopwords)]
+            stopwords = [
+                self.sanitize(str(w)) for w in
+                [set(stopwords + sw.words('english'))]]
             stopwords = sorted(stopwords, key=lambda x: str(x))
             self._stopwords = stopwords.copy()
-        return stopwords
+            return stopwords
+        return None
 
     def _sort_dict(self) -> bool:
         """
         (Class:ItemizeFileData) => Method: _sort_dict() -> bool
         Sorts _dict (dict) by item count (integer)
-
-        ...
-
-        Returns
-        -------
         -> bool, True if _dict contains items, False otherwise
         """
         if len(self._dict) != 0:
@@ -456,11 +373,6 @@ class ItemizeFileData:
         (Class:ItemizeFileData) => Method: _sanitize_text(text) -> str
         Removes all punctuation and end lines then converts it
         to all lower case
-
-        ...
-
-        Returns
-        -------
         -> str, sanitized text
         """
         if text is not None:

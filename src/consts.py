@@ -41,7 +41,7 @@ STOP_WORDS = [
     "under", "until", "up", "very", "was", "we", "were", "what",
     "when", "where", "which", "while", "who", "whom", "why",
     "will", "with", "you", "your", "yours", "yourself", "yourselves",
-    "find", "help", "make", "take", "with", "work", "update", "post"
+    "find", "help", "make", "take", "use", "with", "work", "update", "post"
 ]
 LOGTXT = {
     "limit_result": "OVER RESULT ITEM LIMIT: Removing result [{0}]:[{1}]",
