@@ -40,7 +40,7 @@ from collections import defaultdict
 import nltk.data
 
 from extractfile import ItemizeFileData as ifd
-from analysis import KeyTextAnalysis as kta
+from threadanalysis import KeyTextAnalysis as kta
 
 from consts import \
     LINE, STOP_WORDS, LOGTXT, TEXT, \
@@ -290,7 +290,7 @@ class KeyKrawler:
         """
         table_data = []
         self._purge_limits()
-        for i, item in enumerate([x for x in self._reskta.key_matches]):
+        for i, item in enumerate([x for x in self._reskta.keys_found]):
             item = LOGTXT['echo_result'].format(
                 item[0:self._abrvt]
                 if len(item) > self._abrvt
@@ -298,7 +298,7 @@ class KeyKrawler:
             table_data.append([
                 i,
                 item,
-                self._reskta.key_matches
+                self._reskta.keys_found
             ])
         tt.print(
             table_data,
@@ -356,7 +356,8 @@ class KeyKrawler:
         #     self.__text_file, self.__timer.timestampstr()))
         # spinner = Halo("Itemizing Keys", spinner='dots')
         # spinner.start()
-
+        self._txtifd.thread.join()
+        self._keyifd.thread.join()
         self._keyifd.echo_stopwords()
         input()
 
@@ -366,10 +367,10 @@ class KeyKrawler:
             STOP_WORDS,
             self._fuzrat
         )
-        if self._reskta.run_match_analysis():
+        if self._reskta.run_keys2text_all():
             if self.results2file():
-                if self._reskta.echo_matches():
-                    return self._reskta.key_matches
+                if self._reskta.echo_keys_found():
+                    return self._reskta.keys_found
         # spinner.stop_and_persist(SYMB['success'], LOGTXT['extract'].format(
         #     self.__key_file, self.__timer.timestampstr()))
         return None
@@ -377,7 +378,7 @@ class KeyKrawler:
     def results2file(self) -> bool:
         """
         (Class:KeyKrawler) => Method: results2file() -> bool
-        Get KeyTextAnalysis results from _reskta.key_matches
+        Get KeyTextAnalysis results from _reskta.keys_found
         and formats to write it to CSV file (_csv)
         ...
         """
@@ -390,10 +391,10 @@ class KeyKrawler:
             # )
             # spinner.start()
             self._purge_limits()
-            for item in self._reskta.key_matches:
+            for item in self._reskta.keys_found:
                 write_count += 1
                 csv_formatted_item = LOGTXT['csv_formatted_item'].format(
-                    str(item), str(self._reskta.key_matches), LINE)
+                    str(item), str(self._reskta.keys_found), LINE)
                 fh.write(csv_formatted_item)
             fh.close()
             # spinner.stop_and_persist(
@@ -417,9 +418,9 @@ class KeyKrawler:
         -> bool, True if limit is set for items to be removed from result
         """
         if self._limres is not None:
-            for i, item in enumerate([x for x in self._reskta.key_matches]):
+            for i, item in enumerate([x for x in self._reskta.keys_found]):
                 if i >= self._limres:
-                    del self._reskta.key_matches[item]
+                    del self._reskta.keys_found[item]
             return True
         return False
 
@@ -437,11 +438,11 @@ class KeyKrawler:
         """
         if self._lolb is not None \
                 and self._uplb is not None:
-            for item in enumerate([x for x in self._reskta.key_matches]):
-                if (self._reskta.key_matches[item] < self._lolb) \
-                    and (self._reskta.key_matches[item]
+            for item in enumerate([x for x in self._reskta.keys_found]):
+                if (self._reskta.keys_found[item] < self._lolb) \
+                    and (self._reskta.keys_found[item]
                          > self._uplb):
-                    del self._reskta.key_matches[item]
+                    del self._reskta.keys_found[item]
                     self._rcnt -= 1
             return True
         return True
