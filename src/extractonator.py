@@ -358,8 +358,6 @@ class KeyKrawler:
         # spinner.start()
         self._txtifd.thread.join()
         self._keyifd.thread.join()
-        self._keyifd.echo_stopwords()
-        input()
 
         self._reskta = kta(
             self._txtifd.dict,

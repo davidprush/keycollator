@@ -146,8 +146,8 @@ class KeyTextAnalysis:
     _sort_dict() -> bool: Sorts the _keys_found (dict) in descending order
     echo_keys_found() -> bool: Prints the dictionary of key matches to console
     echo_keys2text_indexed() -> bool: Prints the list of analysis comparisons to console
-    dump_keys2text_index() -> bool: Dumps indexed list to file indexed_list_dump.csv
-    dump_keys_found() -> bool: Dumps matches to file key_match_dump.csv
+    dump_keys2text_index() -> bool: Dumps indexed list to file indexed_list_dump.z
+    dump_keys_found() -> bool: Dumps matches to file key_match_dump.z
     run_keys2text_all() -> bool:
     _eval_direct_match(key, item) -> bool:
     _eval_tokenized_match(skey, item) -> bool:
@@ -532,7 +532,7 @@ class KeyTextAnalysis:
     def dump_keys2text_index(self) -> bool:
         """
         (Class:KeyTextAnalysis) => Method: dump_keys2text_index() -> bool
-        Dumps indexed list data to csv file (indexed_dump.csv)
+        Dumps indexed list data to csv file (indexed_dump.z)
 
         ...
 
@@ -541,7 +541,7 @@ class KeyTextAnalysis:
         -> bool, True if indexed is not equal to 0, otherwise False
         """
         if len(self._keys2text_index) != 0:
-            joblib.dump(self._keys2text_index, 'index_dump.txt')
+            joblib.dump(self._keys2text_index, 'index_dump.z')
             return True
         else:
             return False
@@ -549,7 +549,7 @@ class KeyTextAnalysis:
     def dump_keys_found(self) -> bool:
         """
         (Class:KeyTextAnalysis) => Method: dump_keys_found() -> bool
-        Dumps all logs to CSV file (keys_found_dump.csv)
+        Dumps all logs to CSV file (keys_found_dump.z)
 
         ...
 
@@ -561,7 +561,7 @@ class KeyTextAnalysis:
             key_match_list = []
             for key in self._keys_found:
                 key_match_list.append([key, self._keys_found[key]])
-            joblib.dump(key_match_list, 'keys_found_dump.txt')
+            joblib.dump(key_match_list, 'keys_found_dump.z')
             return True
         else:
             return False
