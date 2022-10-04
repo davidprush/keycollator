@@ -444,16 +444,7 @@ class KeyTextAnalysis:
     def echo_keys_found(self) -> bool:
         """
         (Class:KeyTextAnalysis) => Method: echo_keys_found() -> bool
-        Prints the dictionary of key matches to console in the
-        following format:
-
-        No.     KEY                         MATCH TOTAL
-        ---     ---                         -----------
-        1.      KEY:="A unique string",     COUNT:=[ 17 ]
-
-
-        Returns
-        -------
+        Prints the dictionary of key matches to console
         -> bool, True if has_matches, False otherwise
         """
         if self._sort_keys_found():
@@ -466,8 +457,8 @@ class KeyTextAnalysis:
                     self._keys_found[item]),
                     end=((TAB + TAB) if ((i + 1) % 4) else LINE))
                 if not ((i + 1) % 20):
-                    print("{0}{0}{0}{0}".format(('-' * 15) + (TAB * 2)))
-                    input("Press Enter/return to continue...")
+                    print("{0}{0}{0}{0}".format(('-' * 15) + (TAB * 2)), end='')
+                    input("Enter to cont...")
             return True
         else:
             return False
