@@ -448,20 +448,40 @@ class KeyTextAnalysis:
         -> bool, True if has_matches, False otherwise
         """
         if self._sort_keys_found():
-            # col_list = []
+            col_dict = defaultdict(list)
             for i, item in enumerate(self._keys_found):
-                print("{0}.{1}[{2}]".format(
+                col_dict[i // (len(self._keys_found) // 4)].append("{0}.{1}[{2}]".format(
                     str(i + 1),
-                    ((item + FSPC[0:(9 - len(item))])
-                        if len(item) < 1
-                        else "{0}...".format(item[0:6])),
-                    self._keys_found[item]),
-                    end=((TAB) if ((i + 1) % 4) else LINE))
-                if not ((i + 1) % 20):
-                    print("{0}{0}{0}{1}".format(
-                        ('-' * 15) + (TAB),
-                        ('-' * 15)), end='')
-                    input("[Enter] to cont...")
+                    ((item + FSPC[0:(11 - len(item))])
+                        if len(item) < 12
+                        else "{0}...".format(item[0:11])),
+                    self._keys_found[item]))
+                # print("{0}.{1}[{2}]".format(
+                #     str(i + 1),
+                #     ((item + FSPC[0:(9 - len(item))])
+                #         if len(item) < 1
+                #         else "{0}...".format(item[0:6])),
+                #     self._keys_found[item]),
+                #     end=((TAB) if ((i + 1) % 4) else LINE))
+                # if not ((i + 1) % 20):
+                #     print("{0}{0}{0}{1}".format(
+                #         ('-' * 15) + (TAB),
+                #         ('-' * 15)), end='')
+                #     input("[Enter] to cont...")
+            rows = max([
+                len(col_dict[0]),
+                len(col_dict[1]),
+                len(col_dict[2]),
+                len(col_dict[3])])
+            for row in range(rows):
+                print(
+                    col_dict[0][row],
+                    TAB,
+                    col_dict[1][row],
+                    TAB,
+                    col_dict[2][row],
+                    TAB,
+                    col_dict[3][row])
             return True
         else:
             return False
