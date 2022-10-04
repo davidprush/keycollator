@@ -36,6 +36,7 @@ data from the file using the following methods:
 """
 import os.path
 import string
+import threading
 
 from collections import defaultdict
 
@@ -116,6 +117,10 @@ class ItemizeFileData:
         self.__file_item_count = 0
         self.__stopwords_popped = 0
         self.__populated = False
+        self.thread = threading.Thread(target=self.itemize_file, args=())
+        if self.__stopwords is not None:
+            if len(self.__stopwords) != 0:
+                self.expand_stopwords()
 
     def __eq__(self, obj) -> bool:
         if not isinstance(obj, ItemizeFileData):
@@ -267,7 +272,7 @@ class ItemizeFileData:
         """
         if text is not None:
             return self.__sanitize_text(text)
-        elif self.__file_exists and len(self.__dict) > 1:
+        elif self.__file_exists and len(self.__dict) != 0:
             for item in self.__dict:
                 text = self.__sanitize_text(item)
                 dict_value = self.__dict[item]
@@ -301,6 +306,30 @@ class ItemizeFileData:
                     self.__stopwords_popped += 1
                     text = text.replace(whole_word, " ")
         return text
+
+    def echo_stopwords(self) -> bool:
+        """
+        Class: ItemizeFile Method: echo_stopwords() -> bool
+        Prints stopwords in with columns of 10
+
+        ...
+
+        Returns
+        -------
+        -> bool (True if there are stopwords, otherwise False)
+        """
+        if self.__stopwords is not None:
+            if len(self.__stopwords) != 0:
+                col = 0
+                row = []
+                for w in self.stopwords:
+                    col += 1
+                    row.append(w)
+                    if col % 10 == 0:
+                        print("\t".join(row))
+                        row = []
+                return True
+        return False
 
     def file_exists(self, file_name=None) -> bool:
         """
@@ -344,20 +373,19 @@ class ItemizeFileData:
             if __dict has no items
         """
         for self.__file_item_count, item in enumerate(self.get_raw()):
-            indx = item = self.sanitize(item)
+            indx = item = self.pop_stop_words(self.sanitize(item))
             self.__origin[indx] = self.__file_item_count
             if item not in [x for x in self.__dict]:
                 self.__unique_item_count += 1
-                item = self.pop_stop_words(item)
                 self.__dict[item] = 0
             self.__populated = True
-        if self.__file_item_count > 0:
+        if self.__file_item_count != 0:
             self.__populated = True
             return self.__dict
         else:
             return None
 
-    def expand_stopwords(self, stopwords) -> list:
+    def expand_stopwords(self, stopwords=None) -> list:
         """
         Class: ItemizeFile Method: expand_stopwords() -> list
         Uses supplied stopwords and expands them using lemmatize,
@@ -370,22 +398,29 @@ class ItemizeFileData:
         -> list, expanded stopword list (appends nltk stopwords)
         """
         if stopwords is not None:
-            sw = []
+            sw = stopwords.copy()
             ps = PorterStemmer()
             wnl = WordNetLemmatizer()
+            tword = sli = []
             for word in stopwords:
-                for s in (word_tokenize(ps.stem(wnl.lemmatize(word)))):
-                    if len(s) > 1 and s not in stopwords:
-                        sw.append(str(s))
-            for w in sw:
-                if w not in stopwords:
-                    stopwords.append(w)
-            sw = []
+                tword = list(word_tokenize(word))
+                for s in tword:
+                    sli = list(wnl.lemmatize(str(s)))
+                    for li in sli:
+                        li = self.sanitize(str(s))
+                        if li not in stopwords:
+                            sw.append(li)
+                        tword = ps.stem(li)
+                        if tword not in stopwords:
+                            sw.append(str(tword))
+            stopwords = sw.copy()
             for w in stpw.words('english'):
+                w = str(self.sanitize(w))
                 if w not in stopwords:
                     stopwords.append(w)
+            stopwords = [*set(stopwords)]
+            stopwords = sorted(stopwords, key=lambda x: str(x))
             self.__stopwords = stopwords.copy()
-            self.__stopwords = sorted(self.__stopwords, key=lambda x: str(x))
         return stopwords
 
     def __sort_dict(self) -> bool:
@@ -421,6 +456,8 @@ class ItemizeFileData:
         """
         if text is not None:
             text = str(text) if not isinstance(text, str) else text
+            while '  ' in text:
+                text = text.replace('  ', '')
             text = text.replace(LINE, '')
             text = text.translate(text.maketrans(
                 "",

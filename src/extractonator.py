@@ -32,6 +32,8 @@ Todo:
 import os.path
 import termtables as tt
 
+import threading
+
 from halo import Halo
 from collections import defaultdict
 
@@ -66,8 +68,8 @@ class KeyKrawler:
 
     Attributes
     ----------
-    __tobj = ifd(TEXT, STOP_WORDS)
-    __kobj = ifd(KEY, STOP_WORDS)
+    __txtifd = ifd(TEXT, STOP_WORDS)
+    __keyifd = ifd(KEY, STOP_WORDS)
     __csv = CSV
     __log = LOG
     __limres = limit_result
@@ -155,8 +157,8 @@ class KeyKrawler:
 
         Attributes
         ----------
-        __tobj = ifd(TEXT, STOP_WORDS)
-        __kobj = ifd(KEY, STOP_WORDS)
+        __txtifd = ifd(TEXT, STOP_WORDS)
+        __keyifd = ifd(KEY, STOP_WORDS)
         __csv = CSV
         __log = LOG
         __limres = limit_result
@@ -190,9 +192,9 @@ class KeyKrawler:
         lbound=None,
         ubound=None
         """
-        self.__tobj = ifd(TEXT, STOP_WORDS)
-        self.__kobj = ifd(KEY, STOP_WORDS)
-        self.__robj = None
+        self.__txtifd = ifd(TEXT, STOP_WORDS)
+        self.__keyifd = ifd(KEY, STOP_WORDS)
+        self.__reskta = kta(self.__txtifd.dict, self.__keyifd.dict, fuzz_ratio)
         self.__csv = CSV
         self.__log = LOG
         self.__limres = limit_result
@@ -219,8 +221,8 @@ class KeyKrawler:
 
             No.         File            Property (Vars)
             --          ----            ---------------
-            1.          text            __tobj.filename
-            2.          key             __kobj.filename
+            1.          text            __txtifd.filename
+            2.          key             __keyifd.filename
             3.          csv             __csv
             4.          log             __log
 
@@ -238,8 +240,8 @@ class KeyKrawler:
                     2. Key: {1} \n \
                     3. CSV: {2} \n \
                     4. log: {3} \n".format(
-                        self.__tobj.filename,
-                        self.__kobj.filename,
+                        self.__txtifd.filename,
+                        self.__keyifd.filename,
                         self.__csv,
                         self.__log_count)))
         f = 0
@@ -256,12 +258,12 @@ class KeyKrawler:
                     os.path.exists(self.__drlst[fnum]):
                 if fid == 1:
                     print("Updated text file from {0} to {1}".format(
-                        self.__tobj.filename, self.__drlst[fnum]))
-                    self.__tobj.filename = self.__drlst[fnum]
+                        self.__txtifd.filename, self.__drlst[fnum]))
+                    self.__txtifd.filename = self.__drlst[fnum]
                 if fid == 2:
                     print("Updated key file from {0} to {1}".format(
-                        self.__kobj.filename, self.__drlst[fnum]))
-                    self.__kobj.filename = self.__drlst[fnum]
+                        self.__keyifd.filename, self.__drlst[fnum]))
+                    self.__keyifd.filename = self.__drlst[fnum]
                 if fid == 3:
                     print("Updated csv file from {0} to {1}".format(
                         self.__csv, self.__drlst[fnum]))
@@ -279,7 +281,7 @@ class KeyKrawler:
         """
         table_data = []
         self.__purge_limits()
-        for i, item in enumerate([x for x in self.__robj.key_matches]):
+        for i, item in enumerate([x for x in self.__reskta.key_matches]):
             item = LOGTXT['echo_result'].format(
                 item[0:self.__abrvt]
                 if len(item) > self.__abrvt
@@ -287,7 +289,7 @@ class KeyKrawler:
             table_data.append([
                 i,
                 item,
-                self.__robj.key_matches
+                self.__reskta.key_matches
             ])
         tt.print(
             table_data,
@@ -304,10 +306,10 @@ class KeyKrawler:
         ...
         """
         table_data = [
-            ["Keys", self.__kobj.unique_item_count],
-            ["Text", self.__tobj.unique_item_count],
-            ["Matches", self.__robj.total_matches],
-            ["Comparisons", self.__robj.total_comparisons]
+            ["Keys", self.__keyifd.unique_item_count],
+            ["Text", self.__txtifd.unique_item_count],
+            ["Matches", self.__reskta.total_matches],
+            ["Comparisons", self.__reskta.total_comparisons]
             # ["Logs", self.__logger.log_count]
             # ["Runtime", self.__timer.timestamp(True)]
         ]
@@ -335,26 +337,30 @@ class KeyKrawler:
         """
         # spinner = Halo("Itemizing Text", spinner='dots')
         # spinner.start()
-        self.__tobj.itemize_file()
+        self.__txtifd.thread.start()
         # spinner.stop_and_persist(SYMB['success'], LOGTXT['extract'].format(
         #     self.__key_file, self.__timer.timestampstr()))
         # spinner = Halo("Itemizing Keys", spinner='dots')
         # spinner.start()
-        self.__kobj.itemize_file()
+        self.__keyifd.thread.start()
         # spinner.stop_and_persist(SYMB['success'], LOGTXT['extract'].format(
         #     self.__text_file, self.__timer.timestampstr()))
         # spinner = Halo("Itemizing Keys", spinner='dots')
         # spinner.start()
-        self.__robj = kta(
-            self.__tobj.dict,
-            self.__kobj.dict,
+
+        self.__keyifd.echo_stopwords()
+        input()
+
+        self.__reskta = kta(
+            self.__txtifd.dict,
+            self.__keyifd.dict,
             STOP_WORDS,
             self.__fuzrat
         )
-        if self.__robj.run_match_analysis():
+        if self.__reskta.run_match_analysis():
             if self.results2file():
-                if self.__robj.echo_matches():
-                    return self.__robj.key_matches
+                if self.__reskta.echo_matches():
+                    return self.__reskta.key_matches
         # spinner.stop_and_persist(SYMB['success'], LOGTXT['extract'].format(
         #     self.__key_file, self.__timer.timestampstr()))
         return None
@@ -362,7 +368,7 @@ class KeyKrawler:
     def results2file(self) -> bool:
         """
         Class: KeyKrawler Method: results2file() -> bool
-        Get KeyTextAnalysis results from __robj.key_matches
+        Get KeyTextAnalysis results from __reskta.key_matches
         and formats to write it to CSV file (__csv)
         ...
         """
@@ -375,10 +381,10 @@ class KeyKrawler:
             # )
             # spinner.start()
             self.__purge_limits()
-            for item in self.__robj.key_matches:
+            for item in self.__reskta.key_matches:
                 write_count += 1
                 csv_formatted_item = LOGTXT['csv_formatted_item'].format(
-                    str(item), str(self.__robj.key_matches), LINE)
+                    str(item), str(self.__reskta.key_matches), LINE)
                 fh.write(csv_formatted_item)
             fh.close()
             # spinner.stop_and_persist(
@@ -402,9 +408,9 @@ class KeyKrawler:
         -> bool, True if limit is set for items to be removed from result
         """
         if self.__limres is not None:
-            for i, item in enumerate([x for x in self.__robj.key_matches]):
+            for i, item in enumerate([x for x in self.__reskta.key_matches]):
                 if i >= self.__limres:
-                    del self.__robj.key_matches[item]
+                    del self.__reskta.key_matches[item]
             return True
         return False
 
@@ -422,11 +428,11 @@ class KeyKrawler:
         """
         if self.__lolb is not None \
                 and self.__uplb is not None:
-            for item in enumerate([x for x in self.__robj.key_matches]):
-                if (self.__robj.key_matches[item] < self.__lolb) \
-                    and (self.__robj.key_matches[item]
+            for item in enumerate([x for x in self.__reskta.key_matches]):
+                if (self.__reskta.key_matches[item] < self.__lolb) \
+                    and (self.__reskta.key_matches[item]
                          > self.__uplb):
-                    del self.__robj.key_matches[item]
+                    del self.__reskta.key_matches[item]
                     self.__rcnt -= 1
             return True
         return True

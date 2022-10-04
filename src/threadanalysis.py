@@ -9,6 +9,7 @@ License: MIT
 
 """
 import joblib
+import threading
 
 from collections import defaultdict
 
@@ -36,6 +37,35 @@ try:
         dler.download('punkt')
 except Exception as ex:
     print(ex)  # replace with CustomLogger
+
+class KeyThreader:
+    def __init__(self, key: str, text: dict, fuzz: int) -> None:
+        self.__key = key
+        self.__text = text.copy()
+        self.__fuzz = fuzz
+        self.__dict = defaultdict(int)
+        self.__count = 0
+        self.__thread = threading.Thread(target=self.__needle)
+
+    @property
+    def count(self) -> int:
+        return self.__count
+
+    def __needle(self) -> None:
+        for item in self.__text:
+            kstr = str(word_tokenize(self.__key))
+            istr = str(word_tokenize(item))
+            if self.__key in item:
+                self.__count += 1
+            elif kstr in istr:
+                self.__count += 1
+            elif fuzz.partial_ratio(self.__key, item) >= self.__fuzz:
+                self.__count += 1
+        if self.__count > 0:
+            self.__dict[self.__key] = self.__log_count
+
+    def start(self) -> dict:
+        self.__thread.start()
 
 
 class KeyTextAnalysis:
@@ -285,32 +315,63 @@ class KeyTextAnalysis:
             self.__has_match = False
             # init empty index list
             self.__key2text_index = []
+            key_threader = {}
             for key in self.__key_dict:
-                for item in self.__text_dict:
-                    self.__total_comparisons += 1
-                    if self.__eval_direct(key, item):
-                        self.__key2text_index.append([
-                            [str(key), str(self.__key_dict[key])],
-                            [str(item), str(self.__text_dict[item])],
-                            ["Direct", str(self.__total_matches),
-                                str(self.__total_comparisons)]
-                        ])
-                    elif self.__eval_tokenized(key, item):
-                        self.__key2text_index.append([
-                            [str(key), str(self.__key_dict[key])],
-                            [str(item), str(self.__text_dict[item])],
-                            ["Tokenized", str(self.__total_matches),
-                                str(self.__total_comparisons)]
-                        ])
-                    elif self.__eval_fuzz(key, item):
-                        self.__key2text_index.append([
-                            [str(key), str(self.__key_dict[key])],
-                            [str(item), str(self.__text_dict[item])],
-                            ["Fuzzy", str(self.__total_matches),
-                                str(self.__total_comparisons)]
-                        ])
+                key_threader[key] = KeyThreader(
+                    key,
+                    self.__text_dict,
+                    self.__fuzz_ratio
+                )
+                key_threader[key].start()
+            
             if self.__has_match:
                 self.__sort_dict()
+        return self.__has_match
+
+    def __find_key(self, keys: dict, text: dict) -> bool:
+        """
+        Class: KeyTextAnalysis Method: eval_keys2text() -> bool
+        Evaluates the key dictionary (key_dict) against the text
+        dictionary (text_dict), populates the key_matches dictionary
+        accordingly with the key and the total number of times
+        the key appears in the text
+
+        ...
+
+        Methods
+        -------
+        eval_keys2text() -> bool, True if matches found, otherwise False
+            └──:__eval_direct(key, item) -> bool
+                    └──:__eval_tokenized(key, item) -> bool
+                            └──:__eval_fuzzy(key, item) -> bool
+                                    └──:__sort_dict() -> bool
+
+        Returns
+        -------
+        -> bool, True if matches found, False otherwise
+        """
+        self.__total_comparisons += 1
+        if self.__eval_direct(key, item):
+            self.__key2text_index.append([
+                [str(key), str(self.__key_dict[key])],
+                [str(item), str(self.__text_dict[item])],
+                ["Direct", str(self.__total_matches),
+                    str(self.__total_comparisons)]
+            ])
+        elif self.__eval_tokenized(key, item):
+            self.__key2text_index.append([
+                [str(key), str(self.__key_dict[key])],
+                [str(item), str(self.__text_dict[item])],
+                ["Tokenized", str(self.__total_matches),
+                    str(self.__total_comparisons)]
+            ])
+        elif self.__eval_fuzz(key, item):
+            self.__key2text_index.append([
+                [str(key), str(self.__key_dict[key])],
+                [str(item), str(self.__text_dict[item])],
+                ["Fuzzy", str(self.__total_matches),
+                    str(self.__total_comparisons)]
+            ])
         return self.__has_match
 
     def __eval_direct(self, key, item) -> bool:
