@@ -137,3 +137,4 @@ text.txt
 venv/
 code_snippets.py
 example-library.py
+*dump*
