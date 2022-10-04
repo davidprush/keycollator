@@ -138,3 +138,4 @@ venv/
 code_snippets.py
 example-library.py
 *dump*
+*.z

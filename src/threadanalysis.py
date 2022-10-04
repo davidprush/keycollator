@@ -365,7 +365,6 @@ class KeyTextAnalysis:
             self._keys2text_index = defaultdict(list)
             self._keys_found = defaultdict(int)
             key_threader = {}
-            i = 0
             for key in self._key_dict:
                 key_threader[key] = KeyThreader(
                     key,
@@ -373,11 +372,6 @@ class KeyTextAnalysis:
                     self._fuzz_ratio
                 )
                 key_threader[key].start()
-                i += 1
-                print("Total threads {0}".format(threading.active_count()))
-                # if threading.active_count() > MAX_THREADS:
-                #     for key in key_threader:
-                #         key_threader[key].join()
             for key in key_threader:
                 if key_threader[key].is_alive():
                     key_threader[key].join()
