@@ -4,24 +4,23 @@ Copyright (C) 2022 Rush Solutions, LLC
 Author: David Rush <davidprush@gmail.com>
 License: MIT
 Contains:
-
-    KeyKrawler(
-                text_file=TEXT, key_file=KEY, csv_file=CSV,
-                limit_result=None, abrev_items=32, log_file=LOG,
-                verbose=False, ubound_limit=None, lbound_limit=None,
-                fuzzy_match=99, logging=False, run_now=False
-            ) -> obj
-    imports
-        └──>ItemizefileData(
-                            filename: str, [stopwords]: list,
-                            [logfile]: str, [verbose]: bool,
-                            [fuzzy_matching]: int
-                        ) -> obj
-    imports
-        └──>KeyTextAnalysis(
-                            [fuzzy_matching]: int,
-                            optional
-                        ) -> obj
+KeyKrawler(
+            text_file=TEXT, key_file=KEY, csv_file=CSV,
+            limit_result=None, abrev_items=32, log_file=LOG,
+            verbose=False, ubound_limit=None, lbound_limit=None,
+            fuzzy_match=99, logging=False, run_now=False
+        ) -> obj
+imports
+    └──>ItemizefileData(
+                        filename: str, [stopwords]: list,
+                        [logfile]: str, [verbose]: bool,
+                        [fuzzy_matching]: int
+                    ) -> obj
+imports
+    └──>KeyTextAnalysis(
+                        [fuzzy_matching]: int,
+                        optional
+                    ) -> obj
 """
 import os.path
 import termtables as tt
@@ -47,21 +46,23 @@ __status__ = "Development"
 
 class KeyKrawler:
     """
-    Class: KeyKrawler
-
-    obj = KeyKrawler(text_file=TEXT, key_file=KEY, csv_file=CSV,
-                    limit_result=None, abreviate=32, log_file=LOG,
-                    verbose=False, ubound_limit=None, lbound_limit=None,
-                    fuzzy_match=99, logging=False, run_now=False) -> obj
-
-    └──subclass:ItemizeFile:
-           obj = Itemizefile(filename: str, [stopwords]: list,
+    KeyKrawler(
+                text_file=TEXT, key_file=KEY, csv_file=CSV,
+                limit_result=None, abrev_items=32, log_file=LOG,
+                verbose=False, ubound_limit=None, lbound_limit=None,
+                fuzzy_match=99, logging=False, run_now=False
+            ) -> obj
+    imports
+        └──>ItemizefileData(
+                            filename: str, [stopwords]: list,
                             [logfile]: str, [verbose]: bool,
-                            [fuzz_ratio]: int) -> obj
-
-    └──subclass:ItemizeFile.KeyTextAnalysis:
-            obj = ItemizeFile.KeyTextAnalysis([fuzz_ratio]: int, optional) -> obj
-
+                            [fuzzy_matching]: int
+                        ) -> obj
+    imports
+        └──>KeyTextAnalysis(
+                            [fuzzy_matching]: int,
+                            optional
+                        ) -> obj
     ...
 
     Attributes
@@ -139,17 +140,6 @@ class KeyKrawler:
                         lbound_limit=None
                     ) -> obj
 
-            └──class:ItemizeFileData
-                       obj = Itemizefile(
-                                filename: str,
-                                [stopwords]: list
-                            ) -> obj
-
-            └──class:KeyTextAnalysis:
-                        obj = ItemizeFile.KeyTextAnalysis(
-                                [fuzz_ratio]: int, optional
-                            ) -> obj
-
         Attributes
         ----------
         _txtifd = ifd(TEXT, STOP_WORDS)
@@ -211,7 +201,7 @@ class KeyKrawler:
 
     def filename_update(self):
         """
-        (Class:KeyKrawler) => Method: filename_update() -> None
+        KeyKrawler => Method: filename_update() -> None
         User prompt to update a one of the following 4 files:
 
             No.         File            Property (Vars)
@@ -268,7 +258,7 @@ class KeyKrawler:
 
     def echo_result(self) -> None:
         """
-        (Class:KeyKrawler) => Method: echo_result() -> None
+        KeyKrawler => Method: echo_result() -> None
         Print the results formatted in a table to the console
         """
         table_data = []
@@ -293,7 +283,7 @@ class KeyKrawler:
 
     def echo_stats(self) -> None:
         """
-        (Class:KeyKrawler) => echo_stats() -> None
+        KeyKrawler => Method: echo_stats() -> None
         Prints analysis totals in a table to the console
         """
         table_data = [
@@ -314,7 +304,7 @@ class KeyKrawler:
 
     def get_key2text_matches(self) -> dict:
         """
-        (Class:KeyKrawler) => Method: get_key2text_matches() -> None
+        KeyKrawler => Method: get_key2text_matches() -> None
         Completes all necessary procedures to evaluate the text
         by finding key matches in the text
         -> dict,
@@ -337,7 +327,7 @@ class KeyKrawler:
 
     def results2file(self) -> bool:
         """
-        (Class:KeyKrawler) => Method: results2file() -> bool
+        KeyKrawler => Method: results2file() -> bool
         Get KeyTextAnalysis results from _reskta.keys_found
         and formats to write it to CSV file (_csv)
         """
@@ -355,7 +345,7 @@ class KeyKrawler:
 
     def _limresult(self) -> bool:
         """
-        (Class:KeyKrawler) => Method: _limresult() -> bool
+        KeyKrawler => Method: _limresult() -> bool
         Remove items above the _limres
         -> bool, True if limit is set for items to be removed from result
         """
@@ -368,7 +358,7 @@ class KeyKrawler:
 
     def _purge_limits(self) -> bool:
         """
-        (Class:KeyKrawler) => Method: _purge_limits() -> bool
+        KeyKrawler => Method: _purge_limits() -> bool
         Remove items with total number of matches
         below the lower boundry and above upper-boundry
         -> bool, True if items were removed outside the limits set
@@ -386,7 +376,7 @@ class KeyKrawler:
 
     def _verify_files(self, *args) -> bool:
         """
-        (Class:KeyKrawler) => Method: _verify_files(*args) -> bool
+        KeyKrawler => Method: _verify_files(*args) -> bool
         Verifies all file names (str) passed as args are valid
         -> bool, True if ALL str *args are valid files
         """
