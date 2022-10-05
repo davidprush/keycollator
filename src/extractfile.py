@@ -40,7 +40,7 @@ import threading
 
 from collections import defaultdict
 
-from constants import LINE, STOP_WORDS
+import constants as const
 
 __author__ = "David Rush"
 __copyright__ = "Copyright 2022, Rush Solutions, LLC"
@@ -258,25 +258,21 @@ class ItemizeFileData:
         """
         if isinstance(self._stopwords, list):
             for word in self._stopwords:
+                text = text[len(word) + 1] \
+                    if (word == "{0} ".format(text[0: len(word)])) \
+                    else text
+                text = text[0: len(text) - len(word) + 1] \
+                    if (word == " {0}".format(text[0: len(text) - len(word)])) \
+                    else text
                 # verify text is not a single instance of the stopword
                 if word != text:
-                    # account for whole words only regardless of
-                    # the word's position in the text (str)
-                    start_word = "{0} ".format(word)
-                    mid_word = " {0} ".format(word)
-                    end_word = " {0}".format(word)
-                    if start_word in text:
+                    word = " {0} ".format(word)
+                    if word in text:
                         self._stopwords_popped += 1
-                        text = text.replace(start_word, "")
-                    if mid_word in text:
-                        self._stopwords_popped += 1
-                        text = text.replace(mid_word, " ")
-                    if end_word in text:
-                        self._stopwords_popped += 1
-                        text = text.replace(end_word, "")
+                        text = text.replace(word, " ")
                 else:
                     self._stopwords_popped += 1
-                    text = ""
+                    text = " "
         return text
 
     def echo_stopwords(self) -> bool:
@@ -378,14 +374,14 @@ class ItemizeFileData:
         -> str, sanitized text
         """
         if text is not None:
+            text = text.lower()
             text = str(text) if not isinstance(text, str) else text
             while '  ' in text:
-                text = text.replace('  ', '')
-            text = text.replace(LINE, '')
+                text = text.replace('  ', ' ')
+            text = text.replace(const.LINE, '')
             text = text.translate(text.maketrans(
                 "",
                 "",
                 string.punctuation
             ))
-            text.lower()
             return text

@@ -30,9 +30,7 @@ from collections import defaultdict
 from extractfile import ItemizeFileData as ifd
 from threadanalysis import KeyTextAnalysis as kta
 
-from consts import \
-    LINE, STOP_WORDS, LOGTXT, TEXT, \
-    KEY, CSV, LOG, RTBLHDR, STBLHDR, PFILE
+import constants as const
 
 __author__ = "David Rush"
 __copyright__ = "Copyright 2022, Rush Solutions, LLC"
@@ -116,10 +114,10 @@ class KeyKrawler:
 
     def __init__(
         self, *,
-        text_file=TEXT,
-        key_file=KEY,
-        csv_file=CSV,
-        log_file=LOG,
+        text_file=const.TEXT,
+        key_file=const.KEY,
+        csv_file=const.CSV,
+        log_file=const.LOG,
         logging=False,
         fuzz_ratio=99,
         limit_result=None,
@@ -177,14 +175,14 @@ class KeyKrawler:
         lbound=None,
         ubound=None
         """
-        self._txtifd = ifd(TEXT, STOP_WORDS)
-        self._keyifd = ifd(KEY, STOP_WORDS)
+        self._txtifd = ifd(const.TEXT, const.STOP_WORDS)
+        self._keyifd = ifd(const.KEY, const.STOP_WORDS)
         self._reskta = kta(
             self._txtifd.itemized_text,
             self._keyifd.itemized_text,
             fuzz_ratio)
-        self._csv = CSV
-        self._log = LOG
+        self._csv = const.CSV
+        self._log = const.LOG
         self._limres = limit_result
         self._abrvt = abreviate
         self._uplb = ubound
@@ -215,7 +213,7 @@ class KeyKrawler:
         """
         fid = 0
         print("Current directory: {0}".format(os.getcwd()))
-        while fid not in PFILE.keys():
+        while fid not in const.PFILE.keys():
             fcat = int(
                 input(
                     "Enter the # of the file name to update... \n \
@@ -230,12 +228,12 @@ class KeyKrawler:
         f = 0
         for n, fname in enumerate(os.listdir()):
             fext = fname[len(fname) - 4]
-            if fext == PFILE[fid]:
+            if fext == const.PFILE[fid]:
                 f += 1
                 self._drlst[n] = fname
                 print("{0}. {1}".format(f, fname))
         fnum = 0
-        while fnum not in PFILE.keys():
+        while fnum not in const.PFILE.keys():
             fnum = int(input("Enter file # from list: "))
             if fnum in self._drlst and \
                     os.path.exists(self._drlst[fnum]):
@@ -264,7 +262,7 @@ class KeyKrawler:
         table_data = []
         self._purge_limits()
         for i, item in enumerate([x for x in self._reskta.keys_found]):
-            item = LOGTXT['echo_result'].format(
+            item = const.LOGTXT['echo_result'].format(
                 item[0:self._abrvt]
                 if len(item) > self._abrvt
                 else item)
@@ -275,7 +273,7 @@ class KeyKrawler:
             ])
         tt.print(
             table_data,
-            header=RTBLHDR,
+            header=const.RTBLHDR,
             style=tt.styles.rounded,
             padding=(0, 0),
             alignment="clc"
@@ -296,7 +294,7 @@ class KeyKrawler:
         ]
         tt.print(
             table_data,
-            header=STBLHDR,
+            header=const.STBLHDR,
             style=tt.styles.rounded,
             padding=(0, 0),
             alignment="lc"
@@ -336,8 +334,8 @@ class KeyKrawler:
             self._purge_limits()
             for item in self._reskta.keys_found:
                 write_count += 1
-                csv_formatted_item = LOGTXT['csv_formatted_item'].format(
-                    str(item), str(self._reskta.keys_found), LINE)
+                csv_formatted_item = const.LOGTXT['csv_formatted_item'].format(
+                    str(item), str(self._reskta.keys_found), const.LINE)
                 fh.write(csv_formatted_item)
             fh.close()
             return True

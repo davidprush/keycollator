@@ -10,9 +10,20 @@ Example:
         Usage:
 
 Todo:
+    ✖ Fix pylint errors
     ✖ Refactor code and remove redunancies
     ✖ Fix pylint errors
     ✖ Add proper error handling
+    ✖ Add CHANGELOG.md
+    ✖ Create method to KeyKrawler to select and _create missing files_
+    ✖ Update CODE_OF_CONDUCT.md
+    ✖ Update CONTRIBUTING.md
+    ✖ Github: issue and pr templates
+    ✖ Workflow Automation
+    ✖ Makefile Usage
+    ✖ Dockerfile
+    ✖ @dependabot configuration
+    ✖ Release Drafter (release-drafter.yml)
 """
 import sys
 
@@ -21,7 +32,7 @@ import click
 from proceduretimer import ProcedureTimer as pt
 from extractonator import KeyKrawler as kk
 
-from consts import LOG, TEXT, CSV, KEY
+import constants as const
 
 __author__ = "David Rush"
 __copyright__ = "Copyright 2022, Rush Solutions, LLC"
@@ -40,14 +51,14 @@ __status__ = "Development"
     invoke_without_command=True)
 @click.option(
     '-t', '--text-file',
-    default=TEXT,
+    default=const.TEXT,
     type=click.Path(exists=True),
     help='''Path/file name of the text to be searched
     for against items in the key file'''
 )
 @click.option(
     '-k', '--key-file',
-    default=KEY,
+    default=const.KEY,
     type=click.Path(exists=True),
     help='''Path/file name of the key file containing a
         dictionary, key items, glossary, or reference
@@ -55,7 +66,7 @@ __status__ = "Development"
 )
 @click.option(
     '-r', '--result-file',
-    default=CSV,
+    default=const.CSV,
     type=click.Path(exists=True),
     help="Path/file name of the output file that \
         will contain the results (CSV or TXT)"
@@ -113,7 +124,7 @@ __status__ = "Development"
 )
 @click.option(
     '-L', '--log-file',
-    default=LOG,
+    default=const.LOG,
     type=click.Path(exists=True),
     help="Path/file name to be used for the log file"
 )
@@ -154,7 +165,7 @@ keycollator is an app that finds occurances of keys in a text file\n
 def main(obj, **kwargs):
     app_timer.stop_timer(sys._getframe().f_code.co_name)
     obj.get_key2text_matches()
-    app_timer.echo(False, sys._getframe().f_code.co_name)
+    app_timer.echo()
 
 
 if __name__ == '__main__':

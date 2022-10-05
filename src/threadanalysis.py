@@ -23,7 +23,7 @@ import nltk.downloader
 from nltk.tokenize import word_tokenize
 from tqdm import tqdm
 
-from consts import LINE, TAB, FSPC
+import constants as const
 
 
 """
@@ -443,24 +443,14 @@ class KeyTextAnalysis:
         if self._sort_keys_found():
             col_dict = defaultdict(list)
             for i, item in enumerate(self._keys_found):
-                col_dict[i // (len(self._keys_found) // 4)].append("{0}.{1}[{2}]".format(
-                    str(i + 1),
-                    ((item + FSPC[0:(11 - len(item))])
-                        if len(item) < 12
-                        else "{0}...".format(item[0:11])),
+                temp_str = "{0}.{1}".format(i + 1, item)
+                col_dict[
+                    i // (len(self._keys_found) // 4)
+                ].append("{0}[{1}]".format(
+                    ((temp_str + const.FSPC[0:(18 - len(temp_str))])
+                        if len(temp_str) <= 18
+                        else "{0}*".format(temp_str[0:17])),
                     self._keys_found[item]))
-                # print("{0}.{1}[{2}]".format(
-                #     str(i + 1),
-                #     ((item + FSPC[0:(9 - len(item))])
-                #         if len(item) < 1
-                #         else "{0}...".format(item[0:6])),
-                #     self._keys_found[item]),
-                #     end=((TAB) if ((i + 1) % 4) else LINE))
-                # if not ((i + 1) % 20):
-                #     print("{0}{0}{0}{1}".format(
-                #         ('-' * 15) + (TAB),
-                #         ('-' * 15)), end='')
-                #     input("[Enter] to cont...")
             rows = max([
                 len(col_dict[0]),
                 len(col_dict[1]),
@@ -468,13 +458,13 @@ class KeyTextAnalysis:
                 len(col_dict[3])])
             for row in range(rows):
                 print(
-                    col_dict[0][row],
-                    TAB,
-                    col_dict[1][row],
-                    TAB,
-                    col_dict[2][row],
-                    TAB,
-                    col_dict[3][row])
+                    col_dict[0][row] if row < len(col_dict[0]) else "",
+                    const.TAB,
+                    col_dict[1][row] if row < len(col_dict[1]) else "",
+                    const.TAB,
+                    col_dict[2][row] if row < len(col_dict[2]) else "",
+                    const.TAB,
+                    col_dict[3][row] if row < len(col_dict[3]) else "")
             return True
         else:
             return False

@@ -98,10 +98,12 @@ Compares text in a file to reference/glossary/key-items/dictionary.[[1]](#citati
 <a name="features"></a>
 ## 🚀 Features
 
-- Extract text from file to dictionary
-- Extract keys from file to dictionary
-- Find matches of keys in text file
-- Apply fuzzy matching
+```bash
+──> Extract text from file to dictionary
+    └──> Extract keys from file to dictionary
+          └──> Find matches of keys in text file
+                └──> Apply fuzzy matching
+```
 
 <a name="installation"></a>
 ## 🧰 Installation
@@ -112,7 +114,7 @@ Compares text in a file to reference/glossary/key-items/dictionary.[[1]](#citati
 📦 <https://pypi.org/project/keycollator/>
 
 ```bash
-pip3 install keycollator
+python3 -m pip install --upgrade keycollator
 ```
 
 <a name="documentation"></a>
@@ -137,17 +139,7 @@ Official documentation can be found here:
 ```
 from keycollator.customlogger import CustomLogger as cl
 from keycollator.proceduretimer import ProcedureTimer as pt
-
-clobj = cl([message=str], [filemode='a'|'w'|'r'], [level='info'|'success'|'warning'|'error'],
-        [filename=str], [dtformat='locale'|'standar'|'timeonly'|'compressed'|'long'|'micro'])
-        **locale='%c', default='%d/%m/%Y %H:%M:%S',
-        timeonly='%H:%M:%S', compressed='%d%m%Y%H%M%S',
-        long='%A %B %d, %Y, [%I:%M:%S %p]', micro='%H:%M:%S:%f'
-
-ptobj = pt([str])
-        *where str is whatever message you want saved for the timer
 ```
-
 
 <a name="requirements"></a>
 ### 🖥️ Requirements
@@ -369,7 +361,7 @@ python3 src/keycollator.py --set-logging --limit-results=30
   1. [javiertejero](https://gist.github.com/javiertejero/4585196)
 
 <a name="deployment-features"></a>
-## 💼 Deployment Features
+## 💼 Deployment Features (Not yet implemented)
 
   | Feature | Notes |
   | ------- | ----- |
