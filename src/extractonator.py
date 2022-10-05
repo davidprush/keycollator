@@ -1,33 +1,27 @@
 # -*- coding: utf-8 -*-
 """
-┌─┐─┐ ┬┌┬┐┬─┐┌─┐┌─┐┌┬┐┌─┐┌┐┌┌─┐┌┬┐┌─┐┬─┐
-├┤ ┌┴┬┘ │ ├┬┘├─┤│   │ │ ││││├─┤ │ │ │├┬┘
-└─┘┴ └─ ┴ ┴└─┴ ┴└─┘ ┴ └─┘┘└┘┴ ┴ ┴ └─┘┴└─
-
 Copyright (C) 2022 Rush Solutions, LLC
 Author: David Rush <davidprush@gmail.com>
 License: MIT
 Contains:
 
-    obj = KeyKrawler(text_file=TEXT, key_file=KEY, csv_file=CSV,
-                    limit_result=None, abrev_items=32, log_file=LOG,
-                    verbose=False, ubound_limit=None, lbound_limit=None,
-                    fuzzy_match=99, logging=False, run_now=False) -> obj
-        imports
-            └──class:ItemizeFileData:
-                   obj = Itemizefile(filename: str, [stopwords]: list,
-                                    [logfile]: str, [verbose]: bool,
-                                    [fuzzy_matching]: int) -> obj
-        imports
-            └──class:KeyTextAnalysis:
-                    obj = ItemizeFile.TextAnalysis(
+    KeyKrawler(
+                text_file=TEXT, key_file=KEY, csv_file=CSV,
+                limit_result=None, abrev_items=32, log_file=LOG,
+                verbose=False, ubound_limit=None, lbound_limit=None,
+                fuzzy_match=99, logging=False, run_now=False
+            ) -> obj
+    imports
+        └──>ItemizefileData(
+                            filename: str, [stopwords]: list,
+                            [logfile]: str, [verbose]: bool,
+                            [fuzzy_matching]: int
+                        ) -> obj
+    imports
+        └──>KeyTextAnalysis(
                             [fuzzy_matching]: int,
-                            optional) -> obj
-
-Todo:
-    ✖ Refactor code and remove redunancies
-    ✖ Fix pylint errors
-    ✖ Add proper error handling
+                            optional
+                        ) -> obj
 """
 import os.path
 import termtables as tt

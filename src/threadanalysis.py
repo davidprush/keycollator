@@ -25,26 +25,10 @@ from tqdm import tqdm
 
 from consts import LINE, TAB, FSPC
 
-__author__ = "David Rush"
-__copyright__ = "Copyright 2022, Rush Solutions, LLC"
-__credits__ = ["David Rush", "...", "...", "..."]
-__license__ = "MIT"
-__version__ = "0.0.5"
-__maintainer__ = "David Rush"
-__email__ = "davidprush@gmail.com"
-__status__ = "Development"
-
-
-# from nltk.corpus import wordnet as wn
 
 """
-Module Requires:
-
-    "punkt" for nltk
-
-    CLI command:
-
-        python3 -m nltk.downloader punkt
+Module Requires: "punkt" for nltk
+CLI command: python3 -m nltk.downloader punkt
 """
 try:
     dler = nltk.downloader.Downloader()
@@ -54,6 +38,15 @@ try:
 except Exception as ex:
     ex = ex if ex else ''
     pass  # print(ex)  # replace with CustomLogger
+
+__author__ = "David Rush"
+__copyright__ = "Copyright 2022, Rush Solutions, LLC"
+__credits__ = ["David Rush", "...", "...", "..."]
+__license__ = "MIT"
+__version__ = "0.0.5"
+__maintainer__ = "David Rush"
+__email__ = "davidprush@gmail.com"
+__status__ = "Development"
 
 
 class KeyThreader(Thread):

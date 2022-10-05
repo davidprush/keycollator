@@ -1,29 +1,26 @@
 #!venv/bin/ python3
 # -*- coding: utf-8 -*-
 """
-┬┌─┌─┐┬ ┬┌─┐┌─┐┬  ┬  ┌─┐┌┬┐┌─┐┬─┐
-├┴┐├┤ └┬┘│  │ ││  │  ├─┤ │ │ │├┬┘
-┴ ┴└─┘ ┴ └─┘└─┘┴─┘┴─┘┴ ┴ ┴ └─┘┴└─
-Description:
-    Compares text in a file to reference/glossary/key-items/dictionary file.
+Compares text in a file to reference/glossary/key-items/dictionary file.
 Copyright (C) 2022 Rush Solutions, LLC
 Author: David Rush <davidprush@gmail.com>
 License: MIT
 Example:
-
         $ python keycollator.py
-
         Usage:
 
 Todo:
-
-    ***See Extractonator Todo Notes***
-
+    ✖ Refactor code and remove redunancies
+    ✖ Fix pylint errors
+    ✖ Add proper error handling
 """
 import sys
-from proceduretimer import ProcedureTimer as pt
+
 import click
+
+from proceduretimer import ProcedureTimer as pt
 from extractonator import KeyKrawler as kk
+
 from consts import LOG, TEXT, CSV, KEY
 
 __author__ = "David Rush"
@@ -155,9 +152,9 @@ keycollator is an app that finds occurances of keys in a text file\n
 
 
 def main(obj, **kwargs):
-    # app_timer.stop_timer(sys._getframe().f_code.co_name)
+    app_timer.stop_timer(sys._getframe().f_code.co_name)
     obj.get_key2text_matches()
-    # app_timer.echo(False, sys._getframe().f_code.co_name)
+    app_timer.echo(False, sys._getframe().f_code.co_name)
 
 
 if __name__ == '__main__':

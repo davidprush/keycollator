@@ -3,15 +3,7 @@
 Copyright (C) 2022 Rush Solutions, LLC
 Author: David Rush <davidprush@gmail.com>
 License: MIT
-Contains Constants:
-    consts.py
-        └──LOG:
-        └──TEXT:
-        └──CSV:
-        └──KEY:
-        └──LINE:
-        └──SYMB:
-        └──STOP_WORDS:
+Contains Constants
 """
 LOG = "log.log"
 TEXT = "text.txt"
@@ -23,26 +15,38 @@ PFILE = {
     3: ".csv",
     4: ".log"
 }
-SEP = "|"
 STOP_WORDS = [
-    "a", "about", "above", "after", "again", "against", "all", "am",
-    "an", "and", "any", "are", "as", "at", "be", "because", "been",
-    "before", "being", "below", "between", "both", "but", "by", "can",
-    "did", "do", "does", "doing", "don", "down", "during", "each",
-    "few", "for", "from", "further", "had", "has", "have", "having",
-    "he", "her", "here", "hers", "herself", "him", "himself", "his",
-    "how", "i", "if", "in", "into", "is", "it", "its", "itself",
-    "just", "me", "more", "most", "my", "myself", "no", "nor", "not",
-    "now", "of", "off", "on", "once", "only", "or", "other", "our",
-    "ours", "ourselves", "out", "over", "own", "s", "same", "she",
-    "should", "so", "some", "such", "t", "than", "that", "the",
-    "their", "theirs", "them", "themselves", "then", "there",
-    "these", "they", "this", "those", "through", "to", "too",
-    "under", "until", "up", "very", "was", "we", "were", "what",
-    "when", "where", "which", "while", "who", "whom", "why",
-    "will", "with", "you", "your", "yours", "yourself", "yourselves",
-    "find", "help", "make", "take", "use", "with", "work", "update", "post"
+    'a', 'about', 'above', 'after', 'again', 'against', 'ain', 'all',
+    'am', 'an', 'and', 'any', 'are', 'aren', "aren't", 'as', 'at',
+    'be', 'because', 'been', 'before', 'being', 'below', 'between',
+    'both', 'but', 'by', 'can', 'couldn', "couldn't", 'd', 'did',
+    'didn', "didn't", 'do', 'does', 'doesn', "doesn't", 'doing', 'don',
+    "don't", 'down', 'during', 'each', 'few', 'find', 'for', 'from',
+    'further', 'had', 'hadn', "hadn't", 'has', 'hasn', "hasn't", 'have',
+    'haven', "haven't", 'having', 'he', 'help', 'her', 'here', 'hers',
+    'herself', 'him', 'himself', 'his', 'how', 'i', 'if', 'in', 'into',
+    'is', 'isn', "isn't", 'it', "it's", 'its', 'itself', 'just', 'll',
+    'm', 'ma', 'make', 'me', 'mightn', "mightn't", 'more', 'most',
+    'mustn', "mustn't", 'my', 'myself', 'needn', "needn't", 'no', 'nor',
+    'not', 'now', 'o', 'of', 'off', 'on', 'once', 'only', 'or', 'other',
+    'our', 'ours', 'ourselves', 'out', 'over', 'own', 'post', 're', 's',
+    'same', 'shan', "shan't", 'she', "she's", 'should', "should've",
+    'shouldn', "shouldn't", 'so', 'some', 'such', 't', 'take', 'than',
+    'that', "that'll", 'the', 'their', 'theirs', 'them', 'themselves',
+    'then', 'there', 'these', 'they', 'this', 'those', 'through', 'to',
+    'too', 'under', 'until', 'up', 'update', 'use', 've', 'very', 'was',
+    'wasn', "wasn't", 'we', 'were', 'weren', "weren't", 'what', 'when',
+    'where', 'which', 'while', 'who', 'whom', 'why', 'will', 'with',
+    'won', "won't", 'work', 'wouldn', "wouldn't", 'y', 'you', "you'd",
+    "you'll", "you're", "you've", 'your', 'yours', 'yourself', 'yourselves'
 ]
+SEP = "|"
+LINE = "\n"
+TAB = "\t"
+SQT = '\''
+FSPC = ' ' * 12
+LFMT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+DIV = "-" * 80 + "\n"
 LOGTXT = {
     "limit_result": "OVER RESULT ITEM LIMIT: Removing result [{0}]:[{1}]",
     "timer": "timer:=[{0}] ",
@@ -86,13 +90,14 @@ RTBLHDR = [
 STBLHDR = [
     "Statistic", "Total"
 ]
-LINE = "\n"
-TAB = "\t"
-SQT = '\''
-FSPC = ' ' * 12
-LFMT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-DIV = "-------------------------\
-------------------------------------------------\n"
+DTFMT = {
+    'locale': '%c',
+    'default': '%d/%m/%Y %H:%M:%S',
+    'timeonly': '%H:%M:%S',
+    'compressed': '%d%m%Y%H%M%S',
+    'long': '%A %B %d, %Y, [%I:%M:%S %p]',
+    'micro': '%H:%M:%S:%f'
+}
 MODES = ['a', 'r', 'w']
 DTEMP = [
     '%d', '%m', '%Y',
@@ -124,12 +129,4 @@ LPARAMS = {
     'dtformat': 'default',
     'message': "",
     'phony': 'no',
-}
-DTFMT = {
-    'locale': '%c',
-    'default': '%d/%m/%Y %H:%M:%S',
-    'timeonly': '%H:%M:%S',
-    'compressed': '%d%m%Y%H%M%S',
-    'long': '%A %B %d, %Y, [%I:%M:%S %p]',
-    'micro': '%H:%M:%S:%f'
 }
