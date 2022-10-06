@@ -10,7 +10,6 @@ License: MIT
 """
 import sys
 import joblib
-import threading
 from threading import Thread
 
 from collections import defaultdict
@@ -50,7 +49,68 @@ __status__ = "Development"
 
 
 class KeyThreader(Thread):
+    """
+    Class: KeyThreader
+        └──obj = KeyThreader(self, key: str, text: dict, fuzz: int) -> None:
+
+    ...
+
+    Attributes
+    ----------
+    _key:=str,
+    _text:=dict,
+    _fuzz:=int
+    _key_found:=dict,
+    _origin:=dict,
+    _count:=int,
+    _line:=int,
+    _flag:=bool,
+
+    Methods
+    -------
+    run() -> None:
+
+    Parameters
+    ----------
+    key:=str,
+    text:=dict,
+    fuzz:=int, ratio for fuzzy-matching
+        Uses the fuzzywuzzy library that implements:
+            *Levenshtein distance =>
+                is a string metric for measuring the difference between
+                two sequences. Informally, the Levenshtein distance between
+                two words is the minimum number of single-character edits
+    """
+
     def __init__(self, key: str, text: dict, fuzz: int) -> None:
+        """
+        Class: KeyThreader
+            └──obj = KeyThreader(self, key: str, text: dict, fuzz: int) -> None:
+
+        ...
+
+        Attributes
+        ----------
+        _key:=str,
+        _text:=dict,
+        _fuzz:=int
+        _key_found:=dict,
+        _origin:=dict,
+        _count:=int,
+        _line:=int,
+        _flag:=bool,
+
+        Parameters
+        ----------
+        key:=str,
+        text:=dict,
+        fuzz:=int, ratio for fuzzy-matching
+            Uses the fuzzywuzzy library that implements:
+                *Levenshtein distance =>
+                    is a string metric for measuring the difference between
+                    two sequences. Informally, the Levenshtein distance between
+                    two words is the minimum number of single-character edits
+        """
         Thread.__init__(self)
         self._key = key
         self._text = text.copy()
@@ -63,25 +123,43 @@ class KeyThreader(Thread):
 
     @property
     def count(self) -> int:
+        """
+        KeyThreader => Property: count() -> int
+        """
         return self._count
 
     @property
     def key(self) -> str:
+        """
+        KeyThreader => Property: key() -> str
+        """
         return self._key
 
     @property
     def key_found(self) -> dict:
+        """
+        KeyThreader => Property: key_found() -> dict
+        """
         return self._key_found
 
     @property
     def origin(self) -> dict:
+        """
+        KeyThreader => Property: origin() -> dict
+        """
         return self._origin
 
     @property
     def line(self) -> int:
+        """
+        KeyThreader => Property: line() -> int
+        """
         return self._line
 
     def run(self) -> None:
+        """
+        KeyThreader => Property: line() -> None
+        """
         for item in self._text:
             self._flag = False
             self._line += 1
@@ -220,7 +298,7 @@ class KeyTextAnalysis:
     @property
     def text_dict(self) -> dict:
         """
-        (Class:KeyTextAnalysis) => Property: text_dict() -> dict
+        KeyTextAnalysis => Property: text_dict() -> dict
         -> dict, text dictionary
         """
         return self._text_dict
@@ -228,14 +306,14 @@ class KeyTextAnalysis:
     @text_dict.setter
     def text_dict(self, obj=None) -> dict:
         """
-        (Class:KeyTextAnalysis) => Property: key_dict(obj) -> dict
+        KeyTextAnalysis => Property: key_dict(obj) -> dict
         """
         self._text_dict = dict(obj).copy
 
     @property
     def key_dict(self) -> dict:
         """
-        (Class:KeyTextAnalysis) => Property: key_dict() -> dict
+        KeyTextAnalysis => Property: key_dict() -> dict
         -> dict, text keys dictionary
         """
         return self._key_dict
@@ -243,14 +321,14 @@ class KeyTextAnalysis:
     @key_dict.setter
     def key_dict(self, obj=None) -> None:
         """
-        (Class:KeyTextAnalysis) => Property: key_dict(obj: dict) -> None
+        KeyTextAnalysis => Property: key_dict(obj: dict) -> None
         """
         self._key_dict = dict(obj).copy
 
     @property
     def total_keys_found(self) -> int:
         """
-        (Class:KeyTextAnalysis) => Property: total_keys_founds() -> int
+        KeyTextAnalysis => Property: total_keys_founds() -> int
         -> int, value of _total_keys_found
         """
         return self._total_keys_found
@@ -258,7 +336,7 @@ class KeyTextAnalysis:
     @property
     def total_comparisons(self) -> int:
         """
-        (Class:KeyTextAnalysis) => Property: total_comparisons() -> int
+        KeyTextAnalysis => Property: total_comparisons() -> int
         -> int, value of _total_comparisons
         """
         return self._total_comparisons
@@ -266,7 +344,7 @@ class KeyTextAnalysis:
     @property
     def fuzz_ratio(self) -> int:
         """
-        (Class:KeyTextAnalysis) => Property: fuzz_ratio() -> int
+        KeyTextAnalysis => Property: fuzz_ratio() -> int
         -> int, value of __search_text
         """
         return self._fuzz_ratio
@@ -274,14 +352,14 @@ class KeyTextAnalysis:
     @fuzz_ratio.setter
     def fuzz_ratio(self, value=None) -> None:
         """
-        (Class:KeyTextAnalysis) => Property: fuzz_ratio(value: int) -> None
+        KeyTextAnalysis => Property: fuzz_ratio(value: int) -> None
         """
         self._fuzz_ratio = value
 
     @property
     def keys_found(self) -> dict:
         """
-        (Class:KeyTextAnalysis) => Property: keys_found() -> dict
+        KeyTextAnalysis => Property: keys_found() -> dict
         -> dict, containing the key matches with count totals
         """
         return self._keys_found
@@ -289,21 +367,21 @@ class KeyTextAnalysis:
     @keys_found.setter
     def keys_found(self, obj=None) -> None:
         """
-        (Class:KeyTextAnalysis) => Property: keys_found(obj: dict) -> None
+        KeyTextAnalysis => Property: keys_found(obj: dict) -> None
         """
         self._keys_found = dict(obj).copy
 
     @property
     def keys2text_index(self) -> dict:
         """
-        (Class:KeyTextAnalysis) => Property: keys2text_index() -> list
+        KeyTextAnalysis => Property: keys2text_index() -> list
         -> list, metadata; incrementers; origin text
         """
         return self._keys2text_index
 
     def keys2text_find(self) -> bool:
         """
-        (Class:KeyTextAnalysis) => Method: keys2text_find() -> bool
+        KeyTextAnalysis => Method: keys2text_find() -> bool
         Evaluates the key dictionary (key_dict) against the text
         dictionary (text_dict), populates the keys_found dictionary
         accordingly with the key and the total number of times
@@ -353,7 +431,7 @@ class KeyTextAnalysis:
 
     def _eval_direct_match(self, key, item) -> bool:
         """
-        (Class:KeyTextAnalysis) => Method: _eval_direct_match(key, item) -> bool
+        KeyTextAnalysis => Method: _eval_direct_match(key, item) -> bool
         Evaluates the key dictionary (key_dict) against the text
         dictionary (text_dict) for direct/exact matches
 
@@ -371,7 +449,7 @@ class KeyTextAnalysis:
 
     def _eval_tokenized_match(self, key, item) -> bool:
         """
-        (Class:KeyTextAnalysis) => Method: _eval_tokenized_match(key, item) -> bool
+        KeyTextAnalysis => Method: _eval_tokenized_match(key, item) -> bool
         Evaluates the key dictionary (key_dict) against the text
         dictionary (text_dict) for tokenized (very near matches)
 
@@ -391,7 +469,7 @@ class KeyTextAnalysis:
 
     def _eval_fuzzy_match(self, key, item) -> bool:
         """
-        (Class:KeyTextAnalysis) => Method: _eval_fuzzy_match(key: str, item: str) -> bool
+        KeyTextAnalysis => Method: _eval_fuzzy_match(key: str, item: str) -> bool
         Uses the fuzzywuzzy library implementing:
             *Levenshtein distance =>
                 is a string metric for measuring the difference between
@@ -412,7 +490,7 @@ class KeyTextAnalysis:
 
     def _sort_keys_found(self) -> bool:
         """
-        (Class:KeyTextAnalysis) => Method: _sort_keys_found() -> bool
+        KeyTextAnalysis => Method: _sort_keys_found() -> bool
         Sorts the keys_found (dict) in descending order
         keys:=str, unique text (lines) from file filename
         items:=int, iterative count, init to 0, increments
@@ -436,7 +514,7 @@ class KeyTextAnalysis:
 
     def echo_keys_found(self) -> bool:
         """
-        (Class:KeyTextAnalysis) => Method: echo_keys_found() -> bool
+        KeyTextAnalysis => Method: echo_keys_found() -> bool
         Prints the dictionary of key matches to console
         -> bool, True if has_matches, False otherwise
         """
@@ -465,13 +543,14 @@ class KeyTextAnalysis:
                     col_dict[2][row] if row < len(col_dict[2]) else "",
                     const.TAB,
                     col_dict[3][row] if row < len(col_dict[3]) else "")
+            print("*denotes truncated text")
             return True
         else:
             return False
 
     def echo_keys2text_indexed(self) -> bool:
         """
-        (Class:KeyTextAnalysis) => Method: echo_keys2text_indexed() -> bool
+        KeyTextAnalysis => Method: echo_keys2text_indexed() -> bool
         Prints the analysis list to console
 
 
@@ -496,7 +575,7 @@ class KeyTextAnalysis:
 
     def dump_keys2text_index(self) -> bool:
         """
-        (Class:KeyTextAnalysis) => Method: dump_keys2text_index() -> bool
+        KeyTextAnalysis => Method: dump_keys2text_index() -> bool
         Dumps indexed list data to csv file (indexed_dump.z)
 
 
@@ -512,7 +591,7 @@ class KeyTextAnalysis:
 
     def dump_keys_found(self) -> bool:
         """
-        (Class:KeyTextAnalysis) => Method: dump_keys_found() -> bool
+        KeyTextAnalysis => Method: dump_keys_found() -> bool
         Dumps all logs to CSV file (keys_found_dump.z)
 
 
@@ -531,7 +610,7 @@ class KeyTextAnalysis:
 
     def run_keys2text_all(self) -> bool:
         """
-        (Class:KeyTextAnalysis) => Method: run_keys2text_all() -> bool
+        KeyTextAnalysis => Method: run_keys2text_all() -> bool
         Runs all necessary methods to complete matching analysis
 
            keys2text_find():
