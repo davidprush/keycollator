@@ -289,49 +289,19 @@ keycollator --log-file="/path/to/log/file/log.log"
 ## Example Output
 
 ```bash
-python3 src/keycollator.py --set-logging --limit-results=30
-✔ Extracted text.txt items.[[0.16]seconds]
-✔ Extracted keys.txt items.[[0.25]seconds]
-✔ Matched keys.txt items to text.txt items.[[76.45]seconds]
-✔ results.csv Complete.[[76.52]seconds]
-╭─────┬───────────────┬───────╮
-│ No. │ Key           │ Count │
-├─────┼───────────────┼───────┤
-│  1  │ manage        │  73   │
-├─────┼───────────────┼───────┤
-│  2  │ develop       │  62   │
-├─────┼───────────────┼───────┤
-│  3  │ report        │  58   │
-├─────┼───────────────┼───────┤
-│  4  │ support       │  46   │
-├─────┼───────────────┼───────┤
-│  5  │ process       │  43   │
-├─────┼───────────────┼───────┤
-│  6  │ analysis      │  36   │
-├─────┼───────────────┼───────┤
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-├─────┼───────────────┼───────┤
-│ 28  │ dashboards    │  11   │
-├─────┼───────────────┼───────┤
-│ 29  │ sales         │  10   │
-├─────┼───────────────┼───────┤
-│ 30  │ create        │  10   │
-╰─────┴───────────────┴───────╯
-╭─────────────┬────────╮
-│ Statistic   │ Total  │
-├─────────────┼────────┤
-│ Keys        │  701   │
-├─────────────┼────────┤
-│ Text        │  695   │
-├─────────────┼────────┤
-│ Matches     │  1207  │
-├─────────────┼────────┤
-│ Comparisons │ 376855 │
-├─────────────┼────────┤
-│ Logs        │   0    │
-├─────────────┼────────┤
-│ Runtime     │ 76.60  │
-╰─────────────┴────────╯
+python3 src/keycollator.py
+Analyzing text for keys...
+100%|██████████████████████████████████████████████████████████████| 679/679 [00:51<00:00, 13.31it/s]
+1.r              [536]   51.conduct        [7]   101.connect       [3]   151.assist develo*[1]
+2.manage          [73]   52.establish      [7]   102.determine     [3]   152.assist tracki*[1]
+3.develop         [62]   53.execute        [7]   103.facilitate    [3]   153.capture speci*[1]
+4.report          [58]   54.follow         [7]   104.foster        [3]   154.conduct code *[1]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+47.finance        [8]    97.business admin*[3]   147.advise sponso*[1]   197.flexible      [1]
+48.powerpoint     [8]    98.attention deta*[3]   148.advocate      [1]   198.creative      [1]
+49.build          [7]    99.python         [3]   149.align documen*[1]   199.selfmotivated [1]
+50.complete       [7]    100.collaborate   [3]   150.analyze under*[1]   200.difference la*[1]
+[0.00]seconds
  ```
 
 <a name="todo"></a>
