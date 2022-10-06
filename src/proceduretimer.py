@@ -3,7 +3,6 @@
 Copyright (C) 2022 Rush Solutions, LLC
 Author: David Rush <davidprush@gmail.com>
 License: MIT
-Contains class:
     ProcedureTimer
         └──usage:
 """
@@ -13,105 +12,136 @@ import time
 class ProcedureTimer:
     def __init__(
         self,
-        caller="ProcedureTimer"
+        msg="ProcedureTimer"
     ):
         """
         Constructs and starts the ProcedureTimer object.
         Parameters
         ----------
-        caller : str, optional
+        msg : str, optional
             name of process where instance is created
         """
-        self.__tic = time.perf_counter()
-        self.__caller = str(caller)
-        self.__end_caller = caller
-        self.__toc = self.__tic
-        self.__tspan = time.perf_counter()
-        self.__fspan = str(self.__tspan)
-        self.__tstr = ""
-        self.__sflag = False
+        self._tic = time.perf_counter()
+        self._msg = str(msg)
+        self._toc = self._tic
+        self._tspan = time.perf_counter()
+        self._fspan = str(self._tspan)
+        self._tstr = ""
+        self._sflag = False
 
-    def __t2s(self):
+    @property
+    def tic(self) -> float:
         """
-        Formats/strips __fspanas str with
-        2 decimals and ensures caller is str
+        Property tic for start time
         """
-        stime = str(f"{self.__tspan:0.2f}")
-        self.__fspan = stime
-        self.__caller = str(self.__caller)
+        return self._tic
 
-    def __cupdate(self, c):
+    @property
+    def msg(self) -> str:
         """
-        Updates __caller with new caller
+        Property msg for timestamp
         """
-        if not self.__sflag:
+        return self._msg
+
+    @property
+    def toc(self) -> float:
+        """
+        Property toc for timestamp
+        """
+        return self._toc
+
+    @property
+    def tspan(self) -> float:
+        """
+        Property tspan for timestamp
+        """
+        return self._tspan
+
+    @property
+    def fspan(self) -> float:
+        """
+        Property fspan for timestamp
+        """
+        return self._fspan
+
+    @property
+    def tstr(self) -> str:
+        """
+        Property tstr for timestamp
+        """
+        return self._tstr
+
+    @property
+    def sflag(self) -> bool:
+        """
+        Property sflag for timestamp
+        """
+        return self._sflag
+
+    def _t2s(self):
+        """
+        Formats/strips _fspanas str with
+        2 decimals and ensures msg is str
+        """
+        self._fspan = str(f"{self._tspan:0.2f}")
+
+    def _cupdate(self, c):
+        """
+        Updates _msg with new msg
+        """
+        if not self._sflag:
             if c:
                 c = str(c)
-            if c != self.__caller:
-                self.__end_caller = c
+            if c != self._msg:
+                self._msg = c
 
-    def __tupdate(self):
-        """        Updates __toc and calculates __span
+    def _tupdate(self):
+        """
+        Updates _toc and calculates _span
         Condition
         ----------
-        __sflag must be False
+        _sflag must be False
         """
-        if not self.__sflag:
-            self.__toc = time.perf_counter()
-            self.__tspan = self.__toc - self.__tic
-        self.__t2s()
+        if not self._sflag:
+            self._toc = time.perf_counter()
+            self._tspan = self._toc - self._tic
+        self._t2s()
 
-    def __ftstr(self):
+    def _ftstr(self):
         """
         Creates a formatted str for console output.
         """
-        self.__t2s()
+        self._t2s()
         self.__fstr = "[{0}]seconds".format(
-            self.__fspan
+            self._fspan
         )
         return self.__fstr
 
-    def stop_timer(self, caller="stop_timer"):
+    def stop_timer(self, msg="stop_timer"):
         """
-        Updates __toc and calculates __span
+        Updates _toc and calculates _span
         Arguement
         ----------
-        caller: str, optional
-            can be anything to assign text to
-            to the formatted str __sflag to give
-            context to the timestamp
+        msg: str, optional can be anything to assign text to
+        the formatted str _sflag to give context to the timestamp
         """
-        if not self.__sflag:
-            self.__cupdate(caller)
-            self.__tupdate()
-            self.__t2s()
-            self.__sflag = True
+        if not self._sflag:
+            self._cupdate(msg)
+            self._tupdate()
+            self._t2s()
+            self._sflag = True
 
     def echo(self):
         """
-        Updates __toc and calculates __span
+        Updates _toc and calculates _span
         Condition
         ----------
-        __sflag must be False
+        _sflag must be False
         """
-        if not self.__sflag:
-            self.__tupdate
-        self.__t2s()
-        print(self.__ftstr())
-
-    def get_start(self):
-        """
-        Returns __tic which is the time the
-            timer started
-        """
-        return self.__tic
-
-    def get_stop(self):
-        """
-        Returns __toc which is the time the
-            timer stopped
-        """
-        return self.__toc
+        if not self._sflag:
+            self._tupdate
+        self._t2s()
+        print(self._ftstr())
 
     def timestamp(self, as_str=False):
         """
@@ -121,11 +151,11 @@ class ProcedureTimer:
         ----------
         as_str: bool, optional
         """
-        self.__tupdate()
+        self._tupdate()
         if as_str:
-            return str(self.__fspan)
+            return str(self._fspan)
         else:
-            return self.__tspan
+            return self._tspan
 
     def timestampstr(self):
         """
@@ -137,5 +167,5 @@ class ProcedureTimer:
             Updates the timer and returns time
             as str or unformatted time str
         """
-        self.__tupdate()
-        return self.__ftstr()
+        self._tupdate()
+        return self._ftstr()
