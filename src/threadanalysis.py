@@ -277,6 +277,7 @@ class KeyTextAnalysis:
         self._total_keys_found = 0
         self._total_comparisons = 0
         self._has_key = False
+        self._total_threads = 0
 
     def __repr__(self) -> str:
         return f'False{{0}}, _text_dict={{1}}, _key_dict={{2}}, _fuzz_ratio={{3}}, \
@@ -415,6 +416,7 @@ class KeyTextAnalysis:
                     self._fuzz_ratio
                 )
                 key_threader[key].start()
+                self._total_threads += 1
                 pbar.update(1)
                 sys.stdout.flush()
             for key in key_threader:
@@ -543,7 +545,9 @@ class KeyTextAnalysis:
                     col_dict[2][row] if row < len(col_dict[2]) else "",
                     const.TAB,
                     col_dict[3][row] if row < len(col_dict[3]) else "")
-            print("*denotes truncated text")
+            print(
+                "*denotes truncated text [Analysis completed {0} threads]".format(
+                    self._total_threads))
             return True
         else:
             return False
