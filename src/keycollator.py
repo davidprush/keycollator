@@ -11,6 +11,9 @@ Example:
 
 Todo:
     ✖ Fix pylint errors
+    ✖ Add command line option to add a stopwords file
+    ✖ Fix all cli options
+    ✖ Add comments
     ✖ Refactor code and remove redunancies
     ✖ Fix pylint errors
     ✖ Add proper error handling
@@ -142,9 +145,7 @@ def cli(
     log_file,
 ):
     """
-==================================================================\n
-keycollator is an app that finds occurances of keys in a text file\n
-==================================================================\n
+    keycollator is an app that finds keys in a text file.
     """
     appkk = kk(
         text_file=text_file,
