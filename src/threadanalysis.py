@@ -85,8 +85,8 @@ class KeyThreader(Thread):
         for item in self._text:
             self._flag = False
             self._line += 1
-            kstr = str(word_tokenize(self._key))
-            istr = str(word_tokenize(item))
+            kstr = str([s for s in word_tokenize(self._key) if len(s) > 3])
+            istr = str([s for s in word_tokenize(item) if len(s) > 3])
             if self._key in item:
                 self._count += 1
                 self._flag = True

@@ -257,22 +257,30 @@ class ItemizeFileData:
         -> str, without stop words
         """
         if isinstance(self._stopwords, list):
-            for word in self._stopwords:
-                text = text[len(word) + 1] \
-                    if (word == "{0} ".format(text[0: len(word)])) \
-                    else text
-                text = text[0: len(text) - len(word) + 1] \
-                    if (word == " {0}".format(text[0: len(text) - len(word)])) \
-                    else text
-                # verify text is not a single instance of the stopword
-                if word != text:
-                    word = " {0} ".format(word)
-                    if word in text:
-                        self._stopwords_popped += 1
-                        text = text.replace(word, " ")
-                else:
-                    self._stopwords_popped += 1
-                    text = " "
+            text_pop = []
+            text_lst = []
+            # for word in self._stopwords:
+            text_lst = text.split(' ')
+            for w in text_lst:
+                if w != ' ':
+                    if w not in self._stopwords:
+                        text_pop.append(str(w))
+            text = ' '.join(text_pop)
+            # text = text[len(word) + 1] \
+            #     if (word == "{0} ".format(text[0: len(word)])) \
+            #     else text
+            # text = text[0: len(text) - len(word) + 1] \
+            #     if (word == " {0}".format(text[0: len(text) - len(word)])) \
+            #     else text
+            # # verify text is not a single instance of the stopword
+            # if word != text:
+            #     word = " {0} ".format(word)
+            #     if word in text:
+            #         self._stopwords_popped += 1
+            #         text = text.replace(word, " ")
+            # else:
+            #     self._stopwords_popped += 1
+            #     text = " "
         return text
 
     def echo_stopwords(self) -> bool:
@@ -325,10 +333,11 @@ class ItemizeFileData:
         self._populated = False
         for self._file_item_count, item in enumerate(self.get_raw()):
             indx = item = self.pop_stopwords(self.sanitize(item))
-            self._origin[indx] = self._file_item_count
-            if item not in [x for x in self._itemized_text]:
-                self._unique_item_count += 1
-                self._itemized_text[item] = 0
+            if item != '' and item != ' ':
+                self._origin[indx] = self._file_item_count
+                if item not in [x for x in self._itemized_text]:
+                    self._unique_item_count += 1
+                    self._itemized_text[item] = 0
         if self._unique_item_count != 0:
             self._populated = True
             return self._itemized_text
