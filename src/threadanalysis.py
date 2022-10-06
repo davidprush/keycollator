@@ -244,7 +244,6 @@ class KeyTextAnalysis:
             └──obj = KeyTextAnalysis(text_dict: dict, key_dict: dict,
                                     [fuzz_ratio]: int, optional) -> obj
 
-
         Attributes
         ----------
         _text_dict:=dict, text_dict parameter passed at instantiation
@@ -437,7 +436,6 @@ class KeyTextAnalysis:
         Evaluates the key dictionary (key_dict) against the text
         dictionary (text_dict) for direct/exact matches
 
-
         Returns
         -------
         -> bool, True if direct match found, False otherwise
@@ -454,7 +452,6 @@ class KeyTextAnalysis:
         KeyTextAnalysis => Method: _eval_tokenized_match(key, item) -> bool
         Evaluates the key dictionary (key_dict) against the text
         dictionary (text_dict) for tokenized (very near matches)
-
 
         Returns
         -------
@@ -478,7 +475,6 @@ class KeyTextAnalysis:
                 two sequences. Informally, the Levenshtein distance between
                 two words is the minimum number of single-character edits
 
-
         Returns
         -------
         -> bool, True if ratio is >= fuzz_ratio, otherwise Fale
@@ -500,7 +496,6 @@ class KeyTextAnalysis:
 
         post-condition:=First item/key (unique str) has the greatest
         number of matches found in the text dictionary (text_dict)
-
 
         Returns
         -------
@@ -557,7 +552,6 @@ class KeyTextAnalysis:
         KeyTextAnalysis => Method: echo_keys2text_indexed() -> bool
         Prints the analysis list to console
 
-
             prints to console _keys2text_index:
 
         [key, self._key_dict[key]],
@@ -582,7 +576,6 @@ class KeyTextAnalysis:
         KeyTextAnalysis => Method: dump_keys2text_index() -> bool
         Dumps indexed list data to csv file (indexed_dump.z)
 
-
         Returns
         -------
         -> bool, True if indexed is not equal to 0, otherwise False
@@ -597,7 +590,6 @@ class KeyTextAnalysis:
         """
         KeyTextAnalysis => Method: dump_keys_found() -> bool
         Dumps all logs to CSV file (keys_found_dump.z)
-
 
         Returns
         -------
