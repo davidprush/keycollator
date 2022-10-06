@@ -164,9 +164,9 @@ def cli(
 
 
 def main(obj, **kwargs):
-    app_timer = pt(sys._getframe().f_code.co_name)
+    app_timer = pt(msg=sys._getframe().f_code.co_name)
     obj.get_key2text_matches()
-    app_timer.stop_timer(sys._getframe().f_code.co_name)
+    app_timer.stop_timer(msg=sys._getframe().f_code.co_name)
     app_timer.echo()
 
 

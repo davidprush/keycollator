@@ -4,22 +4,50 @@ Copyright (C) 2022 Rush Solutions, LLC
 Author: David Rush <davidprush@gmail.com>
 License: MIT
     ProcedureTimer
-        └──usage:
+        └──obj = ProcedureTimer(msg: str, optional) -> obj
 """
 import time
 
 
 class ProcedureTimer:
+    """
+    Constructs and starts the ProcedureTimer object.
+
+    Parameters
+    ----------
+    msg:= str, optional, timestamp message
+
+    Attributes
+    ----------
+    _tic:= float, time.perf_counter()
+    _msg:= str, str(msg)
+    _toc:= float, self._tic
+    _tspan:= float, time.perf_counter()
+    _fspan:= str, str(self._tspan)
+    _tstr:= str, ""
+    _sflag:= bool, False
+    """
+
     def __init__(
-        self,
-        msg="ProcedureTimer"
+        self, *,
+        msg="Timer"
     ):
         """
         Constructs and starts the ProcedureTimer object.
+
         Parameters
         ----------
-        msg : str, optional
-            name of process where instance is created
+        msg : str, optional, timestamp message
+
+        Attributes
+        ----------
+        _tic:= float, time.perf_counter()
+        _msg:= str, str(msg)
+        _toc:= float, self._tic
+        _tspan:= float, time.perf_counter()
+        _fspan:= str, str(self._tspan)
+        _tstr:= str, ""
+        _sflag:= bool, False
         """
         self._tic = time.perf_counter()
         self._msg = str(msg)
@@ -80,8 +108,8 @@ class ProcedureTimer:
 
     def _t2s(self):
         """
-        Formats/strips _fspanas str with
-        2 decimals and ensures msg is str
+        Formats/strips _fspan as str with 2 decimals and ensures
+        msg is str
         """
         self._fspan = str(f"{self._tspan:0.2f}")
 
@@ -117,11 +145,12 @@ class ProcedureTimer:
         )
         return self.__fstr
 
-    def stop_timer(self, msg="stop_timer"):
+    def stop_timer(self, *, msg="stop_timer"):
         """
         Updates _toc and calculates _span
+
         Arguement
-        ----------
+        ---------
         msg: str, optional can be anything to assign text to
         the formatted str _sflag to give context to the timestamp
         """
@@ -134,19 +163,17 @@ class ProcedureTimer:
     def echo(self):
         """
         Updates _toc and calculates _span
-        Condition
-        ----------
-        _sflag must be False
         """
         if not self._sflag:
             self._tupdate
         self._t2s()
-        print(self._ftstr())
+        print("{0}:{1}".format(self._msg, self._ftstr()))
 
     def timestamp(self, as_str=False):
         """
-        Updates the timer and returns time
-        as str or unformatted time str
+        Updates the timer and returns time as str or unformatted
+        time str
+
         Arguement
         ----------
         as_str: bool, optional
@@ -159,13 +186,7 @@ class ProcedureTimer:
 
     def timestampstr(self):
         """
-        Updates timer and returns formatted
-        time in a string
-        Arguement
-        ----------
-        as_str: bool, optional
-            Updates the timer and returns time
-            as str or unformatted time str
+        Updates timer and returns formatted time in a string
         """
         self._tupdate()
         return self._ftstr()
