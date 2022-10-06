@@ -281,11 +281,11 @@ class KeyTextAnalysis:
     def __repr__(self) -> str:
         return f'False{{0}}, _text_dict={{1}}, _key_dict={{2}}, _fuzz_ratio={{3}}, \
             _keys_found={{4}}, =_keys2text_index{{5}}, _total_keys_found={{6}}, \
-            _total_comparisons={{7}}, _has_key={{8}}, _sent_detect={{9}}'.format(
+            _total_comparisons={{7}}, _has_key={{8}}, _total_threads={{9}}'.format(
             {type(self).__name__}, self._text_dict, self._key_dict,
             self._fuzz_ratio, self._keys_found, self._keys2text_index,
             self._total_keys_found, self._total_comparisons, self._has_key,
-            self._sent_detect)
+            self._total_threads)
 
     def __eq__(self, obj) -> bool:
         if not isinstance(obj, KeyTextAnalysis):
