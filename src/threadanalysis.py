@@ -616,12 +616,10 @@ class KeyTextAnalysis:
         """
         KeyTextAnalysis => Method: run_keys2text_all() -> bool
         Runs all necessary methods to complete matching analysis
-
-           keys2text_find():
-                └──echo_keys2text_indexed():
-                    └──echo_keys_found():
-                        └──dump_keys_found():
-                            └──dump_keys2text_index():
+        keys2text_find():
+            └──echo_keys_found():
+                └──dump_keys_found():
+                    └──dump_keys2text_index():
 
         Returns
         -------
