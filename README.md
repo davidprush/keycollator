@@ -164,44 +164,34 @@ keycollator uses the `CLI` to change default parameters and functions
 ```bash
 Usage: keycollator.py [OPTIONS] COMMAND [ARGS]...
 
-  ==================================================================
-
-  keycollator is an app that finds occurances of keys in a text file
-
-  ==================================================================
-
-
+  keycollator is an app that finds keys in a text file.
 
 Options:
-  -t, --text-file PATH            Path/file name of the text to be searched
-                                  for against items in the key file
-  -k, --key-file PATH             Path/file name of the key file containing a
-                                  dictionary, key items, glossary, or
-                                  reference list used to search the text file
-  -r, --result-file PATH          Path/file name of the output file that
-                                  will contain the results (CSV or TXT)
-  --limit-result TEXT             Limit the number of results
-  --abreviate-result-items INTEGER
-                                  Limit the text length of the results
-                                  (default=32)
-  --fuzzy-match-ratio INTEGER RANGE
-                                  Set the level of fuzzy matching (default=99)
-                                  to validate matches using
-                                  approximations/edit distances, uses
-                                  acceptance ratios with integer values from 0
-                                  to 99, where 99 is nearly identical and 0 is
-                                  not similar  [0<=x<=99]
-  --ubound-limit INTEGER RANGE    Ignores items from the results with matches
-                                  greater than the upper boundary (upper-
-                                  limit); reduce eroneous matches
-                                  [1<=x<=99999]
-  --lbound-limit INTEGER RANGE    Ignores items from the results with matches
-                                  less than the lower boundary (lower-limit);
-                                  reduce eroneous matches  [0<=x<=99999]
-  -v, --verbose                   Turn on verbose
-  -l, --logging                   Turn on logging
-  -L, --log-file PATH             Path/file name to be used for the log file
-  --help                          Show this message and exit.
+  -t, --text-file PATH          Path/file name of the text to be searched for
+                                against items in the key file
+  -k, --key-file PATH           Path/file name of the key file containing a
+                                dictionary, key items, glossary, or reference
+                                list used to search the text file
+  -r, --result-file PATH        Path/file name of the output file that
+                                will contain the results (CSV or TXT)
+  --limit-result TEXT           Limit the number of results
+  --abreviate INTEGER           Limit the text length of the results
+                                (default=32)
+  --fuzz-ratio INTEGER RANGE    Set the level of fuzzy matching (default=99)
+                                to validate matches using approximations/edit
+                                distances, uses acceptance ratios with integer
+                                values from 0 to 99, where 99 is nearly
+                                identical and 0 is not similar  [0<=x<=99]
+  --ubound-limit INTEGER RANGE  Ignores items from the results with matches
+                                greater than the upper boundary (upper-limit);
+                                reduce eroneous matches  [1<=x<=99999]
+  --lbound-limit INTEGER RANGE  Ignores items from the results with matches
+                                less than the lower boundary (lower-limit);
+                                reduce eroneous matches  [0<=x<=99999]
+  -v, --verbose                 Turn on verbose
+  -l, --logging                 Turn on logging
+  -L, --log-file PATH           Path/file name to be used for the log file
+  --help                        Show this message and exit.
 ```
 
 <a name="turn-on-verbose-output"></a>
@@ -309,6 +299,9 @@ Analyzing text for keys...
 
 ```bash
     ❌ Fix pylint errors
+    ❌ Add command line option to add a stopwords file
+    ❌ Fix all cli options
+    ❌ Add comments
     ❌ Refactor code and remove redunancies
     ❌ Fix pylint errors
     ❌ Add proper error handling
