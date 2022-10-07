@@ -71,7 +71,8 @@ Compares text in a file to reference/glossary/key-items/dictionary.[[1]](#citati
 │   ├── __init__.py
 │   ├── cli.py
 │   ├── keycollator.py
-│   ├── test_keycollator.py
+│   ├── extractfile.py
+│   ├── threadanalysis.py
 │   ├── extractonator.py
 │   ├── requirements.txt
 │   └──data
