@@ -119,7 +119,6 @@ class CustomLogger:
         CustomLogger
         Parameters
         ----------
-            []]: [type], [required/optional]
         """
         if self._params['dtformat'] in [x for x in DTFMT]:
             self._update_dtstamp
@@ -140,7 +139,6 @@ class CustomLogger:
         CustomLogger
         Parameters
         ----------
-            []]: [type], [required/optional]
         """
         if self._log_err:
             self._err_msg = LOGTXT['options'].format(
@@ -160,7 +158,6 @@ class CustomLogger:
         CustomLogger
         Parameters
         ----------
-            []]: [type], [required/optional]
         """
         self._dtstamp = datetime.now()
         self._dtstamp = \
@@ -172,7 +169,6 @@ class CustomLogger:
         CustomLogger
         Parameters
         ----------
-            []]: [type], [required/optional]
         """
         self._valid_params = True
         self._log_err = False
@@ -213,7 +209,6 @@ class CustomLogger:
         CustomLogger
         Parameters
         ----------
-            []]: [type], [required/optional]
         """
         self._log_count += 1
         self._log_msg = ""
@@ -239,7 +234,6 @@ class CustomLogger:
         CustomLogger
         Parameters
         ----------
-            []]: [type], [required/optional]
         """
         if kwargs:
             self.set_options(**kwargs)
@@ -260,7 +254,6 @@ class CustomLogger:
         CustomLogger
         Parameters
         ----------
-            []]: [type], [required/optional]
         """
         param_err = defaultdict(str)
         for opt in kwargs:
