@@ -87,7 +87,6 @@ Compares text in a file to reference/glossary/key-items/dictionary.[[1]](#citati
 ├── COD_OF_CONDUCT.md
 ├── CONTRIBUTING.md
 ├── LICENSE
-├── make-venv.sh
 ├── Makefile
 ├── pyproject.toml
 ├── README.README
